@@ -1,0 +1,69 @@
+body {
+  background-color: #81c3f6;
+}
+
+@media (max-height: 1000px) {
+  .App-header {
+    width: 100%;
+  }
+  }
+  
+  
+
+  .App-bottom{
+      color:white;
+      background-color: black;
+      text-align: center;
+      position: fixed;
+      font-size: 1.4vw;
+      left: 0px;
+      bottom: 0px;
+      width: 100%;
+      height: 2vw;
+    }
+
+.App-logo{
+  text-align: left;
+  cursor: pointer;
+}
+
+.box-register{
+  background-color: #1A1A1A;
+  text-align: center;
+  position: fixed;
+  left: 35vw;
+  width: 36vw;
+  height: 34.5vw;
+  margin: 0;
+}
+
+.input_register{
+  margin-top: 2vw;
+  font-size: 1.3vw;
+  height: 3.7vw;
+  width: 80%;
+}
+
+.button_reg{
+  background-color:#1A1A1A;
+  top: 5vw;
+  padding-top: 0.8vw;
+  padding-bottom: 0.8vw;
+  font-size: 1.3vw;
+  width: 40%;
+  position: relative;
+  text-align: center;
+  color: #81c3f6;
+  border-color: #81c3f6;
+  border-radius:2vw;
+  cursor: pointer;
+  }
+  .formm {
+    position: absolute;
+    margin-top: -3%;
+    margin-left: 40%;
+    color :#000000;
+    font-size:40px;
+  }
+
+  

@@ -1,22 +1,26 @@
 
-import logo from './media/LOGO-B.png'
 import './App.css';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Saldo from './pages/Saldo';
+import Autor from './pages/Autor';
+import Contenido from './pages/Contenido';
+import Categoria from './pages/Categoria';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      <div className='LOGO-B.png'>
-      <img src={logo} alt="Logo" width="300" height="115"/>
-      </div>
-      <div className='App-login'>
-      <p>Tu sitio favorito para <br /> descargar imágenes, fotos, <br /> video y mucho más.<br />
-      <br />Todo al alcance de tu mano,<br /> solo aquí en Bluetify.</p>
-      </div> 
-      <div className='App-bottom'>
-      Copyright © 2022 Bluetify
-      </div>
-      </header>
+    <div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Login/>}></Route>
+        <Route path='/register' element={<Register/>}></Route>
+        <Route path='/CrearSaldo' element={<Saldo/>}></Route>
+        <Route path='/CrearContenido' element={<Contenido/>}></Route>
+        <Route path='/CrearCategoria' element={<Categoria/>}></Route>
+        <Route path='/CrearAutor' element={<Autor/>}></Route>
+      </Routes> 
+    </Router> 
     </div>
   );
 }

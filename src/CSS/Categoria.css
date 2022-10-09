@@ -1,0 +1,286 @@
+body {background-color: #81c3f6;}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+:root {
+  --body-bg: #e1ecf2;
+  --primary: #81c3f6;
+  --secondary: #81c3f6;
+  --secondary-hover: #81c3f6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  font-family: Montserrat, sans-serif;
+}
+
+body {
+    background-color: #81c3f6;
+}
+
+ul {
+  list-style: none; 
+}
+
+.wrapper {
+  margin: 0px;
+}
+.wrapper .top_navbar {
+  width: calc(100% );
+  height: 100px;
+  display: flex;
+  position: fixed;
+  top: 0px;
+}
+.wrapper .top_navbar .hamburguer {
+  width: 300px;
+  background: #000000;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.wrapper .top_navbar .hamburguer i {
+  font-size: 32px;
+  text-align: center;
+  width: 100%;
+  color: #ffffff;
+}
+
+.wrapper .top_navbar .top_menu {
+  width: calc(100% - 100px);
+  background: rgb(0, 0, 0);
+  height: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0px;
+  color: #000000;
+}
+
+.wrapper .top_navbar .top_menu .logo {
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+.wrapper .top_navbar .top_menu ul {
+  display: flex;
+}
+
+.wrapper .top_navbar .top_menu ul li a {
+  display: block;
+  margin: 0 0px;
+  width: 40px;
+  height: 55px;
+  border: 5px solid #000000;
+  line-height: 35px;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.wrapper .top_navbar .top_menu ul li a:hover {
+  background: var(--secondary-hover);
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.wrapper .sidebar {
+  width: 262px;
+  position: fixed;
+  top: 100px;
+  background: #09676a;
+  border: 4px solid #000000;
+  height: calc(100% - 80px);
+  transition: all 0.2s ease-in-out;
+
+}
+
+.wrapper .sidebar ul li a {
+  display: block;
+  padding: 30px;
+
+  position: relative;
+  margin-bottom: 1px;
+  color: #000000;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.wrapper .sidebar ul li a:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+
+  background: var(--secondary);
+  display: none;
+}
+
+.wrapper .sidebar ul li a span.icon {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.wrapper .sidebar ul li a span.title {
+  display: inline-block;
+}
+
+.wrapper .sidebar ul li a:hover,
+.wrapper .sidebar ul li a:active {
+  background: var(--secondary-hover);
+  transition: all 0.2s ease-in-out;
+  color: rgb(0, 0, 0);
+}
+
+.wrapper .sidebar ul li a:hover:before,
+.wrapper .sidebar ul li a:active:before {
+  display: block;
+}
+
+.wrapper .sidebar ul li a:hover{
+  transform: translate3d(1px, -1px, 1px);
+}
+
+.wrapper .main_container {
+  margin-top: 70px;
+  margin-left: 200px;
+  padding: 15px 0 15px 15px;
+  transition: all 0.2s ease-in-out;
+  height: calc(100vh - 110px);
+  overflow: auto;
+}
+
+.wrapper .main_container .item {
+  background: white;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.wrapper.collapse .sidebar {
+  width: 70px;
+}
+
+.wrapper.collapse .sidebar ul li a { 
+   text-align: center;
+}
+
+.wrapper.collapse .sidebar ul li a span.icon {
+  margin: 0; 
+}
+
+.wrapper.collapse .sidebar ul li a span.title {
+  display: none;
+}
+
+.wrapper.collapse .main_container {
+  margin-left: 10px;
+  height: calc(100vh - 110px);
+}
+
+.formm {
+  position: absolute;
+  margin-top: 3%;
+  margin-left: 45%;
+  color :#000000;
+  font-size:50px;
+}
+/*  box*/
+
+.box{
+    background-color: #000000;
+    text-align: center;
+    position: relative;
+    top: 10vw;
+    left: 60vw;
+    width: 46vw;
+    height: 35vw;
+    margin: 150;
+}
+
+.text_box{
+    float:left;
+    margin-top: 2.7vw;
+    font-size: 1.4vw;
+}
+
+.input_login{
+    margin-top: 5vw;
+    width: 17vw;
+    float: left;
+    font-size: 1vw;
+    height: 2.5vw;
+}
+.button_ini{
+    background-color:#81c3f6;
+    top: 0vw;
+    text-align: left;
+    padding-top: 0.8vw;
+    padding-bottom: 0.8vw;
+    font-size: 1.3vw;
+    width: 40%;
+    color: #fff;
+    border:none;
+    border-radius:2vw;
+    cursor: pointer;
+    }
+
+
+.form_cat {
+    margin-top: 4vw;
+    float:left;
+    text-align: center;
+  }
+
+  .categoria{
+    width:40vw;
+    height: 20vw;
+    padding:2vw;
+    background:#000000;
+    margin :auto;
+    margin-top: 11vw;
+    margin-left: 34vw;
+    color:white
+  }
+  .categoria .cat{
+    width: 80%;
+    height: 30%;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  .categoria .button{
+    background-color:#81c3f6;
+    top: 1.6vw;
+    padding-top: 0.8vw;
+    padding-bottom: 0.8vw;
+    font-size: 1.3vw;
+    width: 40%;
+    position: relative;
+    align-self: center;
+    text-align: center;
+    color: #fff;
+    border:none;
+    margin-left: 0px;
+    margin-right: 30%;
+    border-radius:2vw;
+    cursor: pointer;
+  }
+  .App-bottom{
+    color:white;
+    background-color: black;
+    text-align: center;
+    position: fixed;
+    font-size: 1.4vw;
+    left: 0px;
+    bottom: -10px;
+    width: 100%;
+    height: 2vw;
+
+    
+  }
