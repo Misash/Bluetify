@@ -1,0 +1,12 @@
+button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .on {
+    color: rgb(0, 255, 42);
+  }
+  .off {
+    color: rgba(178, 202, 166, 0.795);
+  }
