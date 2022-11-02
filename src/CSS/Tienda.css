@@ -10,3 +10,11 @@ button {
   .off {
     color: rgba(178, 202, 166, 0.795);
   }
+
+
+.line{
+  text-decoration:line-through;
+}
+
+
+
