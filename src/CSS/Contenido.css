@@ -1,6 +1,9 @@
-body {background-color: #81c3f6;}
+body {
+  background-color: #81c3f6;
+}
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+
 :root {
   --body-bg: #e1ecf2;
   --primary: #81c3f6;
@@ -16,23 +19,25 @@ body {background-color: #81c3f6;}
 }
 
 body {
-    background-color: #81c3f6;
+  background-color: #81c3f6;
 }
 
 ul {
-  list-style: none; 
+  list-style: none;
 }
 
 .wrapper {
   margin: 0px;
 }
+
 .wrapper .top_navbar {
-  width: calc(100% );
+  width: calc(100%);
   height: 100px;
   display: flex;
   position: fixed;
   top: 0px;
 }
+
 .wrapper .top_navbar .hamburguer {
   width: 300px;
   background: #000000;
@@ -141,7 +146,7 @@ ul {
   display: block;
 }
 
-.wrapper .sidebar ul li a:hover{
+.wrapper .sidebar ul li a:hover {
   transform: translate3d(1px, -1px, 1px);
 }
 
@@ -166,12 +171,12 @@ ul {
   width: 70px;
 }
 
-.wrapper.collapse .sidebar ul li a { 
-   text-align: center;
+.wrapper.collapse .sidebar ul li a {
+  text-align: center;
 }
 
 .wrapper.collapse .sidebar ul li a span.icon {
-  margin: 0; 
+  margin: 0;
 }
 
 .wrapper.collapse .sidebar ul li a span.title {
@@ -183,154 +188,172 @@ ul {
   height: calc(100vh - 110px);
   overflow: auto;
 }
+
 /*  box*/
 
-.box-contenido{
-    background-color: #000000;
-    text-align: center;
-    position: relative;
-    margin-top: 7vw;
-    margin-left: 34vw;
-    width: 40vw;
-    height: 42vw;
-    margin: 150;
+.box-contenido {
+  background-color: #000000;
+  text-align: center;
+  position: relative;
+  margin-top: 7vw;
+  margin-left: 34vw;
+  width: 40vw;
+  height: 42vw;
+  margin: 150;
 }
-.form{
-    text-align: center;
-    left: 0px;
+
+.form {
+  text-align: center;
+  left: 0px;
 }
-.input_contenido{
-    left: 0px;
-    margin-top: 1vw;
-    font-size: 1.3vw;
-    height: 3vw;
+
+.input_contenido {
+  left: 0px;
+  margin-top: 1vw;
+  font-size: 1.3vw;
+  height: 3vw;
 }
-.button_ini{
-    background-color:#81c3f6;
-    top: 0vw;
-    padding-top: 0.8vw;
-    padding-bottom: 0.8vw;
-    font-size: 1.3vw;
-    width: 40%;
-    position: relative;
-    text-align: center;
-    color: #fff;
-    border:none;
-    border-radius:2vw;
-    cursor: pointer;
-    }
+
+.button_ini {
+  background-color: #81c3f6;
+  top: 0vw;
+  padding-top: 0.8vw;
+  padding-bottom: 0.8vw;
+  font-size: 1.3vw;
+  width: 40%;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  border: none;
+  border-radius: 2vw;
+  cursor: pointer;
+}
 
 button {
-    margin: 20px;
-    }
+  margin: 20px;
+}
+
 .custom-btn {
-    width: 130px;
-    height: 40px;
-    color: #fff;
-    border-radius: 5px;
-    padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 500;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    display: inline-block;
-        box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-        7px 7px 20px 0px rgba(0,0,0,.1),
-        4px 4px 5px 0px rgba(0,0,0,.1);
-    outline: none;
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+    7px 7px 20px 0px rgba(0, 0, 0, .1),
+    4px 4px 5px 0px rgba(0, 0, 0, .1);
+  outline: none;
 }
 
 
 /* 3 */
 .btn-3 {
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, #81c3f6 0%, #81c3f6 100%);
-    width: 140px;
-    height: 60px;
-    line-height: 62px;
-    padding: 0;
-    border: none;
-    text-decoration-color: #000000;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(0deg, #81c3f6 0%, #81c3f6 100%);
+  width: 140px;
+  height: 60px;
+  line-height: 62px;
+  padding: 0;
+  border: none;
+  text-decoration-color: #000000;
 
 }
+
 .btn-3 span {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
+
 .btn-3:before,
 .btn-3:after {
-    position: absolute;
-    content: "";
-    right: 0;
-    top: 0;
-        background: #81c3f6;
-    transition: all 0.3s ease;
+  position: absolute;
+  content: "";
+  right: 0;
+  top: 0;
+  background: #81c3f6;
+  transition: all 0.3s ease;
 }
+
 .btn-3:before {
-    height: 0%;
-    width: 2px;
+  height: 0%;
+  width: 2px;
 }
+
 .btn-3:after {
-    width: 0%;
-    height: 2px;
-    }
-.btn-3:hover{
-    background: transparent;
-    box-shadow: none;
+  width: 0%;
+  height: 2px;
 }
+
+.btn-3:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
 .btn-3:hover:before {
-    height: 100%;
+  height: 100%;
 }
+
 .btn-3:hover:after {
-    width: 100%;
+  width: 100%;
 }
-.btn-3 span:hover{
-    color: #81c3f6
+
+.btn-3 span:hover {
+  color: #81c3f6
 }
+
 .btn-3 span:before,
 .btn-3 span:after {
-    position: absolute;
-    content: "";
-    left: 0;
-    bottom: 0;
-    background: #81c3f6;
-    transition: all 0.3s ease;
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+  background: #81c3f6;
+  transition: all 0.3s ease;
 }
+
 .btn-3 span:before {
-    width: 2px;
-    height: 0%;
+  width: 2px;
+  height: 0%;
 }
+
 .btn-3 span:after {
-    width: 0%;
-    height: 2px;
+  width: 0%;
+  height: 2px;
 }
+
 .btn-3 span:hover:before {
-    height: 100%;
+  height: 100%;
 }
+
 .btn-3 span:hover:after {
-    width: 100%;
+  width: 100%;
 }
 
 .form {
-    position: absolute;
-    margin-top: -3%;
-    margin-left: 45%;
-    color :#000000;
-    font-size:40px;
-  }
+  position: absolute;
+  margin-top: -3%;
+  margin-left: 45%;
+  color: #000000;
+  font-size: 40px;
+}
 
-  .App-bottom{
-    color:white;
-    background-color: black;
-    text-align: center;
-    position: fixed;
-    font-size: 1.4vw;
-    left: 0px;
-    bottom: -9px;
-    width: 100%;
-    height: 2vw;
-  }
+/* .App-bottom {
+  color: white;
+  background-color: black;
+  text-align: center;
+  position: fixed;
+  font-size: 1.4vw;
+  left: 0px;
+  bottom: -9px;
+  width: 100%;
+  height: 2vw;
+} */
