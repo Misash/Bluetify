@@ -7,6 +7,7 @@ import "../CSS/Tienda.css"
 import Navbar from "./Navbar";
 
 
+
 function Tienda() {
     return (
         <div>
