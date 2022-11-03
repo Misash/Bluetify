@@ -11,15 +11,40 @@ function Contenido(){
     const [categoriaReg, setCategoriaReg]=useState("");
     const [descripcionReg, setDescripcionReg]=useState("");
     const [precioReg, setPrecioReg]=useState("");
+    const[selectedFile, setSelectedFile]=useState("");
+    const[selectedFile1, setSelectedFile1]=useState("");
+
 
     const submitCont = () => {
-        Axios.post("http://localhost:3001/contenido", {
-            nombre: nombreReg,
-            autor: autorReg, 
-            categoria: categoriaReg,
-            descripcion: descripcionReg,
-            precio: precioReg,
-        })}
+      Axios.post("http://localhost:3001/contenido0",{
+      nombre: nombreReg,
+      autor: autorReg, 
+      categoria: categoriaReg,
+      descripcion: descripcionReg,
+      precio: precioReg,
+})
+      const fd=new FormData();
+      const fd1=new FormData();  
+      fd.append('archivo',selectedFile);
+      fd1.append('archivo2',selectedFile1)
+      /*fd.append('nombre',nombreReg);
+      fd.append('autor',autorReg);
+      fd.append('categoria',categoriaReg);
+      fd.append('descripcion',descripcionReg);
+      fd.append('precio',precioReg); 
+      fd.append('archivo',selectedFile);
+      fd.append('image',selectedFile1);*/
+        
+Axios.post("http://localhost:3001/contenido1",fd)
+    Axios.post("http://localhost:3001/contenido2",fd1)
+  }
+
+    const fileSelectedHandler=(event)=>{
+            setSelectedFile(event.target.files[0])
+        }
+    const fileSelectedHandler2=(event)=>{
+            setSelectedFile1(event.target.files[0])
+        }
     return(
         <Fragment>
             <div class="wrapper">
@@ -108,8 +133,8 @@ function Contenido(){
                       setAutorReg(e.target.value);
                     }} >
                         <option disabled selected="">seleccione autor</option>
-                        <option>Autor1</option>
-                        <option>Autor2</option>
+                        <option>test_autor</option>
+                        <option>testing_interface</option>
                         <option>Autor3</option>
                     </select>
                 </form>
@@ -121,9 +146,9 @@ function Contenido(){
                     }}>
 
                         <option disabled selected="">seleccione categoría</option>
-                        <option>Categoria1</option>
-                        <option>Categoria2</option>
-                        <option>Categoria3</option>
+                        <option>test_categoria</option>
+                        <option>test_categoria2</option>
+                        <option>testing3</option>
                     </select>
                 </form>
 
@@ -146,14 +171,17 @@ function Contenido(){
                     <select>
 
                         <option disabled selected="">seleccione tipo de archivo</option>
-                        <option>Archivo1</option>
-                        <option>Archivo2</option>
+                        <option>mp3</option>
+                        <option>sa</option>
                         <option>Archivo3</option>
                     </select>
+                    
                 </form>
-
-                <button class="custom-btn btn-3"><span>seleccionar archivo</span></button>
-                <button class="custom-btn btn-3"><span>selecciona miniatura</span></button>
+                  
+                <input name="archivo" class="custom-btn btn-3" placeholder="seleccionar archivo" type="file" onChange={fileSelectedHandler}/>
+                <input name="imagen" class="custom-btn btn-3" placeholder="selecciona miniatura" type="file" onChange={fileSelectedHandler2}/>
+                {/*<button  onClick={() =>fileInput.click()} class="custom-btn btn-3" ><span>seleccionar archivo</span></button>
+                <button class="custom-btn btn-3"><span>selecciona miniatura</span></button>*/}
 
 
                 <br/>
