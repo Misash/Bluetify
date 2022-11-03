@@ -1,14 +1,31 @@
+
 const express = require('express');
 const cors=require("cors");
 const bodyParser = require('body-parser');
 const app = express();
+const multer = require('multer');
+
 
 //coneccion a la base de datos
-const db = require("./connection")
+const db = require("./connection");
+const { upload } = require('@testing-library/user-event/dist/upload');
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+//multer
+const storage=multer.diskStorage({
+    destination: (req,file,cb)=>{
+        cb(null,"./");},
+    filename: function(req,file,cb){
+        const ext=file.mimetype.split("/")[1];
+        cb(null,`uploads/${file.originalname}-${Date.now()}.${ext}`)
+    }
+});
+const upload1=multer({
+    storage: storage
+});
 
 app.get("/get",(req,res)=>{
     const sqlSelect = "SELECT * FROM usuarios";
@@ -69,15 +86,33 @@ app.post("/autor", (req, res) => {
     });
 })
 
-app.post("/contenido", (req, res) => {
-    const nombrec = req.body.nombre
+app.post("/contenido0", (req, res) => {
+    const nombrec=req.body.nombre
     const autorc = req.body.autor
     const categoriac = req.body.categoria
     const descripcionc = req.body.descripcion
     const precioc = req.body.precio
+    //precioc,descripcionc,nombrec,archivoc,imagenc, categoriac,autorc
 
-    const sqlInsert = "select id_categoria, id_autor,?,'.mp3',?,? from categoria,autores where nombre_categoria=? and nombre=?"
-    db.query(sqlInsert, [precioc,descripcionc,nombrec, categoriac,autorc],(err,result)=>{
+    const sqlInsert = "insert into contenidos(id_categoria,id_autores,precio,tipo,descripcion,nombre,archivo,imagen) select id_categoria, id_autor,?,'.mp3',?,?,'1','1' from categoria,autores where nombre_categoria=? and nombre=?"
+    db.query(sqlInsert, [precioc,descripcionc,nombrec,categoriac,autorc],(err,result)=>{
+        console.log(err);
+        console.log(result);
+    });
+
+})
+app.post("/contenido1",upload1.single('archivo'), (req, res) => {
+    const archivoc=req.file.filename;
+    const sqlUpdate="update contenidos as s, (select max(id_contenido)as id from contenidos)as p set s.archivo=? where s.id_contenido=p.id"
+    db.query(sqlUpdate, [archivoc],(err,result)=>{
+        console.log(err);
+        console.log(result);
+    });
+})
+app.post("/contenido2",upload1.single('archivo2'), (req, res) => {
+    const imagenc=req.file.filename;
+    const sqlUpdate="update contenidos as s, (select max(id_contenido)as id from contenidos)as p set s.imagen=? where s.id_contenido=p.id"
+    db.query(sqlUpdate, [imagenc],(err,result)=>{
         console.log(err);
         console.log(result);
     });

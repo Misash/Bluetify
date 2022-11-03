@@ -31,12 +31,14 @@ CREATE TABLE `contenidos` (
   `tipo` varchar(100) NOT NULL,
   `descripcion` varchar(250) NOT NULL,
   `nombre` varchar(100) NOT NULL,
+  `archivo` varchar(1000) NOT NULL,
+  `imagen` varchar(1000) NOT NULL,
   PRIMARY KEY (`id_contenido`),
   KEY `id_categoria_idx` (`id_categoria`),
   KEY `id_autores_idx` (`id_autores`),
   CONSTRAINT `fk_contenidos_autores` FOREIGN KEY (`id_autores`) REFERENCES `autores` (`id_autor`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_contenidos_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +47,7 @@ CREATE TABLE `contenidos` (
 
 LOCK TABLES `contenidos` WRITE;
 /*!40000 ALTER TABLE `contenidos` DISABLE KEYS */;
-INSERT INTO `contenidos` VALUES (1,1,1,0,50,'.mp3','',''),(3,2,1,1,100,'.mp3','','');
+INSERT INTO `contenidos` VALUES (1,1,1,0,50,'.mp3','','','sa',''),(96,2,2,NULL,8888,'.mp3','testing7','testing7','uploads/MODELO FISICO.pdf-1667463749728.pdf','uploads/descarga.jpg-1667463749730.jpeg');
 /*!40000 ALTER TABLE `contenidos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-01 18:45:52
+-- Dump completed on 2022-11-03  3:24:57
