@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect }  from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Box from "./Box";
@@ -19,10 +19,15 @@ import axios from "axios";
 // import Row from 'react-bootstrap/Row';
 
 
+
+
+
 function Tienda() {
     const [contenidos, setContenidos] = useState([]);
-    const url="http://localhost:3001/";
-    axios.get(`${url}tienda`).then((response)=>setContenidos(response.data));
+    const url = "http://localhost:3001/";
+    axios.get(`${url}tienda`).then((response) => setContenidos(response.data));
+ 
+   
     return (
         <div>
             <Navbar />
@@ -49,13 +54,14 @@ function Tienda() {
 
             <Form className="myContainer">
                 <Row className="align-items-center">
-                    {contenidos.map((contenido)=>(
+                    {contenidos.map((contenido) => (
                         <Box
-                        titulo={contenido.nombre}
-                        urlImg={require("../"+contenido.imagen)}
-                        precioActual={contenido.precio}
-                        precioAnterior="299"
-                        ratingPromedio="3"
+                            id = {contenido.id_contenido}
+                            titulo={contenido.nombre}
+                            urlImg={require("../" + contenido.imagen)}
+                            precioActual={contenido.precio}
+                            precioAnterior="299"
+                            ratingPromedio="3"
                         />
                     ))}
                 </Row>

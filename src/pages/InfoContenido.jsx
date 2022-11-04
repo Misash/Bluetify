@@ -11,17 +11,30 @@ import { FaFileDownload } from 'react-icons/fa';
 import { GiPodium } from "react-icons/gi";
 import { AiOutlineNumber } from "react-icons/ai";
 import { FaDollarSign } from "react-icons/fa";
-
+import axios from "axios";
 import "../CSS/infoContenido.css"
+import { useParams } from "react-router-dom"
 
 
 
 
+function InfoContenido() {
 
-function InfoContenido(props) {
+
+
+    //obtener el id del contenido
+    const { id } = useParams();
+    console.log(id)
+
+
+    const [contenidos, setContenidos] = useState([]);
+    const url = "http://localhost:3001/Contenido/"+id;
+    axios.get(url).then((response) => setContenidos(response.data));
+
+    // console.log(contenidos)
 
     //rating guarda el valor de start rating
-    const [rating, setRating] = useState(props.rating); //estrellas del contenido
+    const [rating, setRating] = useState(0); //estrellas del contenido
     const [hover, setHover] = useState(0);
 
     return (
@@ -37,7 +50,7 @@ function InfoContenido(props) {
                         <Col>props.extension</Col>
                     </Row>
                     <Row>
-                        <Col><h3>props.autor</h3></Col> 
+                        <Col><h3>props.autor</h3></Col>
                     </Row>
                 </Card.Header>
                 <Card.Body>
@@ -62,16 +75,16 @@ function InfoContenido(props) {
                                 })}
                             </div>
                         </Col>
-                        <Col> <FaFileDownload/> props.numero_descargas</Col> 
+                        <Col> <FaFileDownload /> props.numero_descargas</Col>
                     </Row>
                     <br />
                     <Row>
                         <Col>
-                            <p className="rankings"> <AiOutlineNumber/> props.ranking_descargas  <span className="line"> <AiOutlineNumber/>  props.ranking_descargas_anterior</span> Descargas</p>
-                            <p className="rankings"> <AiOutlineNumber/> props.ranking_nota  <span className="line"> <AiOutlineNumber/>  props.ranking_nota_anterior</span> Calificaciones</p>
+                            <p className="rankings"> <AiOutlineNumber /> props.ranking_descargas  <span className="line"> <AiOutlineNumber />  props.ranking_descargas_anterior</span> Descargas</p>
+                            <p className="rankings"> <AiOutlineNumber /> props.ranking_nota  <span className="line"> <AiOutlineNumber />  props.ranking_nota_anterior</span> Calificaciones</p>
                             <h3> Descripcion:</h3>
                             <p> props.descripcion</p>
-                            <p> <FaDollarSign/> props.precio</p>
+                            <p> <FaDollarSign /> props.precio</p>
                         </Col>
                         <Col>
                             <h4>Lista Generacional</h4>

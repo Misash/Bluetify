@@ -26,7 +26,7 @@ function App() {
         <Route path='/CrearAutor' element={<Autor/>}></Route>
         <Route path='/testing' element={<Test/>}></Route>
         <Route path='/Tienda' element={<Tienda/>}></Route> 
-        <Route path='/Contenido/8' element={<InfoContenido/>}></Route> 
+        <Route path='/Contenido/:id' element={<InfoContenido/>}></Route> 
       </Routes> 
     </Router> 
     </div>
