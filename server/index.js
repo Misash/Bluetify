@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-//multer
+//multer (se encarga de guardar archivos en carpeta uploads del server)
 const storage=multer.diskStorage({
     destination: (req,file,cb)=>{
         cb(null,"./");},
@@ -27,13 +27,7 @@ const upload1=multer({
     storage: storage
 });
 
-app.get("/get",(req,res)=>{
-    const sqlSelect = "SELECT * FROM usuarios";
-    db.query(sqlSelect,(err,result)=>{
-        res.send(result);
-});
-});
-
+//crea un nuevo usuario en la tabla usuarios, con los datos que envie register.js
 app.post("/register", (req, res) => {
     const usernamer = req.body.username
     const passwordr = req.body.password
@@ -46,6 +40,7 @@ app.post("/register", (req, res) => {
     });
 })
 
+//Revisa los datos que enviemos de login.js y verifica que el usuario y contrasena se encuentren en una misma fila de la tabla usuarios
 app.post("/login",(req,res)=>{
     const usernamel=req.body.username
     const passwordl=req.body.password
@@ -65,6 +60,7 @@ app.post("/login",(req,res)=>{
     );
 });
 
+//suma el saldo que tiene un cliente con los inputs que le demos en saldo.js
 app.post("/saldo", (req, res) => {
     const usernames = req.body.username
     const saldos = req.body.saldo
@@ -76,6 +72,7 @@ app.post("/saldo", (req, res) => {
     });
 })
 
+//recibe los datos que envia autor.js y crea una nueva fila en la tabla autor
 app.post("/autor", (req, res) => {
     const autor = req.body.autor
 
@@ -86,6 +83,7 @@ app.post("/autor", (req, res) => {
     });
 })
 
+//Recibe los datos que envia contenido (nombre, autor, categoria, descripcion y precio) y crea una nueva fila en la tabla contenidos
 app.post("/contenido0", (req, res) => {
     const nombrec=req.body.nombre
     const autorc = req.body.autor
@@ -101,6 +99,7 @@ app.post("/contenido0", (req, res) => {
     });
 
 })
+//Recibe el archivo que manda la pagina de contenido y actualiza la ultima fila creada de la tabla de contenidos en la columna del archivo
 app.post("/contenido1",upload1.single('archivo'), (req, res) => {
     const archivoc=req.file.filename;
     const sqlUpdate="update contenidos as s, (select max(id_contenido)as id from contenidos)as p set s.archivo=? where s.id_contenido=p.id"
@@ -109,6 +108,7 @@ app.post("/contenido1",upload1.single('archivo'), (req, res) => {
         console.log(result);
     });
 })
+//Recibe la imagen que manda la pagina de contenido y actualiza la ultima fila creada de la tabla de contenidos en la columna de la imagen
 app.post("/contenido2",upload1.single('archivo2'), (req, res) => {
     const imagenc=req.file.filename;
     const sqlUpdate="update contenidos as s, (select max(id_contenido)as id from contenidos)as p set s.imagen=? where s.id_contenido=p.id"
@@ -118,6 +118,7 @@ app.post("/contenido2",upload1.single('archivo2'), (req, res) => {
     });
 })
 
+//Recibe los datos que le manda la pagina de categoria para subirlo a la tabla categorias
 app.post("/categoria", (req, res) => {
     const categoriacc = req.body.categoria
     const subcategoriacc = req.body.subcategoria
@@ -129,6 +130,28 @@ app.post("/categoria", (req, res) => {
     });
 })
 
+//Aqui haremos todos los tests, para la implementacion de una nueva pagina. (puede variar)
+app.post("/testpost", (req, res) => {
+    const testc = req.body.test
+
+    const sqlselect = "select archivo from contenidos where nombre=?"
+    db.query(sqlselect, [testc],(err,result)=>{
+        //console.log(err);
+        //console.log(result[0]["archivo"]);
+        //res.send(result[0]["archivo"]);
+    })
+})
+
+app.get("/testget/:id", (req, res) => {
+    const id = req.params.id
+    const sqlselect = "select archivo from contenidos where id_contenido=?"
+    db.query(sqlselect, [id],(err,result)=>{
+        console.log(result[0]["archivo"])
+        res.download(result[0]["archivo"])
+    })
+})
+
+//envia un mensaje a la consola, solo para saber que todo esta corriendo correctamente.
 app.listen(3001, () => {
 console.log("running on port 3001")
 })

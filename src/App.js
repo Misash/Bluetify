@@ -6,6 +6,7 @@ import Saldo from './pages/Saldo';
 import Autor from './pages/Autor';
 import Contenido from './pages/Contenido';
 import Categoria from './pages/Categoria';
+import Test from './pages/testing';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='/CrearContenido' element={<Contenido/>}></Route>
         <Route path='/CrearCategoria' element={<Categoria/>}></Route>
         <Route path='/CrearAutor' element={<Autor/>}></Route>
+        <Route path='/testing' element={<Test/>}></Route>
       </Routes> 
     </Router> 
     </div>
