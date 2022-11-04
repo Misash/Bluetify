@@ -17,10 +17,15 @@ function Box(props) {
     //rating guarda el valor de start rating
     const [rating, setRating] = useState(props.ratingPromedio);
     const [hover, setHover] = useState(0);
+    let id_contenido = 8
     return (
         <Col xs="auto">
             <Card className="Box" >
+                <div style={{transform: "rotate(0)" }}>
                 <Card.Img variant="top" src={props.urlImg} />
+                   <a href={"/Contenido/"+id_contenido} class="stretched-link"></a>
+                </div>
+                
                 <Card.Body>
                     <Card.Title > {props.titulo}</Card.Title>
                     <Container>
@@ -49,10 +54,9 @@ function Box(props) {
                         })}
                     </div>
                     {/* END START RATING */}
-                    
                 </Card.Body>
             </Card>
-
+           
         </Col>
     )
 }

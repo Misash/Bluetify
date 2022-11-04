@@ -9,6 +9,7 @@ import Categoria from './pages/Categoria';
 import Test from './pages/testing';
 import Tienda from "./pages/Tienda"
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import InfoContenido from './pages/InfoContenido';
 
 
 //creamos rutas para cada pagina que hemos creado.
@@ -25,6 +26,7 @@ function App() {
         <Route path='/CrearAutor' element={<Autor/>}></Route>
         <Route path='/testing' element={<Test/>}></Route>
         <Route path='/Tienda' element={<Tienda/>}></Route> 
+        <Route path='/Contenido/8' element={<InfoContenido/>}></Route> 
       </Routes> 
     </Router> 
     </div>
