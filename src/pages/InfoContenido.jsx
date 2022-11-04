@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card';
 
 import "../CSS/infoContenido.css"
 
+
 function InfoContenido() {
     return (
         <div>
