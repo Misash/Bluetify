@@ -87,6 +87,7 @@ app.post("/autor", (req, res) => {
 
 //Recibe los datos que envia contenido (nombre, autor, categoria, descripcion y precio) y crea una nueva fila en la tabla contenidos
 app.post("/contenido0", (req, res) => {
+    console.log(req)
     const nombrec = req.body.nombre
     const autorc = req.body.autor
     const categoriac = req.body.categoria
@@ -122,6 +123,7 @@ app.post("/contenido2", upload1.single('archivo2'), (req, res) => {
 
 //Recibe los datos que le manda la pagina de categoria para subirlo a la tabla categorias
 app.post("/categoria", (req, res) => {
+    console.log(req)
     const categoriacc = req.body.categoria
     const subcategoriacc = req.body.subcategoria
 
@@ -145,7 +147,7 @@ app.get("/tienda", (req, res) => {
 app.get("/categorias", (req, res) => {
     const sqlselect = "select id_categoria,nombre_categoria from categoria"
     db.query(sqlselect, (err, result) => {
-        //console.log(result)
+        // console.log(result)
         res.send(result)
     })
 })
@@ -196,6 +198,22 @@ app.get("/listaGen/:id", (req, res) => {
         res.send(result)
     })
 
+})
+
+app.get("/get_categorias", (req, res) => {
+    let sqlselect = `select nombre_categoria from categoria;`
+    db.query(sqlselect, [], (err, result) => {
+        // console.log("\ncategorias:" ,result)
+        res.send(result)
+    })
+})
+
+app.get("/get_autores", (req, res) => {
+    let sqlselect = `select nombre from autores;`
+    db.query(sqlselect, [], (err, result) => {
+        // console.log("\ncategorias:" ,result)
+        res.send(result)
+    })
 })
 
 

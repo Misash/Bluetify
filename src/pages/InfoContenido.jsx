@@ -32,10 +32,10 @@ function InfoContenido() {
     const url = "http://localhost:3001/Contenido/" + id
     axios.get(url).then((response) => setContenido(response.data));
 
-    console.log(contenido)
+    // console.log(contenido)
     const url2 = "http://localhost:3001/listaGen/" + contenido.id_categoria
     axios.get(url2).then((response) => setlistaGen(response.data));
-    console.log(listaGen)
+    // console.log(listaGen)
 
 
     //rating guarda el valor de start rating
