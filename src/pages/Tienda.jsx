@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useState, useEffect }  from "react";
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Box from "./Box";
@@ -6,17 +6,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CSS/Tienda.css"
 import Navbar from "./Navbar";
 
+
 import DropDown from "./DropDown";
 import Col from 'react-bootstrap/Col';
+import Axios from "axios"
 
 import Button from 'react-bootstrap/Button';
 // import Col from 'react-bootstrap/Col';
 // import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import axios from "axios";
 // import Row from 'react-bootstrap/Row';
 
 
 function Tienda() {
+    const [contenidos, setContenidos] = useState([]);
+    const url="http://localhost:3001/";
+    axios.get(`${url}tienda`).then((response)=>setContenidos(response.data));
     return (
         <div>
             <Navbar />
@@ -43,58 +49,15 @@ function Tienda() {
 
             <Form className="myContainer">
                 <Row className="align-items-center">
-                    <Box
-                        titulo="At last Night"
-                        urlImg="https://i.guim.co.uk/img/media/5051ce64f29e28bb6a7a010b263eda252401e530/0_355_3600_2160/500.jpg?quality=85&auto=format&fit=max&s=0ea6986688c3268d5468469500c9cbb9"
-                        precioActual="248"
+                    {contenidos.map((contenido)=>(
+                        <Box
+                        titulo={contenido.nombre}
+                        urlImg={require("../"+contenido.imagen)}
+                        precioActual={contenido.precio}
                         precioAnterior="299"
                         ratingPromedio="3"
-                    />
-                    <Box
-                        titulo="At last Night"
-                        urlImg="https://i.guim.co.uk/img/media/5051ce64f29e28bb6a7a010b263eda252401e530/0_355_3600_2160/500.jpg?quality=85&auto=format&fit=max&s=0ea6986688c3268d5468469500c9cbb9"
-                        precioActual="248"
-                        precioAnterior="299"
-                        ratingPromedio="4"
-                    />
-                    <Box
-                        titulo="At last Night"
-                        urlImg="https://i.guim.co.uk/img/media/5051ce64f29e28bb6a7a010b263eda252401e530/0_355_3600_2160/500.jpg?quality=85&auto=format&fit=max&s=0ea6986688c3268d5468469500c9cbb9"
-                        precioActual="248"
-                        precioAnterior="299"
-                        ratingPromedio="2"
-                    />
-                    <Box
-                        titulo="At last Night"
-                        urlImg="https://i.guim.co.uk/img/media/5051ce64f29e28bb6a7a010b263eda252401e530/0_355_3600_2160/500.jpg?quality=85&auto=format&fit=max&s=0ea6986688c3268d5468469500c9cbb9"
-                        precioActual="248"
-                        precioAnterior="299"
-                    />
-                    <Box
-                        titulo="At last Night"
-                        urlImg="https://i.guim.co.uk/img/media/5051ce64f29e28bb6a7a010b263eda252401e530/0_355_3600_2160/500.jpg?quality=85&auto=format&fit=max&s=0ea6986688c3268d5468469500c9cbb9"
-                        precioActual="248"
-                        precioAnterior="299"
-                    />
-                    <Box
-                        titulo="At last Night"
-                        urlImg="https://i.guim.co.uk/img/media/5051ce64f29e28bb6a7a010b263eda252401e530/0_355_3600_2160/500.jpg?quality=85&auto=format&fit=max&s=0ea6986688c3268d5468469500c9cbb9"
-                        precioActual="248"
-                        precioAnterior="299"
-                    />
-                    <Box
-                        titulo="At last Night"
-                        urlImg="https://i.guim.co.uk/img/media/5051ce64f29e28bb6a7a010b263eda252401e530/0_355_3600_2160/500.jpg?quality=85&auto=format&fit=max&s=0ea6986688c3268d5468469500c9cbb9"
-                        precioActual="248"
-                        precioAnterior="299"
-                    />
-                    <Box
-                        titulo="At last Night"
-                        urlImg="https://i.guim.co.uk/img/media/5051ce64f29e28bb6a7a010b263eda252401e530/0_355_3600_2160/500.jpg?quality=85&auto=format&fit=max&s=0ea6986688c3268d5468469500c9cbb9"
-                        precioActual="248"
-                        precioAnterior="299"
-                    />
-
+                        />
+                    ))}
                 </Row>
             </Form>
 

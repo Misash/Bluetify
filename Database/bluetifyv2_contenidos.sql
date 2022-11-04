@@ -38,7 +38,7 @@ CREATE TABLE `contenidos` (
   KEY `id_autores_idx` (`id_autores`),
   CONSTRAINT `fk_contenidos_autores` FOREIGN KEY (`id_autores`) REFERENCES `autores` (`id_autor`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_contenidos_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,7 @@ CREATE TABLE `contenidos` (
 
 LOCK TABLES `contenidos` WRITE;
 /*!40000 ALTER TABLE `contenidos` DISABLE KEYS */;
-INSERT INTO `contenidos` VALUES (1,1,1,0,50,'.mp3','','','sa',''),(96,2,2,NULL,8888,'.mp3','testing7','testing7','uploads/MODELO FISICO.pdf-1667463749728.pdf','uploads/descarga.jpg-1667463749730.jpeg');
+INSERT INTO `contenidos` VALUES (103,2,2,NULL,50,'.mp3','testing1','testing1','uploads/MODELO FISICO.pdf-1667463749728.pdf-1667532249285.pdf','uploads/descarga.jpg-1667532249287.jpeg'),(104,2,2,NULL,100,'.mp3','testing2','testing2','uploads/videoplayback.mp4-1667531444315.mp4-1667532308194.mp4','uploads/ceviche.jpg-1667532308195.jpeg'),(105,2,2,NULL,200,'.mp3','testing3','testing3','uploads/Arctic Monkeys - Fluorescent Adolescent (Official Video) (320kbps).mp3-1667532533317.mpeg','uploads/artic_cover.jpg-1667532533319.jpeg');
 /*!40000 ALTER TABLE `contenidos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-03  3:24:57
+-- Dump completed on 2022-11-03 23:25:47

@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //multer (se encarga de guardar archivos en carpeta uploads del server)
 const storage=multer.diskStorage({
     destination: (req,file,cb)=>{
-        cb(null,"./");},
+        cb(null,"../src");},
     filename: function(req,file,cb){
         const ext=file.mimetype.split("/")[1];
         cb(null,`uploads/${file.originalname}-${Date.now()}.${ext}`)
@@ -131,23 +131,30 @@ app.post("/categoria", (req, res) => {
     });
 })
 
-//Aqui haremos todos los tests, para la implementacion de una nueva pagina. (puede variar)
-app.post("/testpost", (req, res) => {
-    const testc = req.body.test
-
-    const sqlselect = "select archivo from contenidos where nombre=?"
-    db.query(sqlselect, [testc],(err,result)=>{
-        //console.log(err);
-        //console.log(result[0]["archivo"]);
-        //res.send(result[0]["archivo"]);
+//consigue algunas columnas de la tabla contenidos, para luego poder hacer fetch
+app.get("/tienda", (req, res) => {
+    const sqlselect = "select id_contenido,id_categoria, nombre, precio,imagen from contenidos"
+    db.query(sqlselect,(err,result)=>{
+        //console.log(result)
+        res.send(result)
     })
 })
 
+//consigue algunas columnas de la tabla categorias, para luego poder hacer fetch
+app.get("/categorias", (req, res) => {
+    const sqlselect = "select id_categoria,nombre_categoria from categoria"
+    db.query(sqlselect,(err,result)=>{
+        //console.log(result)
+        res.send(result)
+    })
+})
+
+//Aqui haremos todos los tests, para la implementacion de una nueva pagina. (puede variar)
 app.get("/testget/:id", (req, res) => {
     const id = req.params.id
     const sqlselect = "select archivo from contenidos where id_contenido=?"
     db.query(sqlselect, [id],(err,result)=>{
-        console.log(result[0]["archivo"])
+        //console.log(result[0]["archivo"])
         res.download(result[0]["archivo"])
     })
 })
