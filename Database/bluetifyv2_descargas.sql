@@ -16,27 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `autores`
+-- Table structure for table `descargas`
 --
 
-DROP TABLE IF EXISTS `autores`;
+DROP TABLE IF EXISTS `descargas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `autores` (
-  `id_autor` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_autor`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `descargas` (
+  `id_descargas` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int NOT NULL,
+  `id_contenido` int NOT NULL,
+  `fecha_descarga` date NOT NULL,
+  PRIMARY KEY (`id_descargas`),
+  KEY `fk_descargas_clientes_idx` (`id_cliente`),
+  KEY `fk_descargas_contenido_idx` (`id_contenido`),
+  CONSTRAINT `fk_descargas_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_descargas_contenido` FOREIGN KEY (`id_contenido`) REFERENCES `contenidos` (`id_contenido`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `autores`
+-- Dumping data for table `descargas`
 --
 
-LOCK TABLES `autores` WRITE;
-/*!40000 ALTER TABLE `autores` DISABLE KEYS */;
-INSERT INTO `autores` VALUES (1,'test_autor'),(2,'testing_interface');
-/*!40000 ALTER TABLE `autores` ENABLE KEYS */;
+LOCK TABLES `descargas` WRITE;
+/*!40000 ALTER TABLE `descargas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `descargas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-04  0:03:44
+-- Dump completed on 2022-11-04  0:03:43
