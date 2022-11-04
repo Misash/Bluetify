@@ -27,11 +27,16 @@ function InfoContenido() {
     console.log(id)
 
 
-    const [contenidos, setContenidos] = useState([]);
-    const url = "http://localhost:3001/Contenido/"+id;
-    axios.get(url).then((response) => setContenidos(response.data));
+    const [contenido, setContenido] = useState({});
+    const [listaGen, setlistaGen] = useState([]);
+    const url = "http://localhost:3001/Contenido/" + id
+    axios.get(url).then((response) => setContenido(response.data));
 
-    // console.log(contenidos)
+    console.log(contenido)
+    const url2 = "http://localhost:3001/listaGen/" + contenido.id_categoria
+    axios.get(url2).then((response) => setlistaGen(response.data));
+    console.log(listaGen)
+
 
     //rating guarda el valor de start rating
     const [rating, setRating] = useState(0); //estrellas del contenido
@@ -46,11 +51,11 @@ function InfoContenido() {
             <Card className="info">
                 <Card.Header as="h5">
                     <Row>
-                        <Col> <h1>props.titulo</h1></Col>
-                        <Col>props.extension</Col>
+                        <Col> <h1>{contenido.nombre}</h1></Col>
+                        <Col>{contenido.tipo}</Col>
                     </Row>
                     <Row>
-                        <Col><h3>props.autor</h3></Col>
+                        <Col><h3> {contenido.autor}</h3></Col>
                     </Row>
                 </Card.Header>
                 <Card.Body>
@@ -75,21 +80,23 @@ function InfoContenido() {
                                 })}
                             </div>
                         </Col>
-                        <Col> <FaFileDownload /> props.numero_descargas</Col>
+                        <Col> <FaFileDownload /> numero_descargas</Col>
                     </Row>
                     <br />
                     <Row>
                         <Col>
-                            <p className="rankings"> <AiOutlineNumber /> props.ranking_descargas  <span className="line"> <AiOutlineNumber />  props.ranking_descargas_anterior</span> Descargas</p>
-                            <p className="rankings"> <AiOutlineNumber /> props.ranking_nota  <span className="line"> <AiOutlineNumber />  props.ranking_nota_anterior</span> Calificaciones</p>
+                            <p className="rankings"> <AiOutlineNumber /> 10  <span className="line"> <AiOutlineNumber />  5</span> Descargas</p>
+                            <p className="rankings"> <AiOutlineNumber /> 3  <span className="line"> <AiOutlineNumber />   10</span> Calificaciones</p>
                             <h3> Descripcion:</h3>
-                            <p> props.descripcion</p>
-                            <p> <FaDollarSign /> props.precio</p>
+                            <p> {contenido.descripcion}</p>
+                            <p> <FaDollarSign /> {contenido.precio}</p>
                         </Col>
                         <Col>
                             <h4>Lista Generacional</h4>
                             <div className="overflow-scroll" style={{ maxHeight: "400px" }}  >
-                                <p> props.categorias </p>
+                                {listaGen != []  && listaGen.map((categoria) => (
+                                   <p>{categoria.nombre_categoria}</p>
+                                ))}
                             </div>
                         </Col>
                     </Row>

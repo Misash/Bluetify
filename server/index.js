@@ -162,24 +162,44 @@ app.get("/testget/:id", (req, res) => {
 
 //Aqui haremos la consulta para ver la informacio de un contenido dado su id pasado como parametro
 app.get("/Contenido/:id", (req, res) => {
-   
+
     const id = req.params.id
-    console.log(id)
-    const sqlselect = `with recursive my_tree as (
-        select id_categoria, id_padre
+    // console.log(id)  
+
+    let sqlselect = `select c.id_autores ,c.precio , c.nombre , c.id_autores, c.id_categoria , c.tipo  , c.descripcion  , a.nombre as autor
+    from contenidos c left join autores a on c.id_autores = a.id_autor where id_contenido = ? `
+
+    db.query(sqlselect, [id], (err, result) => {
+        // console.log("\nretorno:" ,result)
+        res.send(result[0])
+    })
+
+})
+
+app.get("/listaGen/:id", (req, res) => {
+
+    const id = req.params.id
+
+
+    let sqlselect = `with recursive my_tree as (
+        select id_categoria, id_padre , nombre_categoria
         from categoria
         where id_categoria = ?
          union all
-        select m.id_categoria, m.id_padre 
+        select m.id_categoria, m.id_padre , m.nombre_categoria
         from categoria m
         join my_tree t on m.id_categoria = t.id_padre)
-        select id_categoria from my_tree order by id_categoria asc `
+        select nombre_categoria from my_tree order by id_categoria asc;`
 
     db.query(sqlselect, [id], (err, result) => {
-        console.log("\nretorno:" ,result)
+        // console.log("\nretorno:" ,result)
         res.send(result)
     })
+
 })
+
+
+
 
 //envia un mensaje a la consola, solo para saber que todo esta corriendo correctamente.
 app.listen(3001, () => {
