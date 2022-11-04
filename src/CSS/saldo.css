@@ -1,6 +1,13 @@
-body {background-color: #81c3f6;}
+
+
+body {
+  background-color: #81c3f6;
+}
+
+
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+
 :root {
   --body-bg: #e1ecf2;
   --primary: #81c3f6;
@@ -16,23 +23,25 @@ body {background-color: #81c3f6;}
 }
 
 body {
-    background-color: #81c3f6;
+  background-color: #81c3f6;
 }
 
 ul {
-  list-style: none; 
+  list-style: none;
 }
 
 .wrapper {
   margin: 0px;
 }
+
 .wrapper .top_navbar {
-  width: calc(100% );
+  width: calc(100%);
   height: 100px;
   display: flex;
   position: fixed;
   top: 0px;
 }
+
 .wrapper .top_navbar .hamburguer {
   width: 300px;
   background: #000000;
@@ -89,7 +98,7 @@ ul {
   width: 262px;
   position: fixed;
   top: 100px;
-  background: #106c32;
+  background: #057377;
   border: 4px solid #000000;
   height: calc(100% - 80px);
   transition: all 0.2s ease-in-out;
@@ -141,7 +150,7 @@ ul {
   display: block;
 }
 
-.wrapper .sidebar ul li a:hover{
+.wrapper .sidebar ul li a:hover {
   transform: translate3d(1px, -1px, 1px);
 }
 
@@ -166,12 +175,12 @@ ul {
   width: 70px;
 }
 
-.wrapper.collapse .sidebar ul li a { 
-   text-align: center;
+.wrapper.collapse .sidebar ul li a {
+  text-align: center;
 }
 
 .wrapper.collapse .sidebar ul li a span.icon {
-  margin: 0; 
+  margin: 0;
 }
 
 .wrapper.collapse .sidebar ul li a span.title {
@@ -183,54 +192,60 @@ ul {
   height: calc(100vh - 110px);
   overflow: auto;
 }
+
 /*  box*/
 
-.box-saldo{
-    background-color: #000000;
-    text-align: center;
-    position: relative;
-    top: 10vw;
-    margin-left: 34vw;
-    width: 46vw;
-    height: 25vw;
-    margin: 150;
+.box-saldo {
+  background-color: #000000;
+  text-align: center;
+  position: relative;
+  top: 10vw;
+  margin-left: 34vw;
+  width: 46vw;
+  height: 25vw;
+  margin: 150;
 }
-.input_saldo{
-    margin-top: 2vw;
-    font-size: 1.3vw;
-    width: 30vw;
-    height: 3.7vw;
-}
-.button_ini{
-    background-color:#81c3f6;
-    top: 0vw;
-    padding-top: 0.8vw;
-    padding-bottom: 0.8vw;
-    font-size: 1.3vw;
-    width: 40%;
-    position: relative;
-    text-align: center;
-    color: #fff;
-    border:none;
-    border-radius:2vw;
-    cursor: pointer;
-    }
 
-  .form {
-      position: absolute;
-      margin-top: 5%;
-      margin-left: 33%;;
-      color :#000000;
-    }
-  .App-bottom{
-    color:white;
-    background-color: black;
-    text-align: center;
-    position: fixed;
-    font-size: 1.4vw;
-    left: 0px;
-    bottom: 100px;
-    width: 100%;
-    height: 2vw;
-  }    
+.input_saldo {
+  margin-top: 2vw;
+  font-size: 1.3vw;
+  width: 30vw;
+  height: 3.7vw;
+}
+
+.button_ini {
+  background-color: #81c3f6;
+  top: 0vw;
+  padding-top: 0.8vw;
+  padding-bottom: 0.8vw;
+  font-size: 1.3vw;
+  width: 40%;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  border: none;
+  border-radius: 2vw;
+  cursor: pointer;
+}
+
+.form {
+  position: absolute;
+  margin-top: 5%;
+  margin-left: 33%;
+  ;
+  color: #000000;
+}
+
+/* .App-bottom {
+  color: white;
+  background-color: black;
+  text-align: center;
+  position: fixed;
+  font-size: 1.4vw;
+  left: 0px;
+  bottom: 100px;
+  width: 100%;
+  height: 2vw;
+} */
+
 

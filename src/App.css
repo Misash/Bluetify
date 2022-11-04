@@ -1,4 +1,8 @@
 .App{
   background-color: #09676a;
 }
-  
+.bootstrap-iso {
+  @import (less) 'bootstrap.css';
+  @import (less) 'bootstrap-theme.css';  /* optional */
+}
+

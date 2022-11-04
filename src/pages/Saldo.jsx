@@ -19,7 +19,7 @@ function Saldo(){
     })}
     return (
         <Fragment>
-            <div class="wrapper">
+            <div class="wrapper" >
             <div class="top_navbar">
               <div class="hamburguer">
                 <i class="fa fa-bars"></i>
