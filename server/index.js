@@ -148,6 +148,15 @@ app.get("/categorias", (req, res) => {
         res.send(result)
     })
 })
+//igual pero con un parametro y mostrando contenidos
+app.get("/categorias/:nombre", (req, res) => {
+    const nombre=req.params.nombre;
+    const sqlselect = "select id_contenido,contenidos.id_categoria, nombre, precio,imagen from contenidos,categoria where nombre_categoria=?";
+    db.query(sqlselect,[nombre],(err,result)=>{
+        //console.log(result)
+        res.send(result)
+    })
+})
 
 //Aqui haremos todos los tests, para la implementacion de una nueva pagina. (puede variar)
 app.get("/testget/:id", (req, res) => {
@@ -158,6 +167,7 @@ app.get("/testget/:id", (req, res) => {
         res.download(result[0]["archivo"])
     })
 })
+
 
 //envia un mensaje a la consola, solo para saber que todo esta corriendo correctamente.
 app.listen(3001, () => {

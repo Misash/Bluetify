@@ -6,6 +6,10 @@ import Axios from "axios"
 function Categoria(){
   const [categoriaReg, setCategoriaReg]=useState("");
   const [subcategoriaReg, setSubcategoriaReg]=useState("");
+  //consiguiendo todas las categorias para ingresarlas en el dropdown
+  const [categorias, setCategorias] = useState([]);
+  Axios.get(`${url}categorias`).then((response)=>setCategorias(response.data));
+    const url="http://localhost:3001/";
 
     const submitCat = () => {
         Axios.post("http://localhost:3001/categoria", {
@@ -102,9 +106,10 @@ function Categoria(){
                       setSubcategoriaReg(e.target.value);
                       }}>
                         <option disabled selected="">seleccione Categoria</option>
-                        <option>SubCategoria 1</option>
-                        <option>SubCategoria 2</option>
-                        <option>SubCategoria 3</option>
+                        {categorias.map((categoria)=>(
+                        <option>{categoria.nombre_categoria}</option>
+                        ))
+                        }
                     </select>
                 </form>
             </div>

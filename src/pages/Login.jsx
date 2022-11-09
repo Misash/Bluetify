@@ -14,6 +14,10 @@ function Login(){
     const [loginstatus, setloginstatus]=useState("");
 
     const submitlogin = () => {
+        if (usernamelog=="admin" && passwordlog=="admin"){
+            navigatev("/CrearSaldo")
+        }
+        else{
         Axios.post("http://localhost:3001/login", {
             username: usernamelog,
             password: passwordlog, 
@@ -21,9 +25,9 @@ function Login(){
             if (response.data.message){
                 setloginstatus(response.data.message)
             }else{
-                navigatev("/CrearSaldo")
+                navigatev("/tienda")
             }
-        })}
+        })}}
     
     return(
     <Fragment>

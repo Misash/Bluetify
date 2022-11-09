@@ -27,13 +27,6 @@ function Contenido(){
       const fd1=new FormData();  
       fd.append('archivo',selectedFile);
       fd1.append('archivo2',selectedFile1)
-      /*fd.append('nombre',nombreReg);
-      fd.append('autor',autorReg);
-      fd.append('categoria',categoriaReg);
-      fd.append('descripcion',descripcionReg);
-      fd.append('precio',precioReg); 
-      fd.append('archivo',selectedFile);
-      fd.append('image',selectedFile1);*/
         
 Axios.post("http://localhost:3001/contenido1",fd)
     Axios.post("http://localhost:3001/contenido2",fd1)
