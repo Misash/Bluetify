@@ -1,4 +1,3 @@
-
 import './App.css';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -7,9 +6,9 @@ import Autor from './pages/Autor';
 import Contenido from './pages/Contenido';
 import Categoria from './pages/Categoria';
 import Test from './pages/testing';
-import Tienda from "./pages/Tienda"
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import InfoContenido from './pages/InfoContenido';
+import Tienda from "./pages/Tienda"
 
 
 //creamos rutas para cada pagina que hemos creado.
@@ -26,7 +25,7 @@ function App() {
         <Route path='/CrearAutor' element={<Autor/>}></Route>
         <Route path='/testing' element={<Test/>}></Route>
         <Route path='/Tienda' element={<Tienda/>}></Route> 
-        <Route path='/Contenido/8' element={<InfoContenido/>}></Route> 
+        <Route path='/Contenido/:id' element={<InfoContenido/>}></Route> 
       </Routes> 
     </Router> 
     </div>

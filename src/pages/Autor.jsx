@@ -7,6 +7,7 @@ import Axios from "axios"
 function Autor(){
   const [autorReg, setAutorReg]=useState("");
 
+  //enviando los inputs al backend
   const submitAutor = () => {
     Axios.post("http://localhost:3001/autor", {
         autor: autorReg,
