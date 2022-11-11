@@ -23,14 +23,22 @@ function InfoContenido() {
 
 
     //obtener el id del contenido
+    
+
     const { id } = useParams();
     console.log(id)
 
     const location = useLocation()
-    const { from } = location.state
+    const { from, id_cliente, precio} = location.state
     console.log(from)
 
-
+    const submitCompra = () => {
+      axios.post("http://localhost:3001/comprar", {
+          id_user: id_cliente,
+          contenido: id,
+          price: precio
+      })
+    }
 
     const [contenido, setContenido] = useState({});
     const [listaGen, setlistaGen] = useState([]);
@@ -60,7 +68,7 @@ function InfoContenido() {
 
     // console.log(listaGen)
 
-
+    
     //rating guarda el valor de start rating
     const [rating, setRating] = useState(0); //estrellas del contenido
     const [hover, setHover] = useState(0);
@@ -126,8 +134,13 @@ function InfoContenido() {
                     <br />
                     <Row>
                         <Col>
+<<<<<<< HEAD
                             {from == "tienda" && <Button variant="primary" >Comprar</Button>}
                             {from == "biblioteca" && <Button variant="primary" href={"http://localhost:3001/testget/" + id}>Descargar</Button>}
+=======
+                            {from == "tienda" && <Button variant="primary" onClick={submitCompra} >Comprar</Button>}
+                            {from == "biblioteca" && <Button variant="primary"  onClick={Descargar} >Descargar</Button>}
+>>>>>>> 42bedd331dbff3a0afc788d444957a9e3054bc44
                         </Col>
                         <Col>
 

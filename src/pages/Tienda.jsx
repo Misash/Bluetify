@@ -16,6 +16,7 @@ import Button from 'react-bootstrap/Button';
 // import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
+import { useParams } from "react-router-dom";
 // import Row from 'react-bootstrap/Row';
 var ini=0;
 
@@ -30,6 +31,8 @@ function Tienda() {
     const [categorias, setCategorias] = useState([]);
     
     const url = "http://localhost:3001/";
+
+    const { id } = useParams();
     
     useEffect(()=>{
         async function getcat(){
@@ -51,7 +54,9 @@ function Tienda() {
    
     return (
         <div>
-            <Navbar />
+            <Navbar
+            id={id} 
+            />
 
             <form  className="myForm" onChange={(e)=>{
                       setfiltro(e.target.value);
@@ -72,7 +77,7 @@ function Tienda() {
             <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Ninguno</Dropdown.Item>
             <Dropdown.Divider />
             <DropdownButton
-                as={ButtonGroup}
+                as={ButtonGroup} 
                 key={variant}
                 id={`dropdown-variants-${variant}`}
                 variant={variant.toLowerCase()}
@@ -106,6 +111,7 @@ function Tienda() {
                     {contenidos.map((contenido) => (
                         <Box
                             id = {contenido.id_contenido}
+                            id_cliente={id}
                             from = {"tienda"}
                             calificar = {false}
                             titulo={contenido.nombre}

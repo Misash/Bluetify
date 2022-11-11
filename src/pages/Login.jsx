@@ -3,6 +3,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../CSS/Login.css"
 import logo from '../media/LOGO-B.png'
 import Axios from "axios"
+import Tienda from "./Tienda";
+import axios from "axios";
 
 function Login(){
 
@@ -10,10 +12,11 @@ function Login(){
 
     const [usernamelog, setUsernamelog]=useState("");
     const [passwordlog, setPasswordlog]=useState("");
+    const [userId, setUserId]=useState([]);
     
     const [loginstatus, setloginstatus]=useState("");
 
-    const submitlogin = () => {
+    const submitlogin = async () => {
         if (usernamelog=="admin" && passwordlog=="admin"){
             navigatev("/CrearSaldo")
         }
@@ -25,7 +28,8 @@ function Login(){
             if (response.data.message){
                 setloginstatus(response.data.message)
             }else{
-                navigatev("/tienda")
+                axios.get("http://localhost:3001/get_user/"+usernamelog+"/"+passwordlog).then((response) => navigatev("/biblioteca/"+response["data"]["id_cliente"]));
+                //navigatev("/tienda/"+userId["id_usuario"]);
             }
         })}}
     

@@ -3,12 +3,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "../CSS/NavBar.css"
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
-function NavBar() {
+function NavBar(props) {
     return (
         <Navbar className="NavBar" bg="ligth" expand="lg">
             <Container>
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="/">
                 <img
                     src="https://cdn-icons-png.flaticon.com/512/61/61089.png?w=360"
                     width="30"
@@ -21,8 +22,8 @@ function NavBar() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/Biblioteca">Biblioteca</Nav.Link>
-                        <Nav.Link href="/Tienda">Tienda</Nav.Link>
+                        <Nav.Link href={"/Biblioteca/"+props.id} >Biblioteca</Nav.Link>
+                        <Nav.Link href={"/Tienda/"+props.id}>Tienda</Nav.Link>
                         <Nav.Link href="/Codigo">Activar Codigo</Nav.Link>
                         <Nav.Link href="/Perfil">Ver Perfil</Nav.Link>
                     </Nav>
