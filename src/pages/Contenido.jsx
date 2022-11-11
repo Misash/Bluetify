@@ -2,134 +2,99 @@ import React, { Fragment, useState, useEffect } from "react";
 import "../CSS/Contenido.css";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import NavBarAdmin from "./NavbarAdmin";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 function Contenido() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [tipoReg, setTipoReg] = useState("");
   const [nombreReg, setNombreReg] = useState("");
   const [autorReg, setAutorReg] = useState("");
   const [categoriaReg, setCategoriaReg] = useState("");
   const [descripcionReg, setDescripcionReg] = useState("");
   const [precioReg, setPrecioReg] = useState("");
-  const [selectedFile, setSelectedFile] = useState("");
-  const [selectedFile1, setSelectedFile1] = useState("");
+  const [selectedFile, setSelectedFile] = useState(undefined);
+  const [selectedFile1, setSelectedFile1] = useState(undefined);
+
+  let tiposArchivos = ["mp3", "mid", "wav", "png", "jpg", "gif", "bmp", "wmv", "avi", "mpg", "mov"]
 
   //obtenemos la lista de categorias
   const [categorias, setCategorias] = useState([]);
   const url1 = "http://localhost:3001/get_categorias";
-  useEffect(()=>{
-    async function getcat(){
+  useEffect(() => {
+    async function getcat() {
       Axios.get(url1).then((response) => setCategorias(response.data));
     }
     getcat();
-},[]);
+  }, []);
 
   //obtenemos la lista de autores
   const [autores, setAutores] = useState([]);
   const url2 = "http://localhost:3001/get_autores";
-  useEffect(()=>{
-    async function getaut(){
+  useEffect(() => {
+    async function getaut() {
       Axios.get(url2).then((response) => setAutores(response.data));
     }
     getaut();
-},[]);
+  }, []);
 
   //enviando los inputs (excepto imagen y archivo) al backend
   const submitCont = () => {
-    Axios.post("http://localhost:3001/contenido0", {
-      nombre: nombreReg,
-      autor: autorReg,
-      categoria: categoriaReg,
-      descripcion: descripcionReg,
-      precio: precioReg,
-    });
-    //introduciendo la imagen y archivo en formData para poder enviarlo al backend
-    const fd = new FormData();
-    const fd1 = new FormData();
-    fd.append("archivo", selectedFile);
-    fd1.append("archivo2", selectedFile1);
-    //enviando el archivo al backend
-    Axios.post("http://localhost:3001/contenido1", fd);
-    //enviando la imagen al backend
-    Axios.post("http://localhost:3001/contenido2", fd1);
+
+    if (nombreReg.length && autorReg.length && categoriaReg.length && descripcionReg.length && precioReg.length
+      && selectedFile != undefined && selectedFile1 != undefined && tipoReg.length) {
+      //introduciendo la imagen y archivo en formData para poder enviarlo al backend
+
+      const fd = new FormData();
+      // const fd1 = new FormData();
+      fd.append("archivo", selectedFile);
+      fd.append("archivo", selectedFile1);
+      fd.append("nombre" , nombreReg );
+      fd.append("autor" , autorReg );
+      fd.append("categoria" , categoriaReg );
+      fd.append("descripcion" , descripcionReg);
+      fd.append("precio" , precioReg );
+      fd.append("tipo" , tipoReg);
+   
+      Axios.post("http://localhost:3001/contenido0",fd );
+      // //introduciendo la imagen y archivo en formData para poder enviarlo al backend
+      // const fd = new FormData();
+      // const fd1 = new FormData();
+      // fd.append("archivo", selectedFile);
+      // fd1.append("archivo2", selectedFile1);
+      // enviando el archivo al backend
+      // Axios.post("http://localhost:3001/contenido1", fd);
+      // // enviando la imagen al backend
+      // Axios.post("http://localhost:3001/contenido2", fd1);
+
+      window.location.reload(true);
+    } else {
+      handleShow()
+    }
   };
+
+
 
   //se encarga de " capturar el archivo"
   const fileSelectedHandler = (event) => {
+    // setArchivoFlag()
+    console.log("target", JSON.stringify(event.target.files[0]))
     setSelectedFile(event.target.files[0]);
   };
   //se encarga de " capturar la imagen"
   const fileSelectedHandler2 = (event) => {
     setSelectedFile1(event.target.files[0]);
   };
+
+
   return (
     <Fragment>
-      <div class="wrapper">
-        <div class="top_navbar">
-          <div class="hamburguer">
-            <i class="fa fa-bars"></i>
-          </div>
-          <nav class="top_menu"></nav>
-        </div>
-        <div class="sidebar">
-          <ul>
-            <li>
-              <Link to="/CrearSaldo">
-                <span class="icon">
-                  <i class="fa fa-book" aria-hidden="true"></i>
-                </span>
-                <span class="title">CARGAR SALDO</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/CrearContenido">
-                <span class="icon">
-                  <i class="fa fa-file-video" aria-hidden="true"></i>
-                </span>
-                <span class="title">SUBIR CONTENIDO</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/CrearCategoria">
-                <span class="icon">
-                  <i class="fa fa-volleyball-ball" aria-hidden="true"></i>
-                </span>
-                <span class="title">CREAR CATEGORIA</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/CrearAutor">
-                <span class="icon">
-                  <i class="fa fa-blog" aria-hidden="true"></i>
-                </span>
-                <span class="title">CREAR AUTOR</span>
-              </Link>
-            </li>
-            <li>
-              <a href="#">
-                <span class="icon">
-                  <i class="fa fa-leaf" aria-hidden="true"></i>
-                </span>
-                <span class="title">CREAR PROMOCIONES</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="icon">
-                  <i class="fa fa-blog" aria-hidden="true"></i>
-                </span>
-                <span class="title">DESCARGAS</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="icon">
-                  <i class="fa fa-blog" aria-hidden="true"></i>
-                </span>
-                <span class="title">REVISAR CALIFICACION</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+
+      <NavBarAdmin />
+      <br />
       <h1 className="form">SUBIR CONTENIDO</h1>
       <div class="box-contenido">
         <div>
@@ -140,7 +105,7 @@ function Contenido() {
             name="name"
             required
             size="40vw"
-            placeholder="ingrese su nombre de usuario"
+            placeholder="ingrese el titulo "
             onChange={(e) => {
               setNombreReg(e.target.value);
             }}
@@ -156,7 +121,7 @@ function Contenido() {
               setAutorReg(e.target.value);
             }}
           >
-            <option disabled selected="">
+            <option value="">
               seleccione autor
             </option>
             {autores != [] &&
@@ -173,7 +138,7 @@ function Contenido() {
               setCategoriaReg(e.target.value);
             }}
           >
-            <option disabled selected="">
+            <option value="">
               seleccione categoría
             </option>
             {categorias != [] &&
@@ -219,14 +184,20 @@ function Contenido() {
         <form>
           <br />
           <br />
-          <select>
-            <option disabled selected="">
-              seleccione tipo de archivo
+          <select
+            name="tipo"
+            onChange={(e) => {
+              setTipoReg(e.target.value);
+            }}
+          >
+            <option value="" >
+              tipo de archivo
             </option>
-            <option>mp3</option>
-            <option>sa</option>
-            <option>Archivo3</option>
+            {tiposArchivos.map((tipo) => (
+              <option>{tipo}</option>
+            ))}
           </select>
+
         </form>
 
         <input
@@ -253,8 +224,40 @@ function Contenido() {
           </button>
         </div>
       </div>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Importante</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Ingrese los campos de :
+          <ul>
+            <li> {!nombreReg.length && " Titulo "}  </li>
+            <li> {!autorReg.length && "Autor "}</li>
+            <li> {!categoriaReg.length && "Categoria"}</li>
+            <li> {!descripcionReg.length && "Descripción"}</li>
+            <li> {!precioReg.length && "Precio"}</li>
+            <li> {!tipoReg.length && "Tipo Archivo"}</li>
+            <li> {selectedFile === undefined && "Archivo"}</li>
+            <li> {selectedFile1 === undefined && "Portada"}</li>
+          </ul>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
       <div className="App-bottom">Copyright © 2022 Bluetify</div>
-    </Fragment>
+    </Fragment >
   );
 }
 

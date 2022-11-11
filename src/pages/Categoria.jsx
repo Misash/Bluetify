@@ -2,8 +2,16 @@ import React, { Fragment, useState, useEffect } from "react";
 import "../CSS/Categoria.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import NavBarAdmin from "./NavbarAdmin";
 
 function Categoria() {
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const [categoriaReg, setCategoriaReg] = useState("");
   const [subcategoriaReg, setSubcategoriaReg] = useState("");
   console.log(categoriaReg);
@@ -11,92 +19,32 @@ function Categoria() {
 
   const [categorias, setCategorias] = useState([]);
   const url = "http://localhost:3001/get_categorias";
-  useEffect(()=>{
-    async function getcat(){
+  useEffect(() => {
+    async function getcat() {
       axios.get(url).then((response) => setCategorias(response.data));
     }
     getcat();
-},[]);
+  }, []);
 
   //enviando los inputs al backend
   const submitCat = () => {
-    axios.post("http://localhost:3001/categoria", {
-      categoria: categoriaReg,
-      subcategoria: subcategoriaReg,
-    });
+
+    if (categoriaReg.length != 0 ) {
+      axios.post("http://localhost:3001/categoria", {
+        categoria: categoriaReg,
+        subcategoria: subcategoriaReg,
+      });
+      window.location.reload(true);
+    } else {
+      handleShow()
+    }
   };
 
   return (
     <Fragment>
-      <h1> Bluetify </h1>
-      <div className="wrapper">
-        <div className="top_navbar">
-          <div className="hamburguer">
-            <i className="fa fa-bars"></i>
-          </div>
-          <nav className="top_menu"></nav>
-        </div>
-        <div className="sidebar">
-          <ul>
-            <li>
-              <Link to="/CrearSaldo">
-                <span class="icon">
-                  <i class="fa fa-book" aria-hidden="true"></i>
-                </span>
-                <span class="title">CARGAR SALDO</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/CrearContenido">
-                <span class="icon">
-                  <i class="fa fa-file-video" aria-hidden="true"></i>
-                </span>
-                <span class="title">SUBIR CONTENIDO</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/CrearCategoria">
-                <span class="icon">
-                  <i class="fa fa-volleyball-ball" aria-hidden="true"></i>
-                </span>
-                <span class="title">CREAR CATEGORIA</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/CrearAutor">
-                <span class="icon">
-                  <i class="fa fa-blog" aria-hidden="true"></i>
-                </span>
-                <span class="title">CREAR AUTOR</span>
-              </Link>
-            </li>
-            <li>
-              <a href="#">
-                <span class="icon">
-                  <i class="fa fa-leaf" aria-hidden="true"></i>
-                </span>
-                <span class="title">CREAR PROMOCIONES</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="icon">
-                  <i class="fa fa-blog" aria-hidden="true"></i>
-                </span>
-                <span class="title">DESCARGAS</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="icon">
-                  <i class="fa fa-blog" aria-hidden="true"></i>
-                </span>
-                <span class="title">REVISAR CALIFICACION</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+
+      <NavBarAdmin/>
+   
       <h1 className="formm">CREAR CATEGORIA</h1>
       <div>
         <section className="categoria">
@@ -120,8 +68,8 @@ function Categoria() {
                   setSubcategoriaReg(e.target.value);
                 }}
               >
-                <option disabled selected="">
-                  seleccione Categoria
+                <option value="" >
+                  Ninguno
                 </option>
                 {categorias != [] &&
                   categorias.map((categoria) => (
@@ -131,8 +79,28 @@ function Categoria() {
             </form>
           </div>
           <button className="button" type="button" onClick={submitCat}>
-            Categoria
+            Crear Categoria
           </button>
+
+          <Modal
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Importante</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Ingrese un nombre de Categoria 
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
         </section>
       </div>
       <div className="App-bottom">Copyright © 2022 Bluetify</div>

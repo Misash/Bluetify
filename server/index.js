@@ -81,51 +81,61 @@ app.post("/autor", (req, res) => {
     const sqlInsert = "INSERT INTO autores (nombre) VALUES(?)"
     db.query(sqlInsert, [autor], (err, result) => {
         console.log(err);
-        console.log(result);
+        // console.log(result);
     });
 })
 
 //Recibe los datos que envia contenido (nombre, autor, categoria, descripcion y precio) y crea una nueva fila en la tabla contenidos
-app.post("/contenido0", (req, res) => {
-    console.log(req)
+app.post("/contenido0", upload1.array('archivo'),(req, res) => {
+    // console.log(req)
     const nombrec = req.body.nombre
     const autorc = req.body.autor
     const categoriac = req.body.categoria
     const descripcionc = req.body.descripcion
     const precioc = req.body.precio
-    //precioc,descripcionc,nombrec,archivoc,imagenc, categoriac,autorc
+    const tipo = req.body.tipo
+    const archivo = req.files[0].filename
+    const imagen = req.files[1].filename
+    // console.log(req.files)
+    // console.log(archivo , imagen)
 
-    const sqlInsert = "insert into contenidos(id_categoria,id_autores,precio,tipo,descripcion,nombre,archivo,imagen) select id_categoria, id_autor,?,'.mp3',?,?,'1','1' from categoria,autores where nombre_categoria=? and nombre=?"
-    db.query(sqlInsert, [precioc, descripcionc, nombrec, categoriac, autorc], (err, result) => {
+    const sqlInsert = "insert into \
+    contenidos(id_categoria,id_autores,precio,tipo,descripcion,nombre,archivo,imagen) \
+    select id_categoria, id_autor,?,?,?,?,?,? \
+    from categoria,autores where nombre_categoria=? and nombre=?"
+
+    db.query(sqlInsert, [precioc,tipo , descripcionc, nombrec, archivo , imagen ,categoriac, autorc], (err, result) => {
         console.log(err);
-        console.log(result);
+        // console.log(result);
     });
 
+
 })
-//Recibe el archivo que manda la pagina de contenido y actualiza la ultima fila creada de la tabla de contenidos en la columna del archivo
-app.post("/contenido1", upload1.single('archivo'), (req, res) => {
-    const archivoc = req.file.filename;
-    const sqlUpdate = "update contenidos as s, (select max(id_contenido)as id from contenidos)as p set s.archivo=? where s.id_contenido=p.id"
-    db.query(sqlUpdate, [archivoc], (err, result) => {
-        console.log(err);
-        console.log(result);
-    });
-})
-//Recibe la imagen que manda la pagina de contenido y actualiza la ultima fila creada de la tabla de contenidos en la columna de la imagen
-app.post("/contenido2", upload1.single('archivo2'), (req, res) => {
-    const imagenc = req.file.filename;
-    const sqlUpdate = "update contenidos as s, (select max(id_contenido)as id from contenidos)as p set s.imagen=? where s.id_contenido=p.id"
-    db.query(sqlUpdate, [imagenc], (err, result) => {
-        console.log(err);
-        console.log(result);
-    });
-})
+// //Recibe el archivo que manda la pagina de contenido y actualiza la ultima fila creada de la tabla de contenidos en la columna del archivo
+// app.post("/contenido1", upload1.single('archivo'), (req, res) => {
+//     const archivoc = req.file.filename;
+//     const sqlUpdate = "update contenidos as s, (select max(id_contenido)as id from contenidos)as p set s.archivo=? where s.id_contenido=p.id"
+//     db.query(sqlUpdate, [archivoc], (err, result) => {
+//         console.log(err);
+//         // console.log(result);
+//     });
+// })
+// //Recibe la imagen que manda la pagina de contenido y actualiza la ultima fila creada de la tabla de contenidos en la columna de la imagen
+// app.post("/contenido2", upload1.single('archivo2'), (req, res) => {
+//     const imagenc = req.file.filename;
+//     const sqlUpdate = "update contenidos as s, (select max(id_contenido)as id from contenidos)as p set s.imagen=? where s.id_contenido=p.id"
+//     db.query(sqlUpdate, [imagenc], (err, result) => {
+//         console.log(err);
+//         // console.log(result);
+//     });
+// })
 
 //Recibe los datos que le manda la pagina de categoria para subirlo a la tabla categorias
 app.post("/categoria", (req, res) => {
     console.log(req)
     const categoriacc = req.body.categoria
     const subcategoriacc = req.body.subcategoria
+    console.log(req.body)
 
     const sqlInsert = "insert into categoria(id_padre,nombre_categoria) select id_categoria,? from categoria where nombre_categoria=?"
     db.query(sqlInsert, [categoriacc, subcategoriacc], (err, result) => {
