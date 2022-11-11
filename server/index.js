@@ -62,12 +62,27 @@ app.post("/login", (req, res) => {
     );
 });
 
+app.get("/get_user/:id/:id2", (req, res) => {
+
+    const id = req.params.id
+    const id2=req.params.id2
+    // console.log(id)  
+
+    let sqlselect = `select id_cliente from clientes join usuarios where usuarios.nombre=? and usuarios.contraseña=?`
+
+    db.query(sqlselect, [id,id2], (err, result) => {
+        //console.log("\nretorno:" ,result)
+        res.send(result[0])
+    })
+
+})
+
 //suma el saldo que tiene un cliente con los inputs que le demos en saldo.js
 app.post("/saldo", (req, res) => {
     const usernames = req.body.username
     const saldos = req.body.saldo
 
-    const sqlInsert = "update clientes inner join usuarios on usuarios.id_usuario=clientes.id_usuario set saldo=? where usuarios.nombre=?"
+    const sqlInsert = "update clientes inner join usuarios on usuarios.id_usuario=clientes.id_usuario set saldo=saldo+? where usuarios.nombre=?"
     db.query(sqlInsert, [saldos, usernames], (err, result) => {
         console.log(err);
         console.log(result);
@@ -226,8 +241,27 @@ app.get("/get_autores", (req, res) => {
     })
 })
 
+app.post("/comprar",(req,res)=>{
+    const id_usuario=req.body.id_user
+    const id_contenido=req.body.contenido
+    const precio=req.body.price
 
+    console.log(id_usuario)
+    console.log(id_contenido)
+    console.log(precio)
 
+    const sqlInsert = "update clientes inner join usuarios on usuarios.id_usuario=clientes.id_usuario set saldo=saldo-? where usuarios.id_usuario=?"
+    db.query(sqlInsert, [precio, id_usuario], (err, result) => {
+        console.log(err);
+        console.log(result);
+    });
+    
+    const sqlInsert2 = "insert into bibliotecas(id_cliente,id_contenido) values(?,?)"
+    db.query(sqlInsert2, [id_usuario, id_contenido], (err, result) => {
+        console.log(err);
+        console.log(result);
+    });
+})
 
 //envia un mensaje a la consola, solo para saber que todo esta corriendo correctamente.
 app.listen(3001, () => {

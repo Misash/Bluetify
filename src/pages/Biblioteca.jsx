@@ -16,6 +16,7 @@ import Button from 'react-bootstrap/Button';
 // import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
+import { useParams } from "react-router-dom"
 // import Row from 'react-bootstrap/Row';
 var ini=0;
 
@@ -31,6 +32,8 @@ function Biblioteca() {
     
     const url = "http://localhost:3001/";
     
+    const { id } = useParams();
+
     useEffect(()=>{
         async function getcat(){
             axios.get(`${url}categorias`).then((response)=>setCategorias(response.data));
@@ -51,7 +54,9 @@ function Biblioteca() {
    
     return (
         <div>
-            <Navbar />
+            <Navbar 
+            id={id}
+            />
 
             <form  className="myForm" onChange={(e)=>{
                       setfiltro(e.target.value);
@@ -107,6 +112,7 @@ function Biblioteca() {
                         <Box
                             id = {contenido.id_contenido}
                             from = {"biblioteca"}
+                            id_cliente={id}
                             calificar = {true}
                             titulo={contenido.nombre}
                             urlImg={require("../" + contenido.imagen)}

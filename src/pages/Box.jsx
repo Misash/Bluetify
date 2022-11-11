@@ -30,7 +30,7 @@ function Box(props) {
                     {/* <a href={"/Contenido/" + props.id} class="stretched-link" state={{ from: "occupation" }}  ></a> */}
                     <Link class="stretched-link" to={"/Contenido/" + props.id}
                         state={{
-                            from: props.from
+                            from: props.from, id_cliente: props.id_cliente, precio: props.precioActual
                         }} ></Link>
                 </div>
                 <Card.Body>

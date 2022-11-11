@@ -25,8 +25,8 @@ function App() {
         <Route path='/CrearCategoria' element={<Categoria/>}></Route>
         <Route path='/CrearAutor' element={<Autor/>}></Route>
         <Route path='/testing' element={<Test/>}></Route>
-        <Route path='/Tienda' element={<Tienda/>}></Route> 
-        <Route path='/Biblioteca' element={<Biblioteca/>}></Route> 
+        <Route path='/Tienda/:id' element={<Tienda/>}></Route> 
+        <Route path='/Biblioteca/:id' element={<Biblioteca/>}></Route> 
         <Route path='/Contenido/:id' element={<InfoContenido/>}></Route> 
       </Routes> 
     </Router> 
