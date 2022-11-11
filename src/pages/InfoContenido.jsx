@@ -15,7 +15,7 @@ import axios from "axios";
 import "../CSS/infoContenido.css"
 import { useParams } from "react-router-dom"
 import { useLocation } from 'react-router-dom'
-
+import { Link } from 'react-router-dom';
 
 
 function InfoContenido() {
@@ -56,10 +56,6 @@ function InfoContenido() {
     }, [listaGen]);
 
 
-    function Descargar(){
-        const url = "http://localhost:3001/testget/" + id 
-        axios.get(url)
-    }
 
 
     // console.log(listaGen)
@@ -131,7 +127,7 @@ function InfoContenido() {
                     <Row>
                         <Col>
                             {from == "tienda" && <Button variant="primary" >Comprar</Button>}
-                            {from == "biblioteca" && <Button variant="primary"  onClick={Descargar} >Descargar</Button>}
+                            {from == "biblioteca" && <Button variant="primary" href={"http://localhost:3001/testget/" + id}>Descargar</Button>}
                         </Col>
                         <Col>
 
