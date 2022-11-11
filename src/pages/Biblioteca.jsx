@@ -22,7 +22,7 @@ var ini=0;
 
 
 
-function Tienda() {
+function Biblioteca() {
     const [contenidos, setContenidos] = useState([]);
     const [filtro, setfiltro] = useState([]);
     let variant = "light"
@@ -106,8 +106,8 @@ function Tienda() {
                     {contenidos.map((contenido) => (
                         <Box
                             id = {contenido.id_contenido}
-                            from = {"tienda"}
-                            calificar = {false}
+                            from = {"biblioteca"}
+                            calificar = {true}
                             titulo={contenido.nombre}
                             urlImg={require("../" + contenido.imagen)}
                             precioActual={contenido.precio}
@@ -127,4 +127,4 @@ function Tienda() {
 
 
 
-export default Tienda;
+export default Biblioteca;

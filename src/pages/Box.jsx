@@ -7,6 +7,8 @@ import Row from 'react-bootstrap/Row';
 import { useEffect, useState } from "react";
 import "../CSS/Box.css"
 
+import { Link } from 'react-router-dom';
+
 // componente para usar como temnplate para
 // los contenidos , tiene parametros como
 // titulo , urlImg , precioActual ,precioAnterior , ratingPromedio
@@ -23,17 +25,20 @@ function Box(props) {
     return (
         <Col xs="auto">
             <Card className="Box" >
-                <div style={{transform: "rotate(0)" }}>
-                <Card.Img variant="top" src={props.urlImg} />
-                   <a href={"/Contenido/"+ props.id}  class="stretched-link"></a>
+                <div style={{ transform: "rotate(0)" }}>
+                    <Card.Img variant="top" src={props.urlImg} />
+                    {/* <a href={"/Contenido/" + props.id} class="stretched-link" state={{ from: "occupation" }}  ></a> */}
+                    <Link class="stretched-link" to={"/Contenido/" + props.id}
+                        state={{
+                            from: props.from
+                        }} ></Link>
                 </div>
-                
                 <Card.Body>
                     <Card.Title > {props.titulo}</Card.Title>
                     <Container>
                         <Row>
                             <Col className="price"> $ {props.precioActual}</Col>
-                            <Col className = "line"> $ {props.precioAnterior} </Col>
+                            <Col className="line"> $ {props.precioAnterior} </Col>
                         </Row>
                     </Container>
 
@@ -46,9 +51,9 @@ function Box(props) {
                                     type="button"
                                     key={index}
                                     className={index <= (hover || rating) ? "on" : "off"}
-                                    // onClick={() => setRating(index)}
-                                    // onMouseEnter={() => setHover(index)}
-                                    // onMouseLeave={() => setHover(rating)}
+                                    onClick={() => props.calificar && setRating(index)}
+                                    onMouseEnter={() => props.calificar && setHover(index)}
+                                    onMouseLeave={() => props.calificar && setHover(rating)}
                                 >
                                     <span className="star">&#9733;</span>
                                 </button>
@@ -58,7 +63,7 @@ function Box(props) {
                     {/* END START RATING */}
                 </Card.Body>
             </Card>
-           
+
         </Col>
     )
 }

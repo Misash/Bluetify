@@ -14,7 +14,7 @@ import { FaDollarSign } from "react-icons/fa";
 import axios from "axios";
 import "../CSS/infoContenido.css"
 import { useParams } from "react-router-dom"
-
+import { useLocation } from 'react-router-dom'
 
 
 
@@ -26,20 +26,41 @@ function InfoContenido() {
     const { id } = useParams();
     console.log(id)
 
+    const location = useLocation()
+    const { from } = location.state
+    console.log(from)
+
+
 
     const [contenido, setContenido] = useState({});
     const [listaGen, setlistaGen] = useState([]);
     const url = "http://localhost:3001/Contenido/" + id
-    useEffect(()=>{
-        async function getcat(){
-          axios.get(url).then((response) => setContenido(response.data));
+    useEffect(() => {
+        async function getcat() {
+            axios.get(url).then((response) => setContenido(response.data));
         }
         getcat();
-    },[]);
+    }, []);
 
-    // console.log(contenido)
-    const url2 = "http://localhost:3001/listaGen/" + contenido.id_categoria
-    axios.get(url2).then((response) => setlistaGen(response.data));
+    //obtiene la lista generacional de la categoria 
+    const getListaGen = async () => {
+        const url2 = "http://localhost:3001/listaGen/" + contenido.id_categoria
+        axios.get(url2).then((response) => setlistaGen(response.data));
+    }
+
+
+    useEffect(() => {
+        if (listaGen.length == 0) {
+            getListaGen();
+        }
+    }, [listaGen]);
+
+
+    function Descargar(){
+        const url = "http://localhost:3001/testget/" + id 
+        axios.get(url)
+    }
+
 
     // console.log(listaGen)
 
@@ -76,9 +97,9 @@ function InfoContenido() {
                                             type="button"
                                             key={index}
                                             className={index <= (hover || rating) ? "on" : "off"}
-                                        // onClick={() => setRating(index)}
-                                        // onMouseEnter={() => setHover(index)}
-                                        // onMouseLeave={() => setHover(rating)}
+                                            onClick={ () => from == "biblioteca" &&  setRating(index)}
+                                            onMouseEnter={() => from == "biblioteca" &&  setHover(index)}
+                                            onMouseLeave={() => from == "biblioteca" && setHover(rating)}
                                         >
                                             <span className="star">&#9733;</span>
                                         </button>
@@ -100,8 +121,8 @@ function InfoContenido() {
                         <Col>
                             <h4>Lista Generacional</h4>
                             <div className="overflow-scroll" style={{ maxHeight: "400px" }}  >
-                                {listaGen != []  && listaGen.map((categoria) => (
-                                   <p>{categoria.nombre_categoria}</p>
+                                {listaGen.map((categoria) => (
+                                    <p>{categoria.nombre_categoria}</p>
                                 ))}
                             </div>
                         </Col>
@@ -109,10 +130,12 @@ function InfoContenido() {
                     <br />
                     <Row>
                         <Col>
-                            <Button variant="primary">Comprar</Button>
+                            {from == "tienda" && <Button variant="primary" >Comprar</Button>}
+                            {from == "biblioteca" && <Button variant="primary"  onClick={Descargar} >Descargar</Button>}
                         </Col>
                         <Col>
-                            <Button variant="primary">Regalar Contenido</Button>
+
+                            {from == "tienda" && <Button variant="primary">Regalar Contenido</Button>}
                         </Col>
                     </Row>
 
