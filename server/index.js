@@ -180,6 +180,7 @@ app.get("/testget/:id", (req, res) => {
     })
 })
 
+
 //Aqui haremos la consulta para ver la informacio de un contenido dado su id pasado como parametro
 app.get("/Contenido/:id", (req, res) => {
 
