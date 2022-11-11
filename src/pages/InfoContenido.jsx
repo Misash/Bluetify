@@ -134,13 +134,9 @@ function InfoContenido() {
                     <br />
                     <Row>
                         <Col>
-<<<<<<< HEAD
                             {from == "tienda" && <Button variant="primary" >Comprar</Button>}
                             {from == "biblioteca" && <Button variant="primary" href={"http://localhost:3001/testget/" + id}>Descargar</Button>}
-=======
-                            {from == "tienda" && <Button variant="primary" onClick={submitCompra} >Comprar</Button>}
-                            {from == "biblioteca" && <Button variant="primary"  onClick={Descargar} >Descargar</Button>}
->>>>>>> 42bedd331dbff3a0afc788d444957a9e3054bc44
+
                         </Col>
                         <Col>
 
