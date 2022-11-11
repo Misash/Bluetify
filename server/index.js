@@ -166,10 +166,11 @@ app.get("/testget/:id", (req, res) => {
     const id = req.params.id
     const sqlselect = "select archivo from contenidos where id_contenido=?"
     db.query(sqlselect, [id], (err, result) => {
-        //console.log(result[0]["archivo"])
-        res.download(result[0]["archivo"])
+        console.log(result[0]["archivo"])
+        res.download("../src/"+result[0]["archivo"])
     })
 })
+
 
 //Aqui haremos la consulta para ver la informacio de un contenido dado su id pasado como parametro
 app.get("/Contenido/:id", (req, res) => {
