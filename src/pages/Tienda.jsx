@@ -72,7 +72,7 @@ function Tienda() {
             <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Ninguno</Dropdown.Item>
             <Dropdown.Divider />
             <DropdownButton
-                as={ButtonGroup}
+                as={ButtonGroup} 
                 key={variant}
                 id={`dropdown-variants-${variant}`}
                 variant={variant.toLowerCase()}
