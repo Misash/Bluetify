@@ -66,7 +66,7 @@ function InfoContenido() {
 
 
 
-    // console.log(listaGen)
+    console.log(contenido)
 
     
     //rating guarda el valor de start rating
@@ -134,7 +134,7 @@ function InfoContenido() {
                     <br />
                     <Row>
                         <Col>
-                            {from == "tienda" && <Button variant="primary" >Comprar</Button>}
+                            {from == "tienda" && <Button variant="primary" onClick={submitCompra} href={"http://localhost:3000/Contenido/" + id}>Comprar</Button>}
                             {from == "biblioteca" && <Button variant="primary" href={"http://localhost:3001/testget/" + id}>Descargar</Button>}
 
                         </Col>
