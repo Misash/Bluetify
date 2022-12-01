@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: bluetifyv2
+-- Host: localhost    Database: bluetifyv2
 -- ------------------------------------------------------
--- Server version	8.0.30
+-- Server version	8.0.31-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `contenidos` (
   KEY `id_autores_idx` (`id_autores`),
   CONSTRAINT `fk_contenidos_autores` FOREIGN KEY (`id_autores`) REFERENCES `autores` (`id_autor`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_contenidos_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,7 @@ CREATE TABLE `contenidos` (
 
 LOCK TABLES `contenidos` WRITE;
 /*!40000 ALTER TABLE `contenidos` DISABLE KEYS */;
-INSERT INTO `contenidos` VALUES (116,2,2,NULL,1234,'.mp3','testing3','testing3','uploads/videoplayback.mp4-1667531444315.mp4-1667537896514.mp4','uploads/ceviche.jpg-1667537896516.jpeg'),(117,2,2,NULL,123,'.mp3','testing4','testing4','uploads/Arctic Monkeys - Fluorescent Adolescent (Official Video) (320kbps).mp3-1667537935773.mpeg','uploads/artic_cover.jpg-1667537935774.jpeg'),(118,2,2,NULL,23,'.mp3','testing5','testing5','uploads/analisis.pdf-1667537987738.pdf','uploads/WhatsApp Image 2022-10-22 at 17.46.13.jpeg-1667537987736.jpeg');
+INSERT INTO `contenidos` VALUES (116,2,2,NULL,1234,'.mp3','testing3','testing3','uploads/videoplayback.mp4-1667531444315.mp4-1667537896514.mp4','uploads/ceviche.jpg-1667537896516.jpeg'),(125,3,2,NULL,89,'mp3','the less iknow better','the less iknow better','uploads/keygen.pdf-1668196799952.pdf','uploads/logokeygen.jpg-1668196799954.jpeg'),(127,4,6,NULL,89,'mp3','rock rock','rock u 4ever','uploads/fractal-man.jpg-1668197935152.jpeg','uploads/fractal-man.jpg-1668197935153.jpeg'),(128,1,8,NULL,99,'jpg','sweet child o mine  2013','sweet child o mine','uploads/gunsroses.jpeg-1668198253569.jpeg','uploads/gunsroses.jpeg-1668198253573.jpeg'),(129,1,9,NULL,200,'jpg','black in black a classic ','black in black','uploads/acdc.jpg-1668198323878.jpeg','uploads/acdc.jpg-1668198323882.jpeg'),(130,9,10,NULL,69,'jpg','by the way a classic','by the way','uploads/red-hot-chili.jpeg-1668198938356.jpeg','uploads/red-hot-chili.jpeg-1668198938358.jpeg');
 /*!40000 ALTER TABLE `contenidos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-04  0:03:43
+-- Dump completed on 2022-11-30 23:37:45
