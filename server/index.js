@@ -125,14 +125,14 @@ app.get("/isKeyAvaible/:key", (req, res) => {
     })
 })
 
-
+// almacena en la tabla codigos el regalo generado
 app.post("/saveGift", (req, res) => {
 
     console.log(req.body)
     const id_regalo = req.body.id_regalo
     const id_contenido = req.body.id_contenido
     const sql = "insert into codigos (id_regalo , id_contenido) values (?,?)"
-    db.query(sql, [id_regalo , id_contenido], (err, result) => {
+    db.query(sql, [id_regalo, id_contenido], (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -141,13 +141,15 @@ app.post("/saveGift", (req, res) => {
     })
 })
 
+
+// realiza una aubstraccion del saldo con el precio de un contenido
 app.post("/restarSaldo", (req, res) => {
 
     console.log(req.body)
     const id_cliente = req.body.id_cliente
     const precio = req.body.precio
     const sql = "update clientes set saldo = saldo - ? where id_cliente = ?"
-    db.query(sql, [ precio , id_cliente ], (err, result) => {
+    db.query(sql, [precio, id_cliente], (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -155,6 +157,57 @@ app.post("/restarSaldo", (req, res) => {
         }
     })
 })
+
+
+//obtener el id contenido de un id_regalo
+app.get("/getIdContenido/:id_regalo", (req, res) => {
+    console.log(req.params)
+    const id_regalo = req.params.id_regalo
+    const sql = "select id_contenido from codigos where id_regalo = ?"
+    db.query(sql, [id_regalo], (err, row, fields) => {
+
+        if (err) {
+            return console.log('Error');
+        } else if (!row.length) {
+            res.send('')
+        } else if (!row[0].something) {
+            console.log("get id contenido exitoso",row[0].id_contenido);
+            res.send(row[0])
+        }
+    })
+})
+
+//guardas un regalo en la biblioteca
+app.post("/saveRegaloBiblioteca", (req, res) => {
+    console.log(req.body)
+    const id_cliente = req.body.id_cliente
+    const id_contenido = req.body.id_contenido
+    const sql = "insert into bibliotecas (id_cliente, id_contenido) values (?,?)"
+    db.query(sql, [id_cliente, id_contenido], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("Regalo guardado en Biblioteca !!")
+        }
+    })
+
+})
+
+
+//borrar regalos
+app.post("/deleteRegalo", (req,res) =>{
+    console.log(req.body)
+    const id_regalo = req.body.id_regalo
+    const sql = "delete from codigos where id_regalo = ?"
+    db.query(sql, [id_regalo], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("Regalo borrado !!")
+        }
+    })
+})
+
 
 //recibe los datos que envia autor.js y crea una nueva fila en la tabla autor
 app.post("/autor", (req, res) => {
@@ -366,7 +419,7 @@ app.get("/biblioteca/:id", (req, res) => {
     join clientes \
     on bibliotecas.id_cliente=clientes.id_cliente \
     where clientes.id_cliente=?"
-    db.query(sqlselect, [id],(err, result) => {
+    db.query(sqlselect, [id], (err, result) => {
         //console.log(result)
         res.send(result)
     })
