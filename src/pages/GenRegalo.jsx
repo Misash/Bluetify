@@ -52,7 +52,10 @@ function GenRegalo(props) {
     });
   }
 
-  //
+  //restar saldo 
+  const restarSaldo = () =>{
+  
+  }
 
 
   const handleClose = () => { 
