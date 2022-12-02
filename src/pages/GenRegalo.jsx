@@ -54,13 +54,17 @@ function GenRegalo(props) {
   }
 
   //restar saldo 
-  const restarSaldo = () =>{
-  
+  const restarSaldo = () => {
+    axios.post(`${url}restarSaldo`, {
+      id_cliente: props.id_cliente,
+      precio: props.precio,
+    });
   }
 
 
-  const handleClose = () => { 
+  const handleClose = () => {
     submitGiftCode();
+    restarSaldo();
     setShow(false)
     window.location.reload(true);
   };
@@ -77,8 +81,8 @@ function GenRegalo(props) {
       let key = window.btoa(codigoRegalo)
       console.log("key:", key)
       console.log("decipherkey:", window.atob(key))
-  
-    }else{
+
+    } else {
       setShow(false)
     }
   }
@@ -123,10 +127,11 @@ function GenRegalo(props) {
             <form>
               <textarea
                 ref={textAreaRef}
-                value={codigoRegalo}
+                value={ window.btoa(codigoRegalo) }
               />
             </form>
           </div>
+          {/* codigo {codigoRegalo} , cipher { window.btoa(codigoRegalo)} , decipher { window.atob(window.btoa(codigoRegalo))} */}
           Compártelo con el usuario al que le quieras regalar el contenido,
           una vez activado no se podrá volver a usar.
 

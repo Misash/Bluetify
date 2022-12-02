@@ -21,7 +21,7 @@ function Box(props) {
     const [hover, setHover] = useState(0);
 
 
-
+    
     return (
         <Col xs="auto">
             <Card className="Box" >

@@ -114,7 +114,7 @@ function Biblioteca() {
                             titulo={contenido.nombre}
                             urlImg={require("../" + contenido.imagen)}
                             precioActual={contenido.precio}
-                            precioAnterior="299"
+                            // precioAnterior="299"
                             ratingPromedio="3"
                         />
                     ))}

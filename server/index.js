@@ -126,21 +126,89 @@ app.get("/isKeyAvaible/:key", (req, res) => {
     })
 })
 
-
+// almacena en la tabla codigos el regalo generado
 app.post("/saveGift", (req, res) => {
 
     console.log(req.body)
     const id_regalo = req.body.id_regalo
     const id_contenido = req.body.id_contenido
     const sql = "insert into codigos (id_regalo , id_contenido) values (?,?)"
-    // db.query(sql, [id_regalo , id_contenido], (err, result) => {
-    //     if (err) {
-    //         console.log(err)
-    //     } else {
-    //         console.log("Codigo Regalo saved: ")
-    //     }
-    // })
+    db.query(sql, [id_regalo, id_contenido], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("Codigo Regalo saved: ")
+        }
+    })
 })
+
+
+// realiza una aubstraccion del saldo con el precio de un contenido
+app.post("/restarSaldo", (req, res) => {
+
+    console.log(req.body)
+    const id_cliente = req.body.id_cliente
+    const precio = req.body.precio
+    const sql = "update clientes set saldo = saldo - ? where id_cliente = ?"
+    db.query(sql, [precio, id_cliente], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("Resta de Saldo exitosa ")
+        }
+    })
+})
+
+
+//obtener el id contenido de un id_regalo
+app.get("/getIdContenido/:id_regalo", (req, res) => {
+    console.log(req.params)
+    const id_regalo = req.params.id_regalo
+    const sql = "select id_contenido from codigos where id_regalo = ?"
+    db.query(sql, [id_regalo], (err, row, fields) => {
+
+        if (err) {
+            return console.log('Error');
+        } else if (!row.length) {
+            res.send('')
+        } else if (!row[0].something) {
+            console.log("get id contenido exitoso", row[0].id_contenido);
+            res.send(row[0])
+        }
+    })
+})
+
+//guardas un regalo en la biblioteca
+app.post("/saveRegaloBiblioteca", (req, res) => {
+    console.log(req.body)
+    const id_cliente = req.body.id_cliente
+    const id_contenido = req.body.id_contenido
+    const sql = "insert into bibliotecas (id_cliente, id_contenido) values (?,?)"
+    db.query(sql, [id_cliente, id_contenido], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("Regalo guardado en Biblioteca !!")
+        }
+    })
+
+})
+
+
+//borrar regalos
+app.post("/deleteRegalo", (req, res) => {
+    console.log(req.body)
+    const id_regalo = req.body.id_regalo
+    const sql = "delete from codigos where id_regalo = ?"
+    db.query(sql, [id_regalo], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("Regalo borrado !!")
+        }
+    })
+})
+
 
 //recibe los datos que envia autor.js y crea una nueva fila en la tabla autor
 app.post("/autor", (req, res) => {
@@ -215,7 +283,9 @@ app.post("/categoria", (req, res) => {
 
 //consigue algunas columnas de la tabla contenidos, para luego poder hacer fetch/get
 app.get("/tienda/ninguno", (req, res) => {
-    const sqlselect = "select id_contenido,id_categoria, nombre, precio,imagen from contenidos"
+    const sqlselect = "select id_contenido,id_categoria, nombre, promocion , descuento ,precio,imagen \
+     from contenidos left join promociones \
+    on promocion = id_promocion"
     db.query(sqlselect, (err, result) => {
         //console.log(result)
         res.send(result)
@@ -224,7 +294,7 @@ app.get("/tienda/ninguno", (req, res) => {
 
 //conseguir los 10 contenidos con mas descargas
 app.get("/Top_10_descargas", (req, res) => {
-    const sqlselect = "SELECT contenidos.id_contenido, id_descargas, count(contenidos.id_contenido) as number,id_categoria, nombre, precio,imagen FROM contenidos,descargas \
+    const sqlselect = "SELECT contenidos.id_contenido, id_descargas, count(contenidos.id_contenido) as number,id_categoria, promocion, nombre, precio,imagen FROM contenidos,descargas \
     where contenidos.id_contenido=descargas.id_contenido \
     group by id_contenido \
     order by number desc \
@@ -237,7 +307,7 @@ app.get("/Top_10_descargas", (req, res) => {
 
 //conseguir los 10 contenidos con mejores calificaciones
 app.get("/Top_10_Calificaciones", (req, res) => {
-    const sqlselect = "SELECT contenidos.id_contenido, id_calificacion, sum(puntaje)  as number, id_categoria, nombre, precio,imagen FROM contenidos,calificacion \
+    const sqlselect = "SELECT contenidos.id_contenido, id_calificacion, sum(puntaje)  as number, id_categoria, promocion , nombre, precio,imagen FROM contenidos,calificacion \
     where contenidos.id_contenido=calificacion.id_contenido \
     group by id_contenido \
     order by number desc \
@@ -277,6 +347,15 @@ app.get("/rankingCalAct/:id", (req, res) => {
         console.log(err)
         res.send(result)
     })
+    // db.query(sqlselect,[id], (err, result) => {
+    //     for (var i = 0; i < 10; i++) {
+    //         console.log(result[i])
+    //         if (result[i]==id){
+    //             res.send(result[i])
+    //             break;
+    //         }
+    //     }
+    // })
 })
 
 //ranking de la semana pasada en calificaciones
@@ -304,6 +383,14 @@ app.get("/rankingCalPas/:id", (req, res) => {
     db.query(sqlselect,[id], (err, result) => {
         res.send(result)
     })
+    // db.query(sqlselect,[id], (err, result) => {
+    //     for (var i = 0; i < 10; i++) {
+    //         if (result[i]==id){
+    //             res.send(result[i])
+    //             break;
+    //         }
+    //     }
+    // })
 })
 
 //ranking de la semana actual en descargas
@@ -389,7 +476,7 @@ app.get("/biblioteca/:id", (req, res) => {
     join clientes \
     on bibliotecas.id_cliente=clientes.id_cliente \
     where clientes.id_cliente=?"
-    db.query(sqlselect, [id],(err, result) => {
+    db.query(sqlselect, [id], (err, result) => {
         //console.log(result)
         res.send(result)
     })
@@ -416,7 +503,7 @@ app.get("/categorias/:id", (req, res) => {
 //Consigue todos los contenidos de un determinado autor
 app.get("/autor/:id", (req, res) => {
     const nombre = req.params.id;
-    const sqlselect = "select id_contenido,contenidos.id_categoria, contenidos.nombre, precio,imagen from contenidos join autores on id_autor=id_autores where autores.nombre=?";
+    const sqlselect = "select id_contenido,contenidos.id_categoria, contenidos.nombre, precio, promocion ,imagen from contenidos join autores on id_autor=id_autores where autores.nombre=?";
     db.query(sqlselect, [nombre], (err, result) => {
         //console.log(result)
         res.send(result)
@@ -507,18 +594,18 @@ app.get("/listaCalificaciones/:id", (req, res) => {
 
 //Conseguir todas las categorias
 app.get("/get_categorias", (req, res) => {
-    let sqlselect = `select nombre_categoria from categoria;`
+    let sqlselect = `select id_categoria , nombre_categoria from categoria;`
     db.query(sqlselect, [], (err, result) => {
-        // console.log("\ncategorias:" ,result)
+        // // console.log("\ncategorias:" ,result)
         res.send(result)
     })
 })
 
 //Conseguir todos los autores
 app.get("/get_autores", (req, res) => {
-    let sqlselect = `select nombre from autores;`
+    let sqlselect = `select id_autor , nombre from autores;`
     db.query(sqlselect, [], (err, result) => {
-        // console.log("\ncategorias:" ,result)
+        // console.log("\nautores:" ,result)
         res.send(result)
     })
 })
@@ -543,6 +630,7 @@ app.post("/comprar", (req, res) => {
 })
 
 //agrega una descarga a la base de datos
+
 app.post("/descarga", (req, res) => {
     const id_usuario = req.body.id_user
     const id_contenido = req.body.contenido
@@ -566,6 +654,54 @@ app.post("/calificacion", (req, res) => {
         console.log(result);
     });
 })
+
+
+// crear promocion
+
+app.get("/crearPromo/:fecha_inicio/:fecha_final/:descuento", (req, res) => {
+    console.log(req.params)
+    const fecha_inicio = req.params.fecha_inicio
+    const fecha_final = req.params.fecha_final
+    const descuento = req.params.descuento
+
+    const sql = "insert into promociones (fecha_inicio, fecha_fin , descuento) values (?, ?,?)"
+    db.query(sql, [fecha_inicio, fecha_final, descuento], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+
+            console.log("Promo creada: ", result.insertId)
+            res.send(result)
+        }
+    });
+})
+
+
+
+app.post("/aplicarPromo", (req, res) => {
+    console.log(req.body)
+    const tipo_filtro = req.body.tipo_filtro
+    const id_filtro = req.body.id_filtro
+    const id_promocion = req.body.id_promocion
+
+    let sql = ""
+    //aplicar promo 
+    if (tipo_filtro == "categoria") {
+        sql = "update contenidos set promocion = ? where id_categoria = ? and promocion = null"
+    } else if (tipo_filtro == "autor") {
+        sql = "update contenidos set promocion = ? where id_autores =  ? and promocion = null"
+    }
+    db.query(sql, [id_promocion,id_filtro], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Promo aplicada exitosamente!")
+        }
+        // console.log(result);
+    });
+})
+
+
 
 //envia un mensaje a la consola, solo para saber que todo esta corriendo correctamente.
 app.listen(3001, () => {

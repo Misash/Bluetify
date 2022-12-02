@@ -1,81 +1,42 @@
 import React from "react"
 import { Link } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import "../CSS/NavBar.css"
 
-function NavBarAdmin(){
+
+function NavBar(props) {
     return (
-        <>
-        <h1> Bluetify </h1>
-        <div className="wrapper">
-          <div className="top_navbar">
-            <div className="hamburguer">
-              <i className="fa fa-bars"></i>
-            </div>
-            <nav className="top_menu"></nav>
-          </div>
-          <div className="sidebar">
-            <ul>
-              <li>
-                <Link to="/CrearSaldo">
-                  <span class="icon">
-                    <i class="fa fa-book" aria-hidden="true"></i>
-                  </span>
-                  <span class="title">CARGAR SALDO</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/CrearContenido">
-                  <span class="icon">
-                    <i class="fa fa-file-video" aria-hidden="true"></i>
-                  </span>
-                  <span class="title">SUBIR CONTENIDO</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/CrearCategoria">
-                  <span class="icon">
-                    <i class="fa fa-volleyball-ball" aria-hidden="true"></i>
-                  </span>
-                  <span class="title">CREAR CATEGORIA</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/CrearAutor">
-                  <span class="icon">
-                    <i class="fa fa-blog" aria-hidden="true"></i>
-                  </span>
-                  <span class="title">CREAR AUTOR</span>
-                </Link>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="icon">
-                    <i class="fa fa-leaf" aria-hidden="true"></i>
-                  </span>
-                  <span class="title">CREAR PROMOCIONES</span>
-                </a>
-              </li>
-              <li>
-              <Link to="/tienda2">
-                  <span class="icon">
-                    <i class="fa fa-blog" aria-hidden="true"></i>
-                  </span>
-                  <span class="title">DESCARGAS</span>
-                </Link>
-              </li>
-              <li>
-              <Link to="/clientes">
-                  <span class="icon">
-                    <i class="fa fa-blog" aria-hidden="true"></i>
-                  </span>
-                  <span class="title">REVISAR CALIFICACION</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        </>
-    )
+        <Navbar className="NavBar" bg="ligth" expand="lg">
+            <Container>
+            <Navbar.Brand href="/">
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/61/61089.png?w=360"
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                    alt="Bluetify logo"
+                />
+            </Navbar.Brand>
+                <Navbar.Brand href="/">Bluetify</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href={"/CrearSaldo/"} >Cargar Saldo</Nav.Link>
+                        <Nav.Link href={"/CrearContenido"}>Subir Contenido</Nav.Link>
+                        <Nav.Link href={"/CrearCategoria"}>Crear Categoria</Nav.Link>
+                        <Nav.Link href={"/CrearAutor"}>Crear Autor</Nav.Link>
+                        <Nav.Link href={"/Promocion"}>Crear Promoción</Nav.Link>
+                        <Nav.Link href={"/Clientes"}>Clientes</Nav.Link>
+                        <Nav.Link href={"#"}>Tienda</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    );
 }
 
+export default NavBar;
 
-export default NavBarAdmin

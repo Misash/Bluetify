@@ -26,7 +26,7 @@ function NavBar(props) {
                     <Nav className="me-auto">
                         <Nav.Link href={"/Biblioteca/"+props.id} >Biblioteca</Nav.Link>
                         <Nav.Link href={"/Tienda/"+props.id}>Tienda</Nav.Link>
-                        <Nav.Link href="/Codigo">Activar Codigo</Nav.Link>
+                        <Nav.Link href={"/ActivarCodigo/"+ props.id}>Activar Codigo</Nav.Link>
                         <Nav.Link href={"/Cliente/"+props.id}>Ver Perfil</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

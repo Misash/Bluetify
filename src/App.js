@@ -14,8 +14,8 @@ import Biblioteca from './pages/Biblioteca';
 import Clientes from './pages/Clientes';
 import InfoCliente from './pages/InfoCliente';
 import GenRegalo from './pages/GenRegalo';
-
-
+import ActivarCodigo from './pages/ActivarCode';
+import Promocion from './pages/Promocion';
 
 //creamos rutas para cada pagina que hemos creado.
 function App() {
@@ -37,6 +37,8 @@ function App() {
         <Route path='/Clientes' element={<Clientes/>}></Route> 
         <Route path='/Cliente/:id' element={<InfoCliente/>}></Route> 
         <Route path='/GenRegalo/' element={<GenRegalo/>}></Route> 
+        <Route path='/ActivarCodigo/:id' element={<ActivarCodigo/>}></Route> 
+        <Route path='/Promocion' element={<Promocion/>}></Route> 
       </Routes> 
     </Router> 
     </div>
