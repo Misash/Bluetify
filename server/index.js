@@ -324,15 +324,15 @@ app.get("/rankingCalAct/:id", (req, res) => {
     group by id_contenido\
     order by number desc\
     limit 10"
-    db.query(sqlselect,[id], (err, result) => {
-        for (var i = 0; i < 10; i++) {
-            console.log(result[i])
-            if (result[i]==id){
-                res.send(result[i])
-                break;
-            }
-        }
-    })
+    // db.query(sqlselect,[id], (err, result) => {
+    //     for (var i = 0; i < 10; i++) {
+    //         console.log(result[i])
+    //         if (result[i]==id){
+    //             res.send(result[i])
+    //             break;
+    //         }
+    //     }
+    // })
 })
 
 //ranking de la semana pasada en calificaciones
@@ -343,14 +343,14 @@ app.get("/rankingCalPas/:id", (req, res) => {
     group by id_contenido\
     order by number desc\
     limit 10"
-    db.query(sqlselect,[id], (err, result) => {
-        for (var i = 0; i < 10; i++) {
-            if (result[i]==id){
-                res.send(result[i])
-                break;
-            }
-        }
-    })
+    // db.query(sqlselect,[id], (err, result) => {
+    //     for (var i = 0; i < 10; i++) {
+    //         if (result[i]==id){
+    //             res.send(result[i])
+    //             break;
+    //         }
+    //     }
+    // })
 })
 
 //ranking de la semana actual en descargas
@@ -361,15 +361,15 @@ app.get("/rankingDesAct/:id", (req, res) => {
     group by id_contenido\
     order by number desc\
     limit 10"
-    db.query(sqlselect,[id], (err, result) => {
-        for (var i = 0; i < 10; i++) {
-            const temp=result[i];
-            if (temp.id_contenido==id){
-                res.send(result[i])
-                break;
-            }
-        }
-    })
+    // db.query(sqlselect,[id], (err, result) => {
+    //     for (var i = 0; i < 10; i++) {
+    //         const temp=result[i];
+    //         if (temp.id_contenido==id){
+    //             res.send(result[i])
+    //             break;
+    //         }
+    //     }
+    // })
 })
 
 //ranking de la semana pasada en descargas
@@ -380,14 +380,14 @@ app.get("/rankingDesPas/:id", (req, res) => {
     group by id_contenido\
     order by number desc\
     limit 10"
-    db.query(sqlselect,[id], (err, result1) => {
-        for (var i = 0; i < 10; i++) {
-            if (result1[i]==id){
-                res.send(result1[i])
-                break;
-            }
-        }
-    })
+    // db.query(sqlselect,[id], (err, result1) => {
+    //     for (var i = 0; i < 10; i++) {
+    //         if (result1[i]==id){
+    //             res.send(result1[i])
+    //             break;
+    //         }
+    //     }
+    // })
 })
 
 //Nos da todos los clientes del sistema
