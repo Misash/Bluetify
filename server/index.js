@@ -132,13 +132,28 @@ app.post("/saveGift", (req, res) => {
     const id_regalo = req.body.id_regalo
     const id_contenido = req.body.id_contenido
     const sql = "insert into codigos (id_regalo , id_contenido) values (?,?)"
-    // db.query(sql, [id_regalo , id_contenido], (err, result) => {
-    //     if (err) {
-    //         console.log(err)
-    //     } else {
-    //         console.log("Codigo Regalo saved: ")
-    //     }
-    // })
+    db.query(sql, [id_regalo , id_contenido], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("Codigo Regalo saved: ")
+        }
+    })
+})
+
+app.post("/restarSaldo", (req, res) => {
+
+    console.log(req.body)
+    const id_cliente = req.body.id_cliente
+    const precio = req.body.precio
+    const sql = "update clientes set saldo = saldo - ? where id_cliente = ?"
+    db.query(sql, [ precio , id_cliente ], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("Resta de Saldo exitosa ")
+        }
+    })
 })
 
 //recibe los datos que envia autor.js y crea una nueva fila en la tabla autor
