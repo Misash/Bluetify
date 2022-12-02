@@ -17,12 +17,12 @@ function Autor() {
 
   //enviando los inputs al backend
   const submitAutor = () => {
-    if(autorReg.length !=0){
+    if (autorReg.length != 0) {
       Axios.post("http://localhost:3001/autor", {
         autor: autorReg,
       })
       window.location.reload(true);
-    }else{
+    } else {
       handleShow()
     }
   }
@@ -31,9 +31,9 @@ function Autor() {
 
       <NavBarAdmin />
 
-      <h1 className="formm">CREAR AUTOR</h1>
       <div >
         <section className="crear_autor">
+          <h1 style={{ color: 'white' }} >CREAR AUTOR</h1>
           <div><input className="input_autor" type="nombre" id="autor" placeholder="Ingrese el nombre del autor"
             onChange={(e) => {
               setAutorReg(e.target.value);

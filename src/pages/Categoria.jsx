@@ -45,9 +45,10 @@ function Categoria() {
 
       <NavBarAdmin/>
    
-      <h1 className="formm">CREAR CATEGORIA</h1>
+
       <div>
         <section className="categoria">
+        <h1 style={{ color: 'white'}} > CREAR CATEGORIA</h1>
           <div>
             <input
               className="input_login"

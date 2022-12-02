@@ -95,8 +95,9 @@ function Contenido() {
 
       <NavBarAdmin />
       <br />
-      <h1 className="form">SUBIR CONTENIDO</h1>
+    
       <div class="box-contenido">
+      <h1 style={{ color: 'white'}} >SUBIR CONTENIDO</h1>
         <div>
           <input
             class="input_contenido"
