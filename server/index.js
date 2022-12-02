@@ -159,10 +159,43 @@ app.post("/categoria", (req, res) => {
     });
 })
 
-//consigue algunas columnas de la tabla contenidos, para luego poder hacer fetch
+
+//consigue algunas columnas de la tabla contenidos, para luego poder hacer fetch/get
 app.get("/tienda", (req, res) => {
     const sqlselect = "select id_contenido,id_categoria, nombre, precio,imagen from contenidos"
     db.query(sqlselect, (err, result) => {
+        //console.log(result)
+        res.send(result)
+    })
+})
+
+app.get("/get_clientes", (req, res) => {
+    let sqlselect = `SELECT id_cliente, nombre, nombre_completo, saldo FROM usuarios join clientes on usuarios.id_usuario=clientes.id_usuario;`
+    db.query(sqlselect, [], (err, result) => {
+        // console.log("\ncategorias:" ,result)
+        res.send(result)
+    })
+})
+
+app.get("/get_clientes2/:id", (req, res) => {
+    const id = req.params.id
+
+    let sqlselect = `SELECT nombre, nombre_completo, saldo FROM usuarios join clientes on usuarios.id_usuario=clientes.id_usuario where clientes.id_cliente=?`
+    db.query(sqlselect, [id], (err, result) => {
+        res.send(result[0])
+    })
+})
+
+app.get("/biblioteca/:id", (req, res) => {
+    const id = req.params.id
+
+    const sqlselect = "select contenidos.id_contenido,id_categoria, contenidos.nombre, precio,imagen from contenidos \
+    join bibliotecas \
+    on contenidos.id_contenido=bibliotecas.id_contenido \
+    join clientes \
+    on bibliotecas.id_cliente=clientes.id_cliente \
+    where clientes.id_cliente=?"
+    db.query(sqlselect, [id],(err, result) => {
         //console.log(result)
         res.send(result)
     })
@@ -230,6 +263,36 @@ app.get("/listaGen/:id", (req, res) => {
 
     db.query(sqlselect, [id], (err, result) => {
         // console.log("\nretorno:" ,result)
+        res.send(result)
+    })
+
+})
+
+app.get("/listaDescargas/:id", (req, res) => {
+
+    const id = req.params.id
+
+
+    let sqlselect = `select nombre from contenidos 
+    join descargas on descargas.id_contenido=contenidos.id_contenido
+    where descargas.id_cliente=?;`
+
+    db.query(sqlselect, [id], (err, result) => {
+        res.send(result)
+    })
+
+})
+
+app.get("/listaCalificaciones/:id", (req, res) => {
+
+    const id = req.params.id
+
+
+    let sqlselect = `select nombre from contenidos 
+    join calificacion on calificacion.id_contenido=contenidos.id_contenido
+    where calificacion.id_cliente=?`
+
+    db.query(sqlselect, [id], (err, result) => {
         res.send(result)
     })
 

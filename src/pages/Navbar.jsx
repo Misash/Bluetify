@@ -25,7 +25,7 @@ function NavBar(props) {
                         <Nav.Link href={"/Biblioteca/"+props.id} >Biblioteca</Nav.Link>
                         <Nav.Link href={"/Tienda/"+props.id}>Tienda</Nav.Link>
                         <Nav.Link href="/Codigo">Activar Codigo</Nav.Link>
-                        <Nav.Link href="/Perfil">Ver Perfil</Nav.Link>
+                        <Nav.Link href={"/Cliente/"+props.id}>Ver Perfil</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

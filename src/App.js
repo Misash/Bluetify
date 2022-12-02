@@ -10,6 +10,8 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import InfoContenido from './pages/InfoContenido';
 import Tienda from "./pages/Tienda"
 import Biblioteca from './pages/Biblioteca';
+import Clientes from './pages/Clientes';
+import InfoCliente from './pages/InfoCliente';
 
 
 //creamos rutas para cada pagina que hemos creado.
@@ -28,6 +30,8 @@ function App() {
         <Route path='/Tienda/:id' element={<Tienda/>}></Route> 
         <Route path='/Biblioteca/:id' element={<Biblioteca/>}></Route> 
         <Route path='/Contenido/:id' element={<InfoContenido/>}></Route> 
+        <Route path='/Clientes' element={<Clientes/>}></Route> 
+        <Route path='/Cliente/:id' element={<InfoCliente/>}></Route> 
       </Routes> 
     </Router> 
     </div>

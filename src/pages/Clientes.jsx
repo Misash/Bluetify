@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Box from "./Box";
+import Box from "./Box2";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CSS/Tienda.css"
-import Navbar from "./Navbar";
+import Navbar from "./NavbarAdmin";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -16,37 +16,31 @@ import Button from 'react-bootstrap/Button';
 // import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 // import Row from 'react-bootstrap/Row';
 var ini=0;
 
 
 
 
-function Biblioteca() {
+function Tienda() {
     const [contenidos, setContenidos] = useState([]);
     const [filtro, setfiltro] = useState([]);
     let variant = "light"
     const[titulo,setTitulo] = useState("Ninguno");
-    const [categorias, setCategorias] = useState([]);
+    const [Clientes, setClientes] = useState([]);
     
     const url = "http://localhost:3001/";
-    
-    const { id } = useParams();
 
+    const { id } = useParams();
+    
     useEffect(()=>{
         async function getcat(){
-            axios.get(`${url}categorias`).then((response)=>setCategorias(response.data));
+            axios.get(`${url}get_clientes`).then((response)=>setClientes(response.data));
         }
         getcat();
     },[]);
 
-    useEffect(()=>{
-        async function getcont(){
-            axios.get(`${url}biblioteca/`+id).then((response) => setContenidos(response.data));
-        }
-        getcont();
-    },[]);
     const submitFiltro = () => {
         axios.get("http://localhost:3001/categorias/"+titulo).then((response)=>setContenidos(response.data));
     }
@@ -54,8 +48,9 @@ function Biblioteca() {
    
     return (
         <div>
-            <Navbar 
-            id={id}
+            
+            <Navbar
+            id={id} 
             />
 
             <form  className="myForm" onChange={(e)=>{
@@ -71,29 +66,14 @@ function Biblioteca() {
             variant={variant.toLowerCase()}
             title= {titulo}
         >
-            <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Top 10 descargas</Dropdown.Item>
-            <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Top 10 Calificaciones</Dropdown.Item>
-            <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Autor</Dropdown.Item>
+            <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Top Clientes</Dropdown.Item>
+            <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Nombre_cliente</Dropdown.Item>
             <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Ninguno</Dropdown.Item>
             <Dropdown.Divider />
-            <DropdownButton
-                as={ButtonGroup}
-                key={variant}
-                id={`dropdown-variants-${variant}`}
-                variant={variant.toLowerCase()}
-                title="Categorias"
-            >
-                {categorias.map((categoria)=>(
-                <Dropdown.Item onClick={(e)=> setTitulo(e.target.textContent)}>{categoria.nombre_categoria}</Dropdown.Item>
-                ))
-                }
-            </DropdownButton>
-
-
         </DropdownButton>
                     </Col>
                     <Col>
-                        <input type="text" id="Autor" placeholder="Escribir Autor" /><br /><br />
+                        <input type="text" id="Autor" placeholder="Escribir nombre" /><br /><br />
                     </Col>
                 </Row>
                 <Row className="align-items-center">
@@ -105,20 +85,16 @@ function Biblioteca() {
             </form>
 
 
-
+            {console.log(Clientes)}
             <Form className="myContainer">
                 <Row className="align-items-center">
-                    {contenidos.map((contenido) => (
+                    {Clientes.map((cliente) => (
                         <Box
-                            id = {contenido.id_contenido}
-                            from = {"biblioteca"}
-                            id_cliente={id}
-                            calificar = {true}
-                            titulo={contenido.nombre}
-                            urlImg={require("../" + contenido.imagen)}
-                            precioActual={contenido.precio}
-                            precioAnterior="299"
-                            ratingPromedio="3"
+                            id = {cliente.id_cliente}
+                            titulo={cliente.nombre}
+                            //urlImg={require("../" + contenido.imagen)}
+                            nombre_completo={cliente.nombre_completo}
+                            saldo={cliente.saldo}
                         />
                     ))}
                 </Row>
@@ -133,4 +109,4 @@ function Biblioteca() {
 
 
 
-export default Biblioteca;
+export default Tienda;
