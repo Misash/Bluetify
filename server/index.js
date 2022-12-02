@@ -223,7 +223,7 @@ app.post("/autor", (req, res) => {
 
 //Recibe los datos que envia contenido (nombre, autor, categoria, descripcion y precio) y crea una nueva fila en la tabla contenidos
 app.post("/contenido0", upload1.array('archivo'), (req, res) => {
-    // console.log(req)
+    console.log(req)
     const nombrec = req.body.nombre
     const autorc = req.body.autor
     const categoriac = req.body.categoria
@@ -241,8 +241,12 @@ app.post("/contenido0", upload1.array('archivo'), (req, res) => {
     from categoria,autores where nombre_categoria=? and nombre=?"
 
     db.query(sqlInsert, [precioc, tipo, descripcionc, nombrec, archivo, imagen, categoriac, autorc], (err, result) => {
-        console.log(err);
-        // console.log(result);
+        if(err){
+            console.log("fallo");
+        }else{
+             console.log("contenido subido");
+        }
+       
     });
 
 
@@ -273,11 +277,22 @@ app.post("/categoria", (req, res) => {
     const subcategoriacc = req.body.subcategoria
     console.log(req.body)
 
-    const sqlInsert = "insert into categoria(id_padre,nombre_categoria) select id_categoria,? from categoria where nombre_categoria=?"
-    db.query(sqlInsert, [categoriacc, subcategoriacc], (err, result) => {
-        console.log(err);
-        console.log(result);
-    });
+  
+    if(subcategoriacc == null){
+        const sqlInsert =  "INSERT INTO categoria (id_padre,nombre_categoria) VALUES (null , ? )"
+        db.query(sqlInsert, [categoriacc], (err, result) => {
+            console.log(err);
+            console.log(result);
+        });
+    }else{
+        const sqlInsert = "insert into categoria(id_padre,nombre_categoria) select id_categoria,? from categoria where nombre_categoria=?"
+        db.query(sqlInsert, [categoriacc, subcategoriacc], (err, result) => {
+            console.log(err);
+            console.log(result);
+        });
+    }
+
+  
 })
 
 

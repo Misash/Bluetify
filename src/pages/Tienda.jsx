@@ -8,7 +8,7 @@ import Navbar from "./Navbar";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-
+import NavBarAdmin from "./NavbarAdmin"
 import Col from 'react-bootstrap/Col';
 
 import Button from 'react-bootstrap/Button';
@@ -70,10 +70,9 @@ function Tienda() {
    
     return (
         <div>
-            <Navbar
-            id={id} 
-            />
 
+            {(id == "admin" )? <NavBarAdmin/> : <Navbar id={id} /> }
+    
             <form  className="myForm" onChange={(e)=>{
                       setfiltro(e.target.value);
                     }}>
@@ -132,7 +131,7 @@ function Tienda() {
                         <Box
                             id = {contenido.id_contenido}
                             id_cliente={id}
-                            from = {"tienda"}
+                            from = { (id == "admin")? "admin" : "tienda"}
                             calificar = {false}
                             titulo={contenido.nombre}
                             urlImg={require("../" + contenido.imagen)}

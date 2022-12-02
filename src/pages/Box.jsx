@@ -47,15 +47,16 @@ function Box(props) {
                         {[...Array(5)].map((star, index) => {
                             index += 1;
                             return (
-                                <button
+                                <button 
+                                    id = "estrella"
                                     type="button"
                                     key={index}
-                                    className={index <= (hover || rating) ? "on" : "off"}
+                                    className={"estrella" && index <= (hover || rating) ? "on" : "off"}
                                     onClick={() => props.calificar && setRating(index)}
                                     onMouseEnter={() => props.calificar && setHover(index)}
                                     onMouseLeave={() => props.calificar && setHover(rating)}
                                 >
-                                    <span className="star">&#9733;</span>
+                                <span className="star">&#9733;</span>
                                 </button>
                             );
                         })}

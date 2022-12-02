@@ -13,7 +13,7 @@ function Categoria() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [categoriaReg, setCategoriaReg] = useState("");
-  const [subcategoriaReg, setSubcategoriaReg] = useState("");
+  const [subcategoriaReg, setSubcategoriaReg] = useState(null);
   console.log(categoriaReg);
   console.log(subcategoriaReg);
 

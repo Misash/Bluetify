@@ -73,7 +73,7 @@ function Contenido() {
       // // enviando la imagen al backend
       // Axios.post("http://localhost:3001/contenido2", fd1);
 
-      window.location.reload(true);
+      // window.location.reload(true);
     } else {
       handleShow()
     }

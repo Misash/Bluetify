@@ -10,11 +10,13 @@
   text-decoration: line-through;
 }
 
-button {
+
+#estrella {
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
+  width: 1px;
 }
 .on {
   color: rgb(0, 255, 42);
@@ -26,3 +28,4 @@ button {
 .price {
   color: yellow;
 }
+

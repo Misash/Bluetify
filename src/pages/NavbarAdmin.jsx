@@ -30,7 +30,7 @@ function NavBar(props) {
                         <Nav.Link href={"/CrearAutor"}>Crear Autor</Nav.Link>
                         <Nav.Link href={"/Promocion"}>Crear Promoción</Nav.Link>
                         <Nav.Link href={"/Clientes"}>Clientes</Nav.Link>
-                        <Nav.Link href={"/tienda2"}>Tienda</Nav.Link>
+                        <Nav.Link href={"/Tienda/" + "admin"}>Tienda</Nav.Link>        
                     </Nav>
                 </Navbar.Collapse>
             </Container>
