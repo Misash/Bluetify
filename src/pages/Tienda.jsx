@@ -35,6 +35,8 @@ function Tienda() {
     const url = "http://localhost:3001/";
 
     const { id } = useParams();
+
+    console.log("contenido: ", contenidos)
     
     useEffect(()=>{
         async function getcat(){
@@ -127,8 +129,8 @@ function Tienda() {
                             calificar = {false}
                             titulo={contenido.nombre}
                             urlImg={require("../" + contenido.imagen)}
-                            precioActual={contenido.precio}
-                            precioAnterior="299"
+                            precioActual={ contenido.promocion?  contenido.precio - contenido.descuento : contenido.precio}
+                            precioAnterior= { contenido.promocion?  contenido.precio  : ""}
                             ratingPromedio="3"
                         />
                     ))}

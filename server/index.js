@@ -282,7 +282,9 @@ app.post("/categoria", (req, res) => {
 
 //consigue algunas columnas de la tabla contenidos, para luego poder hacer fetch/get
 app.get("/tienda/ninguno", (req, res) => {
-    const sqlselect = "select id_contenido,id_categoria, nombre, precio,imagen from contenidos"
+    const sqlselect = "select id_contenido,id_categoria, nombre, promocion , descuento ,precio,imagen \
+     from contenidos left join promociones \
+    on promocion = id_promocion"
     db.query(sqlselect, (err, result) => {
         //console.log(result)
         res.send(result)
@@ -291,7 +293,7 @@ app.get("/tienda/ninguno", (req, res) => {
 
 //conseguir los 10 contenidos con mas descargas
 app.get("/Top_10_descargas", (req, res) => {
-    const sqlselect = "SELECT contenidos.id_contenido, id_descargas, count(contenidos.id_contenido) as number,id_categoria, nombre, precio,imagen FROM contenidos,descargas \
+    const sqlselect = "SELECT contenidos.id_contenido, id_descargas, count(contenidos.id_contenido) as number,id_categoria, promocion, nombre, precio,imagen FROM contenidos,descargas \
     where contenidos.id_contenido=descargas.id_contenido \
     group by id_contenido \
     order by number desc \
@@ -304,7 +306,7 @@ app.get("/Top_10_descargas", (req, res) => {
 
 //conseguir los 10 contenidos con mejores calificaciones
 app.get("/Top_10_Calificaciones", (req, res) => {
-    const sqlselect = "SELECT contenidos.id_contenido, id_calificacion, sum(puntaje)  as number, id_categoria, nombre, precio,imagen FROM contenidos,calificacion \
+    const sqlselect = "SELECT contenidos.id_contenido, id_calificacion, sum(puntaje)  as number, id_categoria, promocion , nombre, precio,imagen FROM contenidos,calificacion \
     where contenidos.id_contenido=calificacion.id_contenido \
     group by id_contenido \
     order by number desc \
@@ -446,7 +448,7 @@ app.get("/categorias/:id", (req, res) => {
 //Consigue todos los contenidos de un determinado autor
 app.get("/autor/:id", (req, res) => {
     const nombre = req.params.id;
-    const sqlselect = "select id_contenido,contenidos.id_categoria, contenidos.nombre, precio,imagen from contenidos join autores on id_autor=id_autores where autores.nombre=?";
+    const sqlselect = "select id_contenido,contenidos.id_categoria, contenidos.nombre, precio, promocion ,imagen from contenidos join autores on id_autor=id_autores where autores.nombre=?";
     db.query(sqlselect, [nombre], (err, result) => {
         //console.log(result)
         res.send(result)
