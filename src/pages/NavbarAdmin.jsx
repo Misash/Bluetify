@@ -55,12 +55,12 @@ function NavBarAdmin(){
                 </a>
               </li>
               <li>
-                <a href="#">
+              <Link to="/clientes">
                   <span class="icon">
                     <i class="fa fa-blog" aria-hidden="true"></i>
                   </span>
                   <span class="title">DESCARGAS</span>
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#">

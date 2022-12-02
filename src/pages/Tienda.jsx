@@ -17,6 +17,7 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import e from "cors";
 // import Row from 'react-bootstrap/Row';
 var ini=0;
 
@@ -27,8 +28,9 @@ function Tienda() {
     const [contenidos, setContenidos] = useState([]);
     const [filtro, setfiltro] = useState([]);
     let variant = "light"
-    const[titulo,setTitulo] = useState("Ninguno");
+    const[titulo,setTitulo] = useState("ninguno");
     const [categorias, setCategorias] = useState([]);
+    const [autor, setautor] = useState([]);
     
     const url = "http://localhost:3001/";
 
@@ -43,12 +45,17 @@ function Tienda() {
 
     useEffect(()=>{
         async function getcont(){
-            axios.get(`${url}tienda`).then((response) => setContenidos(response.data));
+            axios.get(`${url}tienda/ninguno`).then((response) => setContenidos(response.data));
         }
         getcont();
     },[]);
     const submitFiltro = () => {
-        axios.get("http://localhost:3001/categorias/"+titulo).then((response)=>setContenidos(response.data));
+        if (filtro=="autor/"){
+            axios.get("http://localhost:3001/"+filtro+autor).then((response)=>setContenidos(response.data));
+        }
+        else{
+        axios.get("http://localhost:3001/"+filtro+titulo).then((response)=>setContenidos(response.data));
+        }
     }
  
    
@@ -71,10 +78,10 @@ function Tienda() {
             variant={variant.toLowerCase()}
             title= {titulo}
         >
-            <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Top 10 descargas</Dropdown.Item>
-            <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Top 10 Calificaciones</Dropdown.Item>
-            <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Autor</Dropdown.Item>
-            <Dropdown.Item  onClick={(e)=> setTitulo(e.target.textContent)}>Ninguno</Dropdown.Item>
+            <Dropdown.Item  onClick={(e)=> {setTitulo(e.target.textContent);setfiltro("")}}>Top_10_descargas</Dropdown.Item>
+            <Dropdown.Item  onClick={(e)=> {setTitulo(e.target.textContent);setfiltro("")}}>Top_10_Calificaciones</Dropdown.Item>
+            <Dropdown.Item  onClick={(e)=> {setTitulo(e.target.textContent);setfiltro("autor/");}}>Autor</Dropdown.Item>
+            <Dropdown.Item  onClick={(e)=> {setTitulo(e.target.textContent);setfiltro("tienda/")}}>Ninguno</Dropdown.Item>
             <Dropdown.Divider />
             <DropdownButton
                 as={ButtonGroup} 
@@ -84,16 +91,20 @@ function Tienda() {
                 title="Categorias"
             >
                 {categorias.map((categoria)=>(
-                <Dropdown.Item onClick={(e)=> setTitulo(e.target.textContent)}>{categoria.nombre_categoria}</Dropdown.Item>
+                <Dropdown.Item onClick={(e)=> {setTitulo(e.target.textContent); setfiltro("categorias/");}}>{categoria.nombre_categoria}</Dropdown.Item>
                 ))
                 }
             </DropdownButton>
 
 
         </DropdownButton>
+        {console.log(filtro)}
+        {console.log(titulo)}
                     </Col>
                     <Col>
-                        <input type="text" id="Autor" placeholder="Escribir Autor" /><br /><br />
+                        <input type="text" id="Autor" onChange={(e)=>{
+                setautor(e.target.value);
+            }} placeholder="Escribir Autor" /><br /><br />
                     </Col>
                 </Row>
                 <Row className="align-items-center">

@@ -40,12 +40,68 @@ function InfoContenido() {
         })
     }
 
+    const submitDescarga = () => {
+        axios.post("http://localhost:3001/descarga", {
+            id_user: id_cliente,
+            contenido: id,
+        })
+    }
+
+    const submitCalificacion = () => {
+        axios.post("http://localhost:3001/calificacion", {
+            id_user: id_cliente,
+            contenido: id,
+            rate: rating,
+        })
+    }
+
     const [contenido, setContenido] = useState({});
     const [listaGen, setlistaGen] = useState([]);
+    const [RankingCalAct, setRankingCalAct] = useState([]);
+    const [RankingCalPas, setRankingCalPas] = useState([]);
+    const [RankingDesAct, setRankingDelAct] = useState([]);
+    const [RankingDesPas, setRankingDelPas] = useState([]);
     const url = "http://localhost:3001/Contenido/" + id
+    const url1= "http://localhost:3001/rankingCalAct/"+ id
+    const url2= "http://localhost:3001/rankingCalPas/"+ id
+    const url3= "http://localhost:3001/rankingDesAct/"+ id
+    const url4= "http://localhost:3001/rankingDesPas/"+ id
+    //consiguiento la informacion del contenido
     useEffect(() => {
         async function getcat() {
             axios.get(url).then((response) => setContenido(response.data));
+        }
+        getcat();
+    }, []);
+
+    //Consiguien el ranking de calificaciones de la semana actual
+    useEffect(() => {
+        async function getcat() {
+            axios.get(url1).then((response) => setRankingCalAct(response.data));
+        }
+        getcat();
+    }, []);
+
+    //Consiguien el ranking de calificaciones de la semana pasada
+    useEffect(() => {
+        async function getcat() {
+            axios.get(url2).then((response) => setRankingCalPas(response.data));
+        }
+        getcat();
+    }, []);
+
+    //Consiguien el ranking de descargas de la semana actual
+    useEffect(() => {
+        async function getcat() {
+            axios.get(url3).then((response) => setRankingDelAct(response.data));
+        }
+        getcat();
+    }, []);
+
+    //Consiguien el ranking de descargas de la semana pasada
+    useEffect(() => {
+        async function getcat() {
+            axios.get(url4).then((response) => setRankingDelPas(response.data));
         }
         getcat();
     }, []);
@@ -102,7 +158,7 @@ function InfoContenido() {
                                             type="button"
                                             key={index}
                                             className={index <= (hover || rating) ? "on" : "off"}
-                                            onClick={() => from == "biblioteca" && setRating(index)}
+                                            onClick={() => {from == "biblioteca" && setRating(index);submitCalificacion()}}
                                             onMouseEnter={() => from == "biblioteca" && setHover(index)}
                                             onMouseLeave={() => from == "biblioteca" && setHover(rating)}
                                         >
@@ -117,9 +173,10 @@ function InfoContenido() {
                     <br />
                     <Row>
                         <Col>
-                            <p className="rankings"> <AiOutlineNumber /> 10  <span className="line"> <AiOutlineNumber />  5</span> Descargas</p>
-                            <p className="rankings"> <AiOutlineNumber /> 3  <span className="line"> <AiOutlineNumber />   10</span> Calificaciones</p>
+                            <p className="rankings"> <AiOutlineNumber /> {RankingDesAct.col}  <span className="line"> <AiOutlineNumber />  {RankingDesPas.col}</span> Descargas</p>
+                            <p className="rankings"> <AiOutlineNumber /> {RankingCalAct.col}  <span className="line"> <AiOutlineNumber />   {RankingCalPas.col} </span> Calificaciones</p>
                             <h3> Descripcion:</h3>
+                            {console.log(RankingCalAct)}
                             <p> {contenido.descripcion}</p>
                             <p> <FaDollarSign /> {contenido.precio}</p>
                         </Col>
@@ -136,7 +193,7 @@ function InfoContenido() {
                     <Row>
                         <Col>
                             {from == "tienda" && <Button variant="primary" onClick={submitCompra} href={"http://localhost:3000/Contenido/" + id}>Comprar</Button>}
-                            {from == "biblioteca" && <Button variant="primary" href={"http://localhost:3001/testget/" + id}>Descargar</Button>}
+                            {from == "biblioteca" && <Button variant="primary" onClick={submitDescarga} href={"http://localhost:3001/testget/" + id}>Descargar</Button>}
 
                         </Col>
                         <Col>

@@ -40,6 +40,12 @@ app.post("/register", (req, res) => {
         console.log(err);
         console.log(result);
     });
+
+    const sqlInsert2 = "insert into clientes(id_usuario,saldo) select max(id_usuario),0 from usuarios"
+    db.query(sqlInsert2, [], (err, result) => {
+        console.log(err);
+        console.log(result);
+    });
 })
 
 //Revisa los datos que enviemos de login.js y verifica que el usuario y contrasena se encuentren en una misma fila de la tabla usuarios
@@ -207,7 +213,7 @@ app.post("/categoria", (req, res) => {
 
 
 //consigue algunas columnas de la tabla contenidos, para luego poder hacer fetch/get
-app.get("/tienda", (req, res) => {
+app.get("/tienda/ninguno", (req, res) => {
     const sqlselect = "select id_contenido,id_categoria, nombre, precio,imagen from contenidos"
     db.query(sqlselect, (err, result) => {
         //console.log(result)
@@ -215,6 +221,108 @@ app.get("/tienda", (req, res) => {
     })
 })
 
+//conseguir los 10 contenidos con mas descargas
+app.get("/Top_10_descargas", (req, res) => {
+    const sqlselect = "SELECT contenidos.id_contenido, id_descargas, count(contenidos.id_contenido) as number,id_categoria, nombre, precio,imagen FROM contenidos,descargas \
+    where contenidos.id_contenido=descargas.id_contenido \
+    group by id_contenido \
+    order by number desc \
+    limit 10"
+    db.query(sqlselect, (err, result) => {
+        //console.log(result)
+        res.send(result)
+    })
+})
+
+//conseguir los 10 contenidos con mejores calificaciones
+app.get("/Top_10_Calificaciones", (req, res) => {
+    const sqlselect = "SELECT contenidos.id_contenido, id_calificacion, sum(puntaje)  as number, id_categoria, nombre, precio,imagen FROM contenidos,calificacion \
+    where contenidos.id_contenido=calificacion.id_contenido \
+    group by id_contenido \
+    order by number desc \
+    limit 10"
+    db.query(sqlselect, (err, result) => {
+        //console.log(result)
+        res.send(result)
+    })
+})
+
+//ranking de la semana actual en calificaciones
+app.get("/rankingCalAct/:id", (req, res) => {
+    const id = req.params.id
+
+    const sqlselect = "SELECT row_number() over (order by sum(puntaje) desc) as col, contenidos.id_contenido, id_calificacion, sum(puntaje) as number, fecha_calificacion FROM contenidos,calificacion\
+    where contenidos.id_contenido=calificacion.id_contenido and fecha_calificacion >='2022/11/26'and   fecha_calificacion < '2022/12/03'\
+    group by id_contenido\
+    order by number desc\
+    limit 10"
+    db.query(sqlselect,[id], (err, result) => {
+        for (var i = 0; i < 10; i++) {
+            console.log(result[i])
+            if (result[i]==id){
+                res.send(result[i])
+                break;
+            }
+        }
+    })
+})
+
+//ranking de la semana pasada en calificaciones
+app.get("/rankingCalPas/:id", (req, res) => {
+    const id = req.params.id
+    const sqlselect = "SELECT row_number() over (order by sum(puntaje) desc) as col, contenidos.id_contenido, id_calificacion, sum(puntaje) as number, fecha_calificacion FROM contenidos,calificacion\
+    where contenidos.id_contenido=calificacion.id_contenido and fecha_calificacion >='2022/11/19'and   fecha_calificacion < '2022/11/26'\
+    group by id_contenido\
+    order by number desc\
+    limit 10"
+    db.query(sqlselect,[id], (err, result) => {
+        for (var i = 0; i < 10; i++) {
+            if (result[i]==id){
+                res.send(result[i])
+                break;
+            }
+        }
+    })
+})
+
+//ranking de la semana actual en descargas
+app.get("/rankingDesAct/:id", (req, res) => {
+    const id = req.params.id
+    const sqlselect = "SELECT row_number() over (order by count(contenidos.id_contenido) desc) as col, contenidos.id_contenido, count(contenidos.id_contenido) as number, fecha_descarga FROM contenidos,descargas\
+    where contenidos.id_contenido=descargas.id_contenido and fecha_descarga >='2022/11/26'and   fecha_descarga < '2022/12/03'\
+    group by id_contenido\
+    order by number desc\
+    limit 10"
+    db.query(sqlselect,[id], (err, result) => {
+        for (var i = 0; i < 10; i++) {
+            const temp=result[i];
+            if (temp.id_contenido==id){
+                res.send(result[i])
+                break;
+            }
+        }
+    })
+})
+
+//ranking de la semana pasada en descargas
+app.get("/rankingDesPas/:id", (req, res) => {
+    const id = req.params.id
+    const sqlselect = "SELECT row_number() over (order by count(contenidos.id_contenido) desc) as col, contenidos.id_contenido, count(contenidos.id_contenido) as number, fecha_descarga FROM contenidos,descargas\
+    where contenidos.id_contenido=descargas.id_contenido and fecha_descarga >='2022/11/19'and   fecha_descarga < '2022/11/26'\
+    group by id_contenido\
+    order by number desc\
+    limit 10"
+    db.query(sqlselect,[id], (err, result1) => {
+        for (var i = 0; i < 10; i++) {
+            if (result1[i]==id){
+                res.send(result1[i])
+                break;
+            }
+        }
+    })
+})
+
+//Nos da todos los clientes del sistema
 app.get("/get_clientes", (req, res) => {
     let sqlselect = `SELECT id_cliente, nombre, nombre_completo, saldo FROM usuarios join clientes on usuarios.id_usuario=clientes.id_usuario;`
     db.query(sqlselect, [], (err, result) => {
@@ -223,6 +331,7 @@ app.get("/get_clientes", (req, res) => {
     })
 })
 
+//Nos da la informacion de un cliente, despues de pasar su nombre como input
 app.get("/get_clientes2/:id", (req, res) => {
     const id = req.params.id
 
@@ -232,6 +341,7 @@ app.get("/get_clientes2/:id", (req, res) => {
     })
 })
 
+//Nos da la biblioteca de un usuario dado
 app.get("/biblioteca/:id", (req, res) => {
     const id = req.params.id
 
@@ -255,10 +365,20 @@ app.get("/categorias", (req, res) => {
         res.send(result)
     })
 })
-//igual pero con un parametro y mostrando contenidos
-app.get("/categorias/:nombre", (req, res) => {
-    const nombre = req.params.nombre;
-    const sqlselect = "select id_contenido,contenidos.id_categoria, nombre, precio,imagen from contenidos,categoria where nombre_categoria=?";
+//Consigue los contenidos de una cierta categoria
+app.get("/categorias/:id", (req, res) => {
+    const nombre = req.params.id;
+    const sqlselect = "select id_contenido,contenidos.id_categoria, nombre, precio,imagen from contenidos join categoria on contenidos.id_categoria=categoria.id_categoria where nombre_categoria=?";
+    db.query(sqlselect, [nombre], (err, result) => {
+        //console.log(result)
+        res.send(result)
+    })
+})
+
+//Consigue todos los contenidos de un determinado autor
+app.get("/autor/:id", (req, res) => {
+    const nombre = req.params.id;
+    const sqlselect = "select id_contenido,contenidos.id_categoria, contenidos.nombre, precio,imagen from contenidos join autores on id_autor=id_autores where autores.nombre=?";
     db.query(sqlselect, [nombre], (err, result) => {
         //console.log(result)
         res.send(result)
@@ -292,6 +412,7 @@ app.get("/Contenido/:id", (req, res) => {
 
 })
 
+//Nos da la lista de la categoria y sus hijos
 app.get("/listaGen/:id", (req, res) => {
 
     const id = req.params.id
@@ -314,6 +435,7 @@ app.get("/listaGen/:id", (req, res) => {
 
 })
 
+//Una lista de las descargas del usuario(id)
 app.get("/listaDescargas/:id", (req, res) => {
 
     const id = req.params.id
@@ -329,6 +451,7 @@ app.get("/listaDescargas/:id", (req, res) => {
 
 })
 
+//Lista de calificaciones del usuario(id)
 app.get("/listaCalificaciones/:id", (req, res) => {
 
     const id = req.params.id
@@ -344,6 +467,7 @@ app.get("/listaCalificaciones/:id", (req, res) => {
 
 })
 
+//Conseguir todas las categorias
 app.get("/get_categorias", (req, res) => {
     let sqlselect = `select nombre_categoria from categoria;`
     db.query(sqlselect, [], (err, result) => {
@@ -352,6 +476,7 @@ app.get("/get_categorias", (req, res) => {
     })
 })
 
+//Conseguir todos los autores
 app.get("/get_autores", (req, res) => {
     let sqlselect = `select nombre from autores;`
     db.query(sqlselect, [], (err, result) => {
@@ -360,14 +485,11 @@ app.get("/get_autores", (req, res) => {
     })
 })
 
+//agrega un contenido a la biblioteca de un usuario despues de restar su saldo
 app.post("/comprar", (req, res) => {
     const id_usuario = req.body.id_user
     const id_contenido = req.body.contenido
     const precio = req.body.price
-
-    console.log(id_usuario)
-    console.log(id_contenido)
-    console.log(precio)
 
     const sqlInsert = "update clientes inner join usuarios on usuarios.id_usuario=clientes.id_usuario set saldo=saldo-? where usuarios.id_usuario=?"
     db.query(sqlInsert, [precio, id_usuario], (err, result) => {
@@ -377,6 +499,29 @@ app.post("/comprar", (req, res) => {
 
     const sqlInsert2 = "insert into bibliotecas(id_cliente,id_contenido) values(?,?)"
     db.query(sqlInsert2, [id_usuario, id_contenido], (err, result) => {
+        console.log(err);
+        console.log(result);
+    });
+})
+
+app.post("/descarga", (req, res) => {
+    const id_usuario = req.body.id_user
+    const id_contenido = req.body.contenido
+
+    const sqlInsert = "insert into descargas(id_cliente,id_contenido,fecha_descarga) values(?,?,curdate())"
+    db.query(sqlInsert, [id_usuario, id_contenido], (err, result) => {
+        console.log(err);
+        console.log(result);
+    });
+})
+
+app.post("/calificacion", (req, res) => {
+    const id_usuario = req.body.id_user
+    const id_contenido = req.body.contenido
+    const rate=req.body.rate
+
+    const sqlInsert = "insert into calificacion(id_cliente,id_contenido,puntaje,fecha_calificacion) values(?,?,?,curdate())"
+    db.query(sqlInsert, [id_usuario, id_contenido,rate], (err, result) => {
         console.log(err);
         console.log(result);
     });
