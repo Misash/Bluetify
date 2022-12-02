@@ -5,7 +5,6 @@ import Saldo from './pages/Saldo';
 import Autor from './pages/Autor';
 import Contenido from './pages/Contenido';
 import Categoria from './pages/Categoria';
-import Test from './pages/testing';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import InfoContenido from './pages/InfoContenido';
 import Tienda from "./pages/Tienda"
@@ -29,7 +28,6 @@ function App() {
         <Route path='/CrearContenido' element={<Contenido/>}></Route>
         <Route path='/CrearCategoria' element={<Categoria/>}></Route>
         <Route path='/CrearAutor' element={<Autor/>}></Route>
-        <Route path='/testing' element={<Test/>}></Route>
         <Route path='/Tienda/:id' element={<Tienda/>}></Route> 
         <Route path='/Tienda2' element={<Tienda2/>}></Route> 
         <Route path='/Biblioteca/:id' element={<Biblioteca/>}></Route> 
