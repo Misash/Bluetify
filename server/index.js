@@ -171,7 +171,7 @@ app.get("/getIdContenido/:id_regalo", (req, res) => {
         } else if (!row.length) {
             res.send('')
         } else if (!row[0].something) {
-            console.log("get id contenido exitoso",row[0].id_contenido);
+            console.log("get id contenido exitoso", row[0].id_contenido);
             res.send(row[0])
         }
     })
@@ -195,7 +195,7 @@ app.post("/saveRegaloBiblioteca", (req, res) => {
 
 
 //borrar regalos
-app.post("/deleteRegalo", (req,res) =>{
+app.post("/deleteRegalo", (req, res) => {
     console.log(req.body)
     const id_regalo = req.body.id_regalo
     const sql = "delete from codigos where id_regalo = ?"
@@ -537,18 +537,18 @@ app.get("/listaCalificaciones/:id", (req, res) => {
 
 //Conseguir todas las categorias
 app.get("/get_categorias", (req, res) => {
-    let sqlselect = `select nombre_categoria from categoria;`
+    let sqlselect = `select id_categoria , nombre_categoria from categoria;`
     db.query(sqlselect, [], (err, result) => {
-        // console.log("\ncategorias:" ,result)
+        // // console.log("\ncategorias:" ,result)
         res.send(result)
     })
 })
 
 //Conseguir todos los autores
 app.get("/get_autores", (req, res) => {
-    let sqlselect = `select nombre from autores;`
+    let sqlselect = `select id_autor , nombre from autores;`
     db.query(sqlselect, [], (err, result) => {
-        // console.log("\ncategorias:" ,result)
+        // console.log("\nautores:" ,result)
         res.send(result)
     })
 })
@@ -572,6 +572,7 @@ app.post("/comprar", (req, res) => {
     });
 })
 
+
 app.post("/descarga", (req, res) => {
     const id_usuario = req.body.id_user
     const id_contenido = req.body.contenido
@@ -594,6 +595,54 @@ app.post("/calificacion", (req, res) => {
         console.log(result);
     });
 })
+
+
+// crear promocion
+
+app.get("/crearPromo/:fecha_inicio/:fecha_final/:descuento", (req, res) => {
+    console.log(req.params)
+    const fecha_inicio = req.params.fecha_inicio
+    const fecha_final = req.params.fecha_final
+    const descuento = req.params.descuento
+
+    const sql = "insert into promociones (fecha_inicio, fecha_fin , descuento) values (?, ?,?)"
+    db.query(sql, [fecha_inicio, fecha_final, descuento], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+
+            console.log("Promo creada: ", result.insertId)
+            res.send(result)
+        }
+    });
+})
+
+
+
+app.post("/aplicarPromo", (req, res) => {
+    console.log(req.body)
+    const tipo_filtro = req.body.tipo_filtro
+    const id_filtro = req.body.id_filtro
+    const id_promocion = req.body.id_promocion
+
+    let sql = ""
+    //aplicar promo 
+    if (tipo_filtro == "categoria") {
+        sql = "update contenidos set promocion = ? where id_categoria = ? and promocion = null"
+    } else if (tipo_filtro == "autor") {
+        sql = "update contenidos set promocion = ? where id_autores =  ? and promocion = null"
+    }
+    db.query(sql, [id_promocion,id_filtro], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Promo aplicada exitosamente!")
+        }
+        // console.log(result);
+    });
+})
+
+
 
 //envia un mensaje a la consola, solo para saber que todo esta corriendo correctamente.
 app.listen(3001, () => {

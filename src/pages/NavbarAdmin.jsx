@@ -47,7 +47,7 @@ function NavBarAdmin(){
                 </Link>
               </li>
               <li>
-                <a href="#">
+                <a href="/Promocion">
                   <span class="icon">
                     <i class="fa fa-leaf" aria-hidden="true"></i>
                   </span>
