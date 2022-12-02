@@ -65,12 +65,12 @@ app.post("/login", (req, res) => {
 app.get("/get_user/:id/:id2", (req, res) => {
 
     const id = req.params.id
-    const id2=req.params.id2
+    const id2 = req.params.id2
     // console.log(id)  
 
     let sqlselect = `select id_cliente from clientes join usuarios where usuarios.nombre=? and usuarios.contraseña=?`
 
-    db.query(sqlselect, [id,id2], (err, result) => {
+    db.query(sqlselect, [id, id2], (err, result) => {
         //console.log("\nretorno:" ,result)
         res.send(result[0])
     })
@@ -89,6 +89,52 @@ app.post("/saldo", (req, res) => {
     });
 })
 
+//obtiene el saldo del cliente mediante su id_cliente
+app.get("/getSaldo/:id", (req, res) => {
+    const id = req.params.id
+    console.log("id cliente saldo!!", id)
+    const sql = "select saldo from clientes where id_cliente = ?"
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("getSaldo: ", result)
+            res.send(result)
+        }
+    })
+})
+
+
+//retorna si 0 si no hay coincidencias de clave 
+app.get("/isKeyAvaible/:key", (req, res) => {
+    const id_regalo = req.params.key
+    const sql = "select count(id_regalo) from codigos where id_regalo = ?"
+    db.query(sql, [id_regalo], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("keyAvaible: ", result)
+            res.send(result)
+        }
+    })
+})
+
+
+app.post("/saveGift", (req, res) => {
+
+    console.log(req.body)
+    const id_regalo = req.body.id_regalo
+    const id_contenido = req.body.id_contenido
+    const sql = "insert into codigos (id_regalo , id_contenido) values (?,?)"
+    // db.query(sql, [id_regalo , id_contenido], (err, result) => {
+    //     if (err) {
+    //         console.log(err)
+    //     } else {
+    //         console.log("Codigo Regalo saved: ")
+    //     }
+    // })
+})
+
 //recibe los datos que envia autor.js y crea una nueva fila en la tabla autor
 app.post("/autor", (req, res) => {
     const autor = req.body.autor
@@ -101,7 +147,7 @@ app.post("/autor", (req, res) => {
 })
 
 //Recibe los datos que envia contenido (nombre, autor, categoria, descripcion y precio) y crea una nueva fila en la tabla contenidos
-app.post("/contenido0", upload1.array('archivo'),(req, res) => {
+app.post("/contenido0", upload1.array('archivo'), (req, res) => {
     // console.log(req)
     const nombrec = req.body.nombre
     const autorc = req.body.autor
@@ -119,7 +165,7 @@ app.post("/contenido0", upload1.array('archivo'),(req, res) => {
     select id_categoria, id_autor,?,?,?,?,?,? \
     from categoria,autores where nombre_categoria=? and nombre=?"
 
-    db.query(sqlInsert, [precioc,tipo , descripcionc, nombrec, archivo , imagen ,categoriac, autorc], (err, result) => {
+    db.query(sqlInsert, [precioc, tipo, descripcionc, nombrec, archivo, imagen, categoriac, autorc], (err, result) => {
         console.log(err);
         // console.log(result);
     });
@@ -211,9 +257,9 @@ app.get("/categorias", (req, res) => {
 })
 //igual pero con un parametro y mostrando contenidos
 app.get("/categorias/:nombre", (req, res) => {
-    const nombre=req.params.nombre;
+    const nombre = req.params.nombre;
     const sqlselect = "select id_contenido,contenidos.id_categoria, nombre, precio,imagen from contenidos,categoria where nombre_categoria=?";
-    db.query(sqlselect,[nombre],(err,result)=>{
+    db.query(sqlselect, [nombre], (err, result) => {
         //console.log(result)
         res.send(result)
     })
@@ -225,7 +271,7 @@ app.get("/testget/:id", (req, res) => {
     const sqlselect = "select archivo from contenidos where id_contenido=?"
     db.query(sqlselect, [id], (err, result) => {
         console.log(result[0]["archivo"])
-        res.download("../src/"+result[0]["archivo"])
+        res.download("../src/" + result[0]["archivo"])
     })
 })
 
@@ -314,10 +360,10 @@ app.get("/get_autores", (req, res) => {
     })
 })
 
-app.post("/comprar",(req,res)=>{
-    const id_usuario=req.body.id_user
-    const id_contenido=req.body.contenido
-    const precio=req.body.price
+app.post("/comprar", (req, res) => {
+    const id_usuario = req.body.id_user
+    const id_contenido = req.body.contenido
+    const precio = req.body.price
 
     console.log(id_usuario)
     console.log(id_contenido)
@@ -328,7 +374,7 @@ app.post("/comprar",(req,res)=>{
         console.log(err);
         console.log(result);
     });
-    
+
     const sqlInsert2 = "insert into bibliotecas(id_cliente,id_contenido) values(?,?)"
     db.query(sqlInsert2, [id_usuario, id_contenido], (err, result) => {
         console.log(err);

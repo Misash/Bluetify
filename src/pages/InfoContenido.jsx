@@ -1,4 +1,4 @@
-import NavBar from "./Navbar"
+import Navbar from "./Navbar"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -16,28 +16,28 @@ import "../CSS/infoContenido.css"
 import { useParams } from "react-router-dom"
 import { useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-
+import GenRegalo from "./GenRegalo";
 
 function InfoContenido() {
 
 
 
     //obtener el id del contenido
-    
+
 
     const { id } = useParams();
     console.log(id)
 
     const location = useLocation()
-    const { from, id_cliente, precio} = location.state
+    const { from, id_cliente, precio } = location.state
     console.log(from)
 
     const submitCompra = () => {
-      axios.post("http://localhost:3001/comprar", {
-          id_user: id_cliente,
-          contenido: id,
-          price: precio
-      })
+        axios.post("http://localhost:3001/comprar", {
+            id_user: id_cliente,
+            contenido: id,
+            price: precio
+        })
     }
 
     const [contenido, setContenido] = useState({});
@@ -68,7 +68,7 @@ function InfoContenido() {
 
     console.log(contenido)
 
-    
+
     //rating guarda el valor de start rating
     const [rating, setRating] = useState(0); //estrellas del contenido
     const [hover, setHover] = useState(0);
@@ -76,8 +76,9 @@ function InfoContenido() {
     return (
         <div>
 
-            <NavBar />
-
+            <Navbar
+                id={id_cliente}
+            />
 
             <Card className="info">
                 <Card.Header as="h5">
@@ -101,8 +102,8 @@ function InfoContenido() {
                                             type="button"
                                             key={index}
                                             className={index <= (hover || rating) ? "on" : "off"}
-                                            onClick={ () => from == "biblioteca" &&  setRating(index)}
-                                            onMouseEnter={() => from == "biblioteca" &&  setHover(index)}
+                                            onClick={() => from == "biblioteca" && setRating(index)}
+                                            onMouseEnter={() => from == "biblioteca" && setHover(index)}
                                             onMouseLeave={() => from == "biblioteca" && setHover(rating)}
                                         >
                                             <span className="star">&#9733;</span>
@@ -140,7 +141,14 @@ function InfoContenido() {
                         </Col>
                         <Col>
 
-                            {from == "tienda" && <Button variant="primary">Regalar Contenido</Button>}
+
+                            {/* {from == "tienda" && <Button variant="primary">Regalar Contenido</Button>} */}
+                            <GenRegalo 
+                                id_cliente = {id_cliente} 
+                                id_contenido = {id}
+                                precio = {contenido.precio}
+                            />
+
                         </Col>
                     </Row>
 
