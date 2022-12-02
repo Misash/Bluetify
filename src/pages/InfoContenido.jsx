@@ -20,18 +20,19 @@ import GenRegalo from "./GenRegalo";
 
 function InfoContenido() {
 
-
+    //Este componente nos dara a detalle la informacion de un contenido,
+    //Tambien nos permitira comprar, regalar, borrar o descargar dependiendo
+    //De que otro componente hallamos entrado, por ejemplo :
+    //Si venimos de biblioteca podremos descargar.
 
     //obtener el id del contenido
-
-
     const { id } = useParams();
-    console.log(id)
 
     const location = useLocation()
     const { from, id_cliente, precio } = location.state
     console.log(from)
 
+    //Hace una compra, llama a comprar de index.js
     const submitCompra = () => {
         axios.post("http://localhost:3001/comprar", {
             id_user: id_cliente,
@@ -40,6 +41,7 @@ function InfoContenido() {
         })
     }
 
+    //Hace una descarga, llama a descarga de index.js
     const submitDescarga = () => {
         axios.post("http://localhost:3001/descarga", {
             id_user: id_cliente,
@@ -47,6 +49,7 @@ function InfoContenido() {
         })
     }
 
+    //Crea una calificacion, llama a calificacion de index.js
     const submitCalificacion = () => {
         axios.post("http://localhost:3001/calificacion", {
             id_user: id_cliente,
@@ -173,10 +176,11 @@ function InfoContenido() {
                     <br />
                     <Row>
                         <Col>
-                            <p className="rankings"> <AiOutlineNumber /> {RankingDesAct.col}  <span className="line"> <AiOutlineNumber />  {RankingDesPas.col}</span> Descargas</p>
-                            <p className="rankings"> <AiOutlineNumber /> {RankingCalAct.col}  <span className="line"> <AiOutlineNumber />   {RankingCalPas.col} </span> Calificaciones</p>
+                            <p className="rankings"> <AiOutlineNumber /> {}  <span className="line"> <AiOutlineNumber />  {}</span> Descargas</p>
+                            <p className="rankings"> <AiOutlineNumber /> {}  <span className="line"> <AiOutlineNumber />   {} </span> Calificaciones</p>
                             <h3> Descripcion:</h3>
                             {console.log(RankingCalAct)}
+                            {console.log(RankingDesAct)}
                             <p> {contenido.descripcion}</p>
                             <p> <FaDollarSign /> {contenido.precio}</p>
                         </Col>
@@ -194,6 +198,7 @@ function InfoContenido() {
                         <Col>
                             {from == "tienda" && <Button variant="primary" onClick={submitCompra} href={"http://localhost:3000/Contenido/" + id}>Comprar</Button>}
                             {from == "biblioteca" && <Button variant="primary" onClick={submitDescarga} href={"http://localhost:3001/testget/" + id}>Descargar</Button>}
+                            {from == "tienda2" && <Button variant="primary">Borrar contenido</Button>}
 
                         </Col>
                         <Col>

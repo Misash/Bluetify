@@ -9,6 +9,7 @@ import Test from './pages/testing';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import InfoContenido from './pages/InfoContenido';
 import Tienda from "./pages/Tienda"
+import Tienda2 from "./pages/Tienda2"
 import Biblioteca from './pages/Biblioteca';
 import Clientes from './pages/Clientes';
 import InfoCliente from './pages/InfoCliente';
@@ -30,6 +31,7 @@ function App() {
         <Route path='/CrearAutor' element={<Autor/>}></Route>
         <Route path='/testing' element={<Test/>}></Route>
         <Route path='/Tienda/:id' element={<Tienda/>}></Route> 
+        <Route path='/Tienda2' element={<Tienda2/>}></Route> 
         <Route path='/Biblioteca/:id' element={<Biblioteca/>}></Route> 
         <Route path='/Contenido/:id' element={<InfoContenido/>}></Route> 
         <Route path='/Clientes' element={<Clientes/>}></Route> 

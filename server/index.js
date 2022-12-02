@@ -68,6 +68,7 @@ app.post("/login", (req, res) => {
     );
 });
 
+//Nos permite buscar la id_cliente de un usuario, predeterminado
 app.get("/get_user/:id/:id2", (req, res) => {
 
     const id = req.params.id
@@ -242,7 +243,6 @@ app.get("/Top_10_Calificaciones", (req, res) => {
     order by number desc \
     limit 10"
     db.query(sqlselect, (err, result) => {
-        //console.log(result)
         res.send(result)
     })
 })
@@ -251,74 +251,112 @@ app.get("/Top_10_Calificaciones", (req, res) => {
 app.get("/rankingCalAct/:id", (req, res) => {
     const id = req.params.id
 
-    const sqlselect = "SELECT row_number() over (order by sum(puntaje) desc) as col, contenidos.id_contenido, id_calificacion, sum(puntaje) as number, fecha_calificacion FROM contenidos,calificacion\
+    const sqlselect ="drop table rango;\
+\
+    Create temporary TABLE rango(\
+        rang INT NOT NULL,\
+        id_contenido INT NOT NULL,\
+        id_calificacion INT not null,\
+        num INT NOT NULL,\
+        fecha date NOT NULL\
+    );\
+    \
+    insert into rango(rang,id_contenido,id_calificacion,num,fecha)\
+    SELECT row_number() over (order by sum(puntaje) desc) as col, contenidos.id_contenido, id_calificacion, sum(puntaje) as number, fecha_calificacion FROM contenidos,calificacion\
     where contenidos.id_contenido=calificacion.id_contenido and fecha_calificacion >='2022/11/26'and   fecha_calificacion < '2022/12/03'\
     group by id_contenido\
     order by number desc\
-    limit 10"
+    limit 10;\
+    \
+    select rang from rango\
+    where id_contenido=?"
     db.query(sqlselect,[id], (err, result) => {
-        for (var i = 0; i < 10; i++) {
-            console.log(result[i])
-            if (result[i]==id){
-                res.send(result[i])
-                break;
-            }
-        }
+        console.log(id)
+        console.log("aqui el resultado: ")
+        console.log(result)
+        console.log(err)
+        res.send(result)
     })
 })
 
 //ranking de la semana pasada en calificaciones
 app.get("/rankingCalPas/:id", (req, res) => {
     const id = req.params.id
-    const sqlselect = "SELECT row_number() over (order by sum(puntaje) desc) as col, contenidos.id_contenido, id_calificacion, sum(puntaje) as number, fecha_calificacion FROM contenidos,calificacion\
-    where contenidos.id_contenido=calificacion.id_contenido and fecha_calificacion >='2022/11/19'and   fecha_calificacion < '2022/11/26'\
-    group by id_contenido\
-    order by number desc\
-    limit 10"
+    const sqlselect = `drop table rango;
+
+    Create temporary TABLE rango(
+        rang int NOT NULL,
+        id_contenido int NOT NULL,
+        id_calificacion int not null,
+        num int NOT NULL,
+        fecha date NOT NULL
+    );
+    
+    insert into rango(rang,id_contenido,id_calificacion,num,fecha)
+    SELECT row_number() over (order by sum(puntaje) desc) as col, contenidos.id_contenido, id_calificacion, sum(puntaje) as number, fecha_calificacion FROM contenidos,calificacion
+    where contenidos.id_contenido=calificacion.id_contenido and fecha_calificacion >='2022/11/26'and   fecha_calificacion < '2022/12/03'
+    group by id_contenido
+    order by number desc
+    limit 10;
+    
+    select rang from rango
+    where id_contenido=?`
     db.query(sqlselect,[id], (err, result) => {
-        for (var i = 0; i < 10; i++) {
-            if (result[i]==id){
-                res.send(result[i])
-                break;
-            }
-        }
+        res.send(result)
     })
 })
 
 //ranking de la semana actual en descargas
 app.get("/rankingDesAct/:id", (req, res) => {
     const id = req.params.id
-    const sqlselect = "SELECT row_number() over (order by count(contenidos.id_contenido) desc) as col, contenidos.id_contenido, count(contenidos.id_contenido) as number, fecha_descarga FROM contenidos,descargas\
-    where contenidos.id_contenido=descargas.id_contenido and fecha_descarga >='2022/11/26'and   fecha_descarga < '2022/12/03'\
-    group by id_contenido\
-    order by number desc\
-    limit 10"
+    const sqlselect = `drop table rango;
+    
+    Create temporary TABLE rango(
+        rang int NOT NULL,
+        id_contenido int NOT NULL,
+        num int NOT NULL,
+        fecha date NOT NULL
+    );
+    
+    insert into rango(rang,id_contenido,num,fecha)\
+    SELECT row_number() over (order by count(contenidos.id_contenido) desc) as col, contenidos.id_contenido, count(contenidos.id_contenido) as number, fecha_descarga 
+    FROM contenidos,descargas 
+    where contenidos.id_contenido=descargas.id_contenido and fecha_descarga >='2022/11/26'and   fecha_descarga < '2022/12/03' 
+    group by id_contenido
+    order by number desc
+    limit 10;
+    
+    select rang from rango
+    where id_contenido=?`
     db.query(sqlselect,[id], (err, result) => {
-        for (var i = 0; i < 10; i++) {
-            const temp=result[i];
-            if (temp.id_contenido==id){
-                res.send(result[i])
-                break;
-            }
-        }
+        res.send(result)
     })
 })
 
 //ranking de la semana pasada en descargas
 app.get("/rankingDesPas/:id", (req, res) => {
     const id = req.params.id
-    const sqlselect = "SELECT row_number() over (order by count(contenidos.id_contenido) desc) as col, contenidos.id_contenido, count(contenidos.id_contenido) as number, fecha_descarga FROM contenidos,descargas\
-    where contenidos.id_contenido=descargas.id_contenido and fecha_descarga >='2022/11/19'and   fecha_descarga < '2022/11/26'\
-    group by id_contenido\
-    order by number desc\
-    limit 10"
-    db.query(sqlselect,[id], (err, result1) => {
-        for (var i = 0; i < 10; i++) {
-            if (result1[i]==id){
-                res.send(result1[i])
-                break;
-            }
-        }
+    const sqlselect = `drop table rango;
+    
+    Create temporary TABLE rango(
+        rang int NOT NULL,
+        id_contenido int NOT NULL,
+        num int NOT NULL,
+        fecha date NOT NULL
+    );
+    
+    insert into rango(rang,id_contenido,num,fecha)\
+    SELECT row_number() over (order by count(contenidos.id_contenido) desc) as col, contenidos.id_contenido, count(contenidos.id_contenido) as number, fecha_descarga 
+    FROM contenidos,descargas 
+    where contenidos.id_contenido=descargas.id_contenido and fecha_descarga >='2022/11/19'and   fecha_descarga < '2022/11/26' 
+    group by id_contenido
+    order by number desc
+    limit 10;
+    
+    select rang from rango
+    where id_contenido=?`
+    db.query(sqlselect,[id], (err, result) => {
+        res.send(result)
     })
 })
 
@@ -504,6 +542,7 @@ app.post("/comprar", (req, res) => {
     });
 })
 
+//agrega una descarga a la base de datos
 app.post("/descarga", (req, res) => {
     const id_usuario = req.body.id_user
     const id_contenido = req.body.contenido
@@ -515,6 +554,7 @@ app.post("/descarga", (req, res) => {
     });
 })
 
+//Agrega una calificacion a la base de datos
 app.post("/calificacion", (req, res) => {
     const id_usuario = req.body.id_user
     const id_contenido = req.body.contenido

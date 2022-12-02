@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Box from "./Box";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CSS/Tienda.css"
-import Navbar from "./Navbar";
+import Navbar from "./NavbarAdmin";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -25,8 +25,8 @@ var ini=0;
 
 
 function Tienda() {
-    //En tienda podremos visualizar todos los contenidos y filtrarlos.
-
+    //Tienda2 es como la tienda pero esta parte del lado del admin, sera igual
+    //La unica diferencia que el admin podra borrar contenidos al seleccionar uno.
     const [contenidos, setContenidos] = useState([]);
     const [filtro, setfiltro] = useState([]);
     let variant = "light"
@@ -38,7 +38,6 @@ function Tienda() {
 
     const { id } = useParams();
     
-    //Consiguiendo todas las categorias para los filtros
     useEffect(()=>{
         async function getcat(){
             axios.get(`${url}categorias`).then((response)=>setCategorias(response.data));
@@ -46,16 +45,12 @@ function Tienda() {
         getcat();
     },[]);
 
-    //Aqui conseguimos los contenidos que aparecen por default
     useEffect(()=>{
         async function getcont(){
             axios.get(`${url}tienda/ninguno`).then((response) => setContenidos(response.data));
         }
         getcont();
     },[]);
-
-    //Submit filtro usa las variables 'filtro' y 'autor' para llamar una funcion del backend que buscara con esos
-    //parametros
     const submitFiltro = () => {
         if (filtro=="autor/"){
             axios.get("http://localhost:3001/"+filtro+autor).then((response)=>setContenidos(response.data));
@@ -130,7 +125,7 @@ function Tienda() {
                         <Box
                             id = {contenido.id_contenido}
                             id_cliente={id}
-                            from = {"tienda"}
+                            from = {"tienda2"}
                             calificar = {false}
                             titulo={contenido.nombre}
                             urlImg={require("../" + contenido.imagen)}

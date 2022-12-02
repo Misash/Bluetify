@@ -55,7 +55,7 @@ function NavBarAdmin(){
                 </a>
               </li>
               <li>
-              <Link to="/clientes">
+              <Link to="/tienda2">
                   <span class="icon">
                     <i class="fa fa-blog" aria-hidden="true"></i>
                   </span>
@@ -63,12 +63,12 @@ function NavBarAdmin(){
                 </Link>
               </li>
               <li>
-                <a href="#">
+              <Link to="/clientes">
                   <span class="icon">
                     <i class="fa fa-blog" aria-hidden="true"></i>
                   </span>
                   <span class="title">REVISAR CALIFICACION</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

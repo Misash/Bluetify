@@ -6,6 +6,8 @@ import "../CSS/NavBar.css"
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function NavBar(props) {
+    //Esta navBar solo nos ayudara a desplazarnos mejor en la pagina
+    //estara presente en el lado de cliente.
     return (
         <Navbar className="NavBar" bg="ligth" expand="lg">
             <Container>

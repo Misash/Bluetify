@@ -8,6 +8,8 @@ import axios from "axios";
 
 function Login(){
 
+    //Este componente solo nos dejara logearnos en la pagina
+
     const navigatev=useNavigate();
 
     const [usernamelog, setUsernamelog]=useState("");
@@ -16,6 +18,8 @@ function Login(){
     
     const [loginstatus, setloginstatus]=useState("");
 
+    //Ve si somos admin, si no busca un usuario en la base de datos para
+    //posteriormente verificar si existe o no
     const submitlogin = async () => {
         if (usernamelog=="admin" && passwordlog=="admin"){
             navigatev("/CrearSaldo")

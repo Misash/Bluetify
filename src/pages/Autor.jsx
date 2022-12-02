@@ -8,6 +8,8 @@ import Modal from 'react-bootstrap/Modal';
 
 function Autor() {
 
+//Este componente se encargara de crear un autor
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -15,7 +17,7 @@ function Autor() {
 
   const [autorReg, setAutorReg] = useState("");
 
-  //enviando los inputs al backend
+  //enviando los inputs al backend, para crear el autor
   const submitAutor = () => {
     if(autorReg.length !=0){
       Axios.post("http://localhost:3001/autor", {

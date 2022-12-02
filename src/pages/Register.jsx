@@ -5,10 +5,12 @@ import logo from '../media/LOGO-B.png'
 import Axios from "axios"
 
 function Register(){
+    //Este componente agregara un usuario y cliente a la base de datos
     const [usernameReg, setUsernameReg]=useState("");
     const [passwordReg, setPasswordReg]=useState("");
     const [fullNameReg, setfullNameReg]=useState("");
 
+    //mandamos los parametros al backend
     const submitReg = () => {
         Axios.post("http://localhost:3001/register", {
             username: usernameReg,

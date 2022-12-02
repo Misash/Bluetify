@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import "../CSS/saldo.css"
 import { Link } from "react-router-dom";
 import Axios from "axios"
+import NavBarAdmin from "./NavbarAdmin";
 
 function Saldo(){
     const [usernameReg, setUsernameReg]=useState("");
@@ -19,76 +20,7 @@ function Saldo(){
     })}
     return (
         <Fragment>
-            <div class="wrapper" >
-            <div class="top_navbar">
-              <div class="hamburguer">
-                <i class="fa fa-bars"></i>
-              </div>
-              <nav class="top_menu">
-                
-      </nav>
-      </div>
-            <div class="sidebar">
-              <ul>
-                <li>
-                  <Link to="/CrearSaldo">
-                    <span class="icon">
-                      <i class="fa fa-book" aria-hidden="true"></i>
-                    </span>
-                    <span class="title">CARGAR SALDO</span>
-                  </Link>
-                </li>
-                <li>
-                <Link to="/CrearContenido">
-                    <span class="icon">
-                      <i class="fa fa-file-video" aria-hidden="true"></i>
-                    </span>
-                    <span class="title">SUBIR CONTENIDO</span>
-                  </Link>
-                </li>
-                <li>
-                <Link to="/CrearCategoria">
-                    <span class="icon">
-                      <i class="fa fa-volleyball-ball" aria-hidden="true"></i>
-                    </span>
-                    <span class="title">CREAR CATEGORIA</span>
-                  </Link>
-                </li>
-                <li>
-                <Link to="/CrearAutor">
-                    <span class="icon">
-                      <i class="fa fa-blog" aria-hidden="true"></i>
-                    </span>
-                    <span class="title">CREAR AUTOR</span>              
-                  </Link>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="icon">
-                      <i class="fa fa-leaf" aria-hidden="true"></i>
-                    </span>
-                    <span class="title">CREAR PROMOCIONES</span>              
-                  </a>
-                </li>
-                <li>
-                    <a href="#">
-                      <span class="icon">
-                        <i class="fa fa-blog" aria-hidden="true"></i>
-                      </span>
-                      <span class="title">DESCARGAS</span>              
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <span class="icon">
-                        <i class="fa fa-blog" aria-hidden="true"></i>
-                      </span>
-                      <span class="title">REVISAR CALIFICACION</span>              
-                    </a>
-                  </li>
-              </ul>
-              </div>
-            </div>
+            <NavBarAdmin />
             <h1 className = "formm">CARGAR SALDO</h1>
             <div class="box-saldo">
                 <input class="input_saldo" type="text" id="user" name="username" required

@@ -11,10 +11,8 @@ import user from '../media/user.png'
 import { Link } from 'react-router-dom';
 
 // componente para usar como temnplate para
-// los contenidos , tiene parametros como
-// titulo , urlImg , precioActual ,precioAnterior , ratingPromedio
-// y puede modificar el rating de un contenido 
-// con la variable rating 
+// los clientes , tiene parametros como
+// titulo , nombre_completo , saldo
 
 function Box2(props) {
 

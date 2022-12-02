@@ -9,7 +9,7 @@ import "../CSS/Box.css"
 
 import { Link } from 'react-router-dom';
 
-// componente para usar como temnplate para
+// componente para usar como template para
 // los contenidos , tiene parametros como
 // titulo , urlImg , precioActual ,precioAnterior , ratingPromedio
 // y puede modificar el rating de un contenido 

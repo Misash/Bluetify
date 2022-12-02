@@ -8,19 +8,12 @@ import Navbar from "./NavbarAdmin";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-
 import Col from 'react-bootstrap/Col';
-
-import Button from 'react-bootstrap/Button';
-// import Col from 'react-bootstrap/Col';
-// import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import Row from 'react-bootstrap/Row';
-var ini=0;
 
-
+//Este componente se encarga de listar todos los cliente de la BD,
+//Es similar a la tienda o biblioteca
 
 
 function Tienda() {
@@ -34,6 +27,7 @@ function Tienda() {
 
     const { id } = useParams();
     
+    //Hacemos Get para conseguir todos los clientes de la BD.
     useEffect(()=>{
         async function getcat(){
             axios.get(`${url}get_clientes`).then((response)=>setClientes(response.data));
@@ -41,9 +35,9 @@ function Tienda() {
         getcat();
     },[]);
 
-    const submitFiltro = () => {
+   /* const submitFiltro = () => {
         axios.get("http://localhost:3001/categorias/"+titulo).then((response)=>setContenidos(response.data));
-    }
+    }*/
  
    
     return (
@@ -78,7 +72,7 @@ function Tienda() {
                 </Row>
                 <Row className="align-items-center">
                     <Col>
-                        <input type="button" value="Aplicar Filtro" onClick={submitFiltro}/>
+                        <input type="button" value="Aplicar Filtro"/>
                     </Col>
                 </Row>
 

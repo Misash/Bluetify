@@ -8,21 +8,14 @@ import Navbar from "./Navbar";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-
 import Col from 'react-bootstrap/Col';
-
-import Button from 'react-bootstrap/Button';
-// import Col from 'react-bootstrap/Col';
-// import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
 import { useParams } from "react-router-dom"
-// import Row from 'react-bootstrap/Row';
 var ini=0;
 
 
 
-
+//La biblioteca tendra contenidos que el usuario halla comprado
 function Biblioteca() {
     const [contenidos, setContenidos] = useState([]);
     const [filtro, setfiltro] = useState([]);
@@ -34,6 +27,8 @@ function Biblioteca() {
     
     const { id } = useParams();
 
+
+    //Conseguimos las categorias de la base de datos
     useEffect(()=>{
         async function getcat(){
             axios.get(`${url}categorias`).then((response)=>setCategorias(response.data));
@@ -41,6 +36,7 @@ function Biblioteca() {
         getcat();
     },[]);
 
+    //Conseguimos los contenidos de la biblio
     useEffect(()=>{
         async function getcont(){
             axios.get(`${url}biblioteca/`+id).then((response) => setContenidos(response.data));
@@ -51,7 +47,7 @@ function Biblioteca() {
         axios.get("http://localhost:3001/categorias/"+titulo).then((response)=>setContenidos(response.data));
     }
  
-   
+   //Creamos boxes donde estara la informacion de los contenidos que hemos conseguido previamente
     return (
         <div>
             <Navbar 
@@ -108,6 +104,7 @@ function Biblioteca() {
 
             <Form className="myContainer">
                 <Row className="align-items-center">
+                    
                     {contenidos.map((contenido) => (
                         <Box
                             id = {contenido.id_contenido}

@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import { keyboard } from '@testing-library/user-event/dist/keyboard';
 
+//Este componente se encargara de generar un regalo
 
 function generateRandomKey(min, max, places) {
   let value = (Math.random() * (max - min + 1)) + min;

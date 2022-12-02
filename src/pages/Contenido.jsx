@@ -6,6 +6,9 @@ import NavBarAdmin from "./NavbarAdmin";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
+//Usamos este componente para la creacion de contenidos en la BD
+
+
 function Contenido() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

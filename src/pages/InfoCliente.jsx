@@ -6,25 +6,17 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useEffect, useState } from "react";
-
-import { FaFileDownload } from 'react-icons/fa';
-import { GiPodium } from "react-icons/gi";
-import { AiOutlineNumber } from "react-icons/ai";
 import { FaDollarSign } from "react-icons/fa";
 import axios from "axios";
 import "../CSS/infoContenido.css"
 import { useParams } from "react-router-dom"
-import { useLocation } from 'react-router-dom'
-import { Link } from 'react-router-dom';
 
 
-function InfoContenido() {
+function InfoCliente() {
 
+    //Este componente nos dara 
 
-
-    //obtener el id del contenido
-    
-
+    //obtener el id del cliente
     const { id } = useParams();
 
     const [cliente, setCliente] = useState({});
@@ -40,11 +32,12 @@ function InfoContenido() {
         getcat();
     }, []);
 
-    //obtiene la lista generacional de la categoria 
+    //obtiene el historial de descargas
     const getListaDes = async () => {
         axios.get(url2).then((response) => setlistaDes(response.data));
     }
     
+    //obtiene el historial de calificaciones
     const getListaCal = async () => {
         axios.get(url3).then((response) => setlistaCal(response.data));
     }
@@ -63,7 +56,6 @@ function InfoContenido() {
         }
     }, [listaCal]);
 
-    // console.log(listaGen)
 
 
     return (
@@ -127,7 +119,7 @@ function InfoContenido() {
     )
 }
 
-export default InfoContenido
+export default InfoCliente
 
 
 

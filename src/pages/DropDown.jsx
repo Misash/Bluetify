@@ -5,15 +5,17 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { useEffect } from 'react';
 
-var ini=0
-
 function DropDown() {
+
+//Este componente solo lo usaremos para seleccionar filtros en la tienda, 
+//Un dropdown nos permite escoger una de varias determinadas opciones,
 
     let variant = "light"
     const[titulo,setTitulo] = useState("Ninguno");
     const [categorias, setCategorias] = useState([]);
     const url="http://localhost:3001/";
     
+    //Conseguimos todas las categorias para poder filtrar por categoria
     useEffect(()=>{
         async function getcat(){
             axios.get(`${url}categorias`).then((response)=>setCategorias(response.data));

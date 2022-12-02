@@ -1,23 +1,24 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "../CSS/Categoria.css";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import NavBarAdmin from "./NavbarAdmin";
+
+//Usamos este componente para la creacion de categorias
 
 function Categoria() {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const [categoriaReg, setCategoriaReg] = useState("");
   const [subcategoriaReg, setSubcategoriaReg] = useState("");
   console.log(categoriaReg);
   console.log(subcategoriaReg);
 
   const [categorias, setCategorias] = useState([]);
+  //Hacemos un get de todas las categorias de la BD, para escoger subcategoria
   const url = "http://localhost:3001/get_categorias";
   useEffect(() => {
     async function getcat() {
@@ -26,7 +27,7 @@ function Categoria() {
     getcat();
   }, []);
 
-  //enviando los inputs al backend
+  //enviamos la inforacion a index.js para ingresar la categoria a la BD
   const submitCat = () => {
 
     if (categoriaReg.length != 0 ) {
