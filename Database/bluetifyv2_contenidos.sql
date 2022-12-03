@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: bluetifyv2
+-- Host: localhost    Database: bluetifyv2
 -- ------------------------------------------------------
--- Server version	8.0.30
+-- Server version	8.0.31-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,38 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `contenidos`
---
-
-DROP TABLE IF EXISTS `contenidos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `contenidos` (
-  `id_contenido` int NOT NULL AUTO_INCREMENT,
-  `id_categoria` int NOT NULL,
-  `id_autores` int NOT NULL,
-  `promocion` tinyint(1) DEFAULT NULL,
-  `precio` float NOT NULL,
-  `tipo` varchar(100) NOT NULL,
-  `descripcion` varchar(250) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `archivo` varchar(1000) NOT NULL,
-  `imagen` varchar(1000) NOT NULL,
-  PRIMARY KEY (`id_contenido`),
-  KEY `id_categoria_idx` (`id_categoria`),
-  KEY `id_autores_idx` (`id_autores`),
-  CONSTRAINT `fk_contenidos_autores` FOREIGN KEY (`id_autores`) REFERENCES `autores` (`id_autor`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_contenidos_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `contenidos`
 --
 
 LOCK TABLES `contenidos` WRITE;
 /*!40000 ALTER TABLE `contenidos` DISABLE KEYS */;
-INSERT INTO `contenidos` VALUES (116,2,2,NULL,1234,'.mp3','testing3','testing3','uploads/videoplayback.mp4-1667531444315.mp4-1667537896514.mp4','uploads/ceviche.jpg-1667537896516.jpeg'),(125,3,2,NULL,89,'mp3','the less iknow better','the less iknow better','uploads/keygen.pdf-1668196799952.pdf','uploads/logokeygen.jpg-1668196799954.jpeg'),(127,4,6,NULL,89,'mp3','rock rock','rock u 4ever','uploads/fractal-man.jpg-1668197935152.jpeg','uploads/fractal-man.jpg-1668197935153.jpeg'),(128,1,8,NULL,99,'jpg','sweet child o mine  2013','sweet child o mine','uploads/gunsroses.jpeg-1668198253569.jpeg','uploads/gunsroses.jpeg-1668198253573.jpeg'),(129,1,9,NULL,200,'jpg','black in black a classic ','black in black','uploads/acdc.jpg-1668198323878.jpeg','uploads/acdc.jpg-1668198323882.jpeg'),(130,9,10,NULL,69,'jpg','by the way a classic','by the way','uploads/red-hot-chili.jpeg-1668198938356.jpeg','uploads/red-hot-chili.jpeg-1668198938358.jpeg');
+INSERT INTO `contenidos` VALUES (125,3,2,NULL,89,'mp3','the less iknow better','the less iknow better','uploads/keygen.pdf-1668196799952.pdf','uploads/logokeygen.jpg-1668196799954.jpeg'),(127,4,6,NULL,89,'mp3','rock rock','rock u 4ever','uploads/fractal-man.jpg-1668197935152.jpeg','uploads/fractal-man.jpg-1668197935153.jpeg'),(128,1,8,5,99,'jpg','sweet child o mine  2013','sweet child o mine','uploads/gunsroses.jpeg-1668198253569.jpeg','uploads/gunsroses.jpeg-1668198253573.jpeg'),(129,1,9,5,200,'jpg','black in black a classic ','black in black','uploads/acdc.jpg-1668198323878.jpeg','uploads/acdc.jpg-1668198323882.jpeg'),(130,9,10,NULL,69,'jpg','by the way a classic','by the way','uploads/red-hot-chili.jpeg-1668198938356.jpeg','uploads/red-hot-chili.jpeg-1668198938358.jpeg'),(131,16,11,NULL,19,'jpg','Contra es un videojuego de matamarcianos desarrollado y publicado por Konami, lanzado originalmente ','contra','uploads/contra-8bits.jpeg-1670001722216.jpeg','uploads/contra-8bits.jpeg-1670001722220.jpeg'),(132,13,13,NULL,10,'jpg','logo fornite','fornite','uploads/fornite.jpg-1670002097922.jpeg','uploads/fornite.jpg-1670002097925.jpeg'),(133,15,5,NULL,25,'jpg','wallpaper de kirby , licenciado por nintendo','kirby','uploads/kirby-nes.jpg-1670002188721.jpeg','uploads/kirby-nes.jpg-1670002188722.jpeg'),(134,14,14,NULL,15,'jpg','Pacman logo conmemorativo ','Pacman-wallpaper','uploads/pacman.jpg-1670002381769.jpeg','uploads/pacman.jpg-1670002381771.jpeg'),(135,13,15,NULL,5,'png','Wallpaper del juego indie surviv.io','Surviv.io-wallpaper','uploads/surviv.png-1670002687844.png','uploads/surviv.png-1670002687844.png'),(136,21,16,NULL,9,'jpg','5sos wallpaper','5sos','uploads/5sos.jpg-1670005935091.jpeg','uploads/5sos.jpg-1670005935092.jpeg'),(137,5,17,NULL,59,'mp3','MacDmarco album','chamber of reflection','uploads/Chamber Of Reflection - Mac DeMarco.mp3-1670006427775.mpeg','uploads/chamber.jpg-1670006427785.jpeg'),(138,17,21,NULL,52,'mp3','Prune Album','Prune','uploads/Gus Dapperton - Prune, You Talk Funny.mp3-1670006793472.mpeg','uploads/prune.jpeg-1670006793488.jpeg'),(139,3,4,NULL,88,'mp3','\"Lost in Yesterday\" es una canción del proyecto musical psicodélico australiano Tame Impala. Es la o','lost in yesterday','uploads/Tame Impala - Lost In Yesterday.mp3-1670006987736.mpeg','uploads/lost-in-yesterday.jpg-1670006987743.jpeg'),(140,22,19,NULL,120,'mp3','Crystal Castles fue un grupo experimental canadiense de Noise y Electrónica formado en 2003 por el p','celestica','uploads/Crystal Castles - Celestica.mp3-1670007185315.mpeg','uploads/celestica.jpg-1670007185321.jpeg'),(141,15,5,NULL,11,'jpg','nintendo wallpaper ','don king kong','uploads/king.png-1670013409673.png','uploads/king.png-1670013409676.png');
 /*!40000 ALTER TABLE `contenidos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-01  3:53:51
+-- Dump completed on 2022-12-03  8:31:23

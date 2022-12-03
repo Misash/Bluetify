@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: bluetifyv2
+-- Host: localhost    Database: bluetifyv2
 -- ------------------------------------------------------
--- Server version	8.0.30
+-- Server version	8.0.31-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,29 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `usuarios`
---
-
-DROP TABLE IF EXISTS `usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuarios` (
-  `id_usuario` int NOT NULL AUTO_INCREMENT,
-  `habilitado` tinyint(1) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `contraseña` varchar(100) NOT NULL,
-  `nombre_completo` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `usuarios`
 --
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,1,'user_test','1234','testing test mr test'),(2,1,'admin','admin',''),(4,1,'user_test2','1234','testing testing');
+INSERT INTO `usuarios` VALUES (1,1,'user_test','1234',''),(2,1,'admin','admin',''),(4,1,'user_test2','1234',''),(5,1,'juan','1234','juan delgado perez');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-01  3:53:52
+-- Dump completed on 2022-12-03  8:31:23

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: bluetifyv2
+-- Host: localhost    Database: bluetifyv2
 -- ------------------------------------------------------
--- Server version	8.0.30
+-- Server version	8.0.31-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,26 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `autores`
---
-
-DROP TABLE IF EXISTS `autores`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `autores` (
-  `id_autor` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_autor`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `autores`
 --
 
 LOCK TABLES `autores` WRITE;
 /*!40000 ALTER TABLE `autores` DISABLE KEYS */;
-INSERT INTO `autores` VALUES (1,'test_autor'),(2,'testing_interface'),(4,'Tame Impala'),(5,'nintendo'),(6,'julian casablancas'),(7,'the smiths'),(8,'guns n roses'),(9,'AC/CD'),(10,'red hot chilli peppers');
+INSERT INTO `autores` VALUES (1,'test_autor'),(2,'testing_interface'),(4,'Tame Impala'),(5,'nintendo'),(6,'julian casablancas'),(7,'the smiths'),(8,'guns n roses'),(9,'AC/CD'),(10,'red hot chilli peppers'),(11,'konami'),(12,'ubisoft'),(13,'Epic_Games'),(14,'namco'),(15,'IoGames'),(16,'5sos'),(17,'MacDeMarco'),(18,'choirboy'),(19,'crystal castles'),(20,'grimes'),(21,'gus daperton'),(22,'Indigo la End'),(23,'initial D'),(24,'keluar'),(25,'kero kero bonito'),(26,'los reyes del falsete'),(27,'luli braga'),(28,'san charbel'),(29,'sidewalks and skeletons'),(30,'the cure'),(31,'the smiths'),(32,'the vamps'),(33,'tourista'),(34,'tr_st'),(35,'valentin y los volcanes'),(36,'viratempo'),(37,'willow'),(38,'kiss'),(39,'sega');
 /*!40000 ALTER TABLE `autores` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-01  3:53:52
+-- Dump completed on 2022-12-03  8:31:23

@@ -720,6 +720,23 @@ app.post("/aplicarPromo", (req, res) => {
 })
 
 
+//borrar Contenido
+
+app.post("/borrarContenido", (req, res) => {
+    console.log(req.body)
+    const id_contenido = req.body.id_contenido
+
+    const sql = "delete from contenidos where id_contenido = ?"
+
+    db.query(sql, [id_contenido], (err, result) => {
+       if(err){
+        console.log(err)
+       }else{
+        console.log("contenido borrado !!")
+       }
+    });
+})
+
 
 //envia un mensaje a la consola, solo para saber que todo esta corriendo correctamente.
 app.listen(3001, () => {

@@ -17,7 +17,7 @@ import { useParams } from "react-router-dom"
 import { useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import GenRegalo from "./GenRegalo";
-
+import NavBarAdmin from './NavbarAdmin';
 function InfoContenido() {
 
     //Este componente nos dara a detalle la informacion de un contenido,
@@ -43,6 +43,7 @@ function InfoContenido() {
 
     //Hace una descarga, llama a descarga de index.js
     const submitDescarga = () => {
+    
         axios.post("http://localhost:3001/descarga", {
             id_user: id_cliente,
             contenido: id,
@@ -51,12 +52,21 @@ function InfoContenido() {
 
     //Crea una calificacion, llama a calificacion de index.js
     const submitCalificacion = () => {
+        console.log("entrooooooooooooo")
         axios.post("http://localhost:3001/calificacion", {
             id_user: id_cliente,
             contenido: id,
             rate: rating,
         })
     }
+
+    
+
+    // useEffect(() => {
+    //    submitCalificacion()
+    // }, [rating]);
+
+
 
     const [contenido, setContenido] = useState({});
     const [listaGen, setlistaGen] = useState([]);
@@ -116,6 +126,14 @@ function InfoContenido() {
     }
 
 
+    //borrar contenido 
+    const borrarContenido = () =>{
+        axios.post("http://localhost:3001/borrarContenido", {
+            id_contenido: id,
+        })
+    }
+
+
     useEffect(() => {
         if (listaGen.length == 0) {
             getListaGen();
@@ -123,6 +141,7 @@ function InfoContenido() {
     }, [listaGen]);
 
 
+  
 
 
     console.log(contenido)
@@ -135,10 +154,12 @@ function InfoContenido() {
     return (
         <div>
 
-            <Navbar
-                id={id_cliente}
-            />
-
+            {(from == "admin")?
+                 <NavBarAdmin /> :
+                <Navbar
+                    id={id_cliente}
+                />
+            }
             <Card className="info">
                 <Card.Header as="h5">
                     <Row>
@@ -198,18 +219,19 @@ function InfoContenido() {
                         <Col>
                             {from == "tienda" && <Button variant="primary" onClick={submitCompra} href={"http://localhost:3000/Contenido/" + id}>Comprar</Button>}
                             {from == "biblioteca" && <Button variant="primary" onClick={submitDescarga} href={"http://localhost:3001/testget/" + id}>Descargar</Button>}
-                            {from == "tienda2" && <Button variant="primary">Borrar contenido</Button>}
+                            {from == "admin" && <Button variant="primary" onClick={borrarContenido} href={"http://localhost:3000/Tienda/admin"} >Borrar contenido</Button>}
 
                         </Col>
                         <Col>
 
 
-                            {/* {from == "tienda" && <Button variant="primary">Regalar Contenido</Button>} */}
-                            <GenRegalo 
-                                id_cliente = {id_cliente} 
-                                id_contenido = {id}
-                                precio = {contenido.precio}
-                            />
+                            { from == "tienda" && 
+                                    <GenRegalo 
+                                        id_cliente = {id_cliente} 
+                                        id_contenido = {id}
+                                        precio = {contenido.precio}
+                                    />
+                            }
 
                         </Col>
                     </Row>
