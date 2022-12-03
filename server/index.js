@@ -322,12 +322,14 @@ app.get("/Top_10_descargas", (req, res) => {
 
 //conseguir los 10 contenidos con mejores calificaciones
 app.get("/Top_10_Calificaciones", (req, res) => {
-    const sqlselect = "SELECT contenidos.id_contenido, id_calificacion, sum(puntaje)  as number, id_categoria, promocion , nombre, precio,imagen FROM contenidos,calificacion \
-    where contenidos.id_contenido=calificacion.id_contenido \
+    console.log("entro")
+    const sqlselect = "SELECT contenidos.id_contenido, id_descargas, count(contenidos.id_contenido) as number,id_categoria, nombre, precio,imagen FROM contenidos,descargas \
+    where contenidos.id_contenido=descargas.id_contenido \
     group by id_contenido \
     order by number desc \
     limit 10"
     db.query(sqlselect, (err, result) => {
+        console.log(err)
         res.send(result)
     })
 })
@@ -659,6 +661,7 @@ app.post("/descarga", (req, res) => {
 
 //Agrega una calificacion a la base de datos
 app.post("/calificacion", (req, res) => {
+    console.log(req.body)
     const id_usuario = req.body.id_user
     const id_contenido = req.body.contenido
     const rate=req.body.rate
@@ -702,9 +705,9 @@ app.post("/aplicarPromo", (req, res) => {
     let sql = ""
     //aplicar promo 
     if (tipo_filtro == "categoria") {
-        sql = "update contenidos set promocion = ? where id_categoria = ? and promocion = null"
+        sql = "update contenidos set promocion = ? where id_categoria = ? and promocion is null"
     } else if (tipo_filtro == "autor") {
-        sql = "update contenidos set promocion = ? where id_autores =  ? and promocion = null"
+        sql = "update contenidos set promocion = ? where id_autores =  ? and promocion is null"
     }
     db.query(sql, [id_promocion,id_filtro], (err, result) => {
         if (err) {
@@ -712,7 +715,7 @@ app.post("/aplicarPromo", (req, res) => {
         } else {
             console.log("Promo aplicada exitosamente!")
         }
-        // console.log(result);
+        console.log(result);
     });
 })
 
